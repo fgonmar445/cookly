@@ -3,15 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use App\Models\Ingrediente;
 use App\Models\Favorito;
 
 class Receta extends Model
 {
     protected $table = 'recetas';
+
     protected $primaryKey = 'id_receta';
+
     public $incrementing = true;
     protected $keyType = 'int';
+
     public $timestamps = true;
 
     protected $fillable = [
@@ -27,13 +31,17 @@ class Receta extends Model
         'id_usuario'
     ];
 
-    // Relación con el usuario que creó la receta
+    /**
+     * Usuario creador de la receta
+     */
     public function usuario()
     {
         return $this->belongsTo(User::class, 'id_usuario');
     }
 
-    // Ingredientes de la receta (N:M)
+    /**
+     * Ingredientes asociados a la receta (N:M)
+     */
     public function ingredientes()
     {
         return $this->belongsToMany(
@@ -44,7 +52,9 @@ class Receta extends Model
         )->withPivot('cantidad');
     }
 
-    // Favoritos
+    /**
+     * Favoritos asociados
+     */
     public function favoritos()
     {
         return $this->hasMany(Favorito::class, 'id_receta');

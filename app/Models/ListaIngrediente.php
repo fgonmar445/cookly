@@ -10,6 +10,7 @@ class ListaIngrediente extends Model
 {
     protected $table = 'lista_ingredientes';
     protected $primaryKey = 'id_lista';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -18,15 +19,19 @@ class ListaIngrediente extends Model
         'fecha_guardado'
     ];
 
-    // Relación con usuario
+    /**
+     * Usuario propietario
+     */
     public function usuario()
     {
         return $this->belongsTo(User::class, 'id_usuario');
     }
 
-    // Relación con ingrediente
+    /**
+     * Ingrediente asociado
+     */
     public function ingrediente()
     {
-        return $this->belongsTo(Ingrediente::class, 'id_ingrediente');
+        return $this->belongsTo(Ingrediente::class, 'id_ingrediente', 'id_ingrediente');
     }
 }
