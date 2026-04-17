@@ -19,9 +19,9 @@ class Categoria extends Model
     {
         return $this->belongsToMany(
             Ingrediente::class,
-            'alimento_categoria',
+            'ingrediente_categoria',
             'id_categoria',
-            'id_alimento'
+            'id_ingrediente'
         );
     }
 }

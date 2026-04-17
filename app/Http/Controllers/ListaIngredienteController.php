@@ -7,26 +7,48 @@ use Illuminate\Http\Request;
 
 class ListaIngredienteController extends Controller
 {
-    public function index()
+    /**
+     * Listar ingredientes del usuario logueado
+     */
+    public function index(Request $request)
     {
-        return ListaIngrediente::all();
+        return ListaIngrediente::where('id_usuario', $request->user()->id)->get();
     }
 
+    /**
+     * Añadir ingrediente a la lista del usuario
+     */
     public function store(Request $request)
     {
+        $request->validate([
+            'id_ingrediente' => 'required|integer'
+        ]);
+
         $lista = ListaIngrediente::create([
-            'id_usuario' => $request->id_usuario,
+            'id_usuario' => $request->user()->id,
             'id_ingrediente' => $request->id_ingrediente,
             'fecha_guardado' => now()
         ]);
 
-        return response()->json($lista);
+        return response()->json([
+            'message' => 'Ingrediente añadido correctamente',
+            'data' => $lista
+        ]);
     }
 
-    public function destroy($id)
+    /**
+     * Eliminar ingrediente de la lista del usuario
+     */
+    public function destroy(Request $request, $id)
     {
-        ListaIngrediente::destroy($id);
+        $registro = ListaIngrediente::where('id_lista', $id)
+            ->where('id_usuario', $request->user()->id)
+            ->firstOrFail();
 
-        return response()->json(['message' => 'Eliminado']);
+        $registro->delete();
+
+        return response()->json([
+            'message' => 'Eliminado correctamente'
+        ]);
     }
 }

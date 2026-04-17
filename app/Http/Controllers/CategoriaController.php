@@ -7,20 +7,40 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
+    /**
+     * Listar todas las categorías
+     */
     public function index()
     {
-        return Categoria::all();
+        return response()->json(Categoria::all());
     }
 
+    /**
+     * Crear categoría
+     */
     public function store(Request $request)
     {
-        $categoria = Categoria::create($request->all());
+        $request->validate([
+            'nombre' => 'required|string|max:100|unique:categorias,nombre',
+        ]);
 
-        return response()->json($categoria);
+        $categoria = Categoria::create([
+            'nombre' => $request->nombre,
+        ]);
+
+        return response()->json([
+            'message' => 'Categoría creada correctamente',
+            'data' => $categoria
+        ]);
     }
 
+    /**
+     * Ver una categoría
+     */
     public function show($id)
     {
-        return Categoria::findOrFail($id);
+        $categoria = Categoria::findOrFail($id);
+
+        return response()->json($categoria);
     }
 }

@@ -14,7 +14,7 @@ class Favorito extends Model
 
     protected $fillable = [
         'id_usuario',
-        'id_receta_api',
+        'id_receta',
         'fecha_guardado'
     ];
 
@@ -25,6 +25,6 @@ class Favorito extends Model
 
     public function receta()
     {
-        return $this->belongsTo(Receta::class, 'id_receta_api');
+        return $this->belongsTo(Receta::class, 'id_receta');
     }
 }

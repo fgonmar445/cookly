@@ -44,7 +44,7 @@ class RecetaController extends Controller
             'tags' => $request->tags,
             'youtube' => $request->youtube,
             'origen' => 'usuario',
-            'id_usuario' => auth()->id(),
+            'id_usuario' => $request->user()->id,
         ]);
 
         return response()->json($receta);

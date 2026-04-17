@@ -7,26 +7,48 @@ use Illuminate\Http\Request;
 
 class FavoritoController extends Controller
 {
-    public function index()
+    /**
+     * Listar favoritos del usuario logueado
+     */
+    public function index(Request $request)
     {
-        return Favorito::all();
+        return response()->json(Favorito::where('id_usuario', $request->user()->id)->get());
     }
 
+    /**
+     * Añadir favorito
+     */
     public function store(Request $request)
     {
-        $favorito = Favorito::create([
-            'id_usuario' => $request->id_usuario,
-            'id_receta_api' => $request->id_receta_api,
-            'fecha_guardado' => now()
+        $request->validate([
+            'id_receta' => 'required|exists:recetas,id_receta',
         ]);
 
-        return response()->json($favorito);
+        $favorito = Favorito::create([
+            'id_usuario' => $request->user()->id,
+            'id_receta' => $request->id_receta,
+            'fecha_guardado' => now(),
+        ]);
+
+        return response()->json([
+            'message' => 'Favorito añadido correctamente',
+            'data' => $favorito
+        ]);
     }
 
-    public function destroy($id)
+    /**
+     * Eliminar favorito
+     */
+    public function destroy(Request $request, $id)
     {
-        Favorito::destroy($id);
+        $favorito = Favorito::where('id_favorito', $id)
+            ->where('id_usuario', $request->user()->id)
+            ->firstOrFail();
 
-        return response()->json(['message' => 'Eliminado']);
+        $favorito->delete();
+
+        return response()->json([
+            'message' => 'Favorito eliminado correctamente'
+        ]);
     }
 }

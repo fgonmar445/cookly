@@ -8,11 +8,11 @@ use App\Models\Favorito;
 
 class Receta extends Model
 {
-    protected $table = 'receta';
-    protected $primaryKey = 'id_receta_api';
-    public $incrementing = false;
-    protected $keyType = 'string';
-    public $timestamps = false;
+    protected $table = 'recetas';
+    protected $primaryKey = 'id_receta';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    public $timestamps = true;
 
     protected $fillable = [
         'id_receta_api',
@@ -22,8 +22,16 @@ class Receta extends Model
         'categoria',
         'area',
         'tags',
-        'youtube'
+        'youtube',
+        'origen',
+        'id_usuario'
     ];
+
+    // Relación con el usuario que creó la receta
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'id_usuario');
+    }
 
     // Ingredientes de la receta (N:M)
     public function ingredientes()
@@ -31,7 +39,7 @@ class Receta extends Model
         return $this->belongsToMany(
             Ingrediente::class,
             'receta_ingrediente',
-            'id_receta_api',
+            'id_receta',
             'id_ingrediente'
         )->withPivot('cantidad');
     }
@@ -39,6 +47,6 @@ class Receta extends Model
     // Favoritos
     public function favoritos()
     {
-        return $this->hasMany(Favorito::class, 'id_receta_api');
+        return $this->hasMany(Favorito::class, 'id_receta');
     }
 }

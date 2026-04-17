@@ -38,7 +38,7 @@ class Ingrediente extends Model
             Receta::class,
             'receta_ingrediente',
             'id_ingrediente',
-            'id_receta_api'
+            'id_receta'
         )->withPivot('cantidad');
     }
 
@@ -47,8 +47,8 @@ class Ingrediente extends Model
     {
         return $this->belongsToMany(
             Categoria::class,
-            'alimento_categoria',
-            'id_alimento',
+            'ingrediente_categoria',
+            'id_ingrediente',
             'id_categoria'
         );
     }
