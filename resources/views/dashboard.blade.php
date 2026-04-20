@@ -5,7 +5,7 @@
 <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
 
 <p class="text-gray-600 mb-6">
-    Bienvenido a Cookly 🍽 — tu sistema de recetas e ingredientes.
+    Bienvenido a Cookly — tu sistema de recetas e ingredientes.
 </p>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

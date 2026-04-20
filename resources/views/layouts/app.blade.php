@@ -14,7 +14,7 @@
     <nav class="bg-white shadow-md p-4 flex justify-between items-center">
 
         <div class="text-xl font-bold text-green-600">
-            🍽 Cookly
+            Cookly
         </div>
 
         <div class="space-x-4">
