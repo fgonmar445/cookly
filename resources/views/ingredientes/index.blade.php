@@ -5,7 +5,7 @@
 <div class="max-w-4xl mx-auto">
 
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-gray-800">Ingredientes disponibles</h1>
+        <h1 class="text-3xl font-bold text-gray-800">Ingredientes principales</h1>
 
         <a href="{{ route('mis.ingredientes') }}"
             class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700">
@@ -22,22 +22,19 @@
         @foreach ($lista as $ing)
 
         @php
-        // Normalizar nombre para la API
+        // Normalizar nombre para generar la URL de TheMealDB
         $nombreApi = ucfirst(strtolower($ing));
 
-        // Obtener datos desde la API
-        $url = "https://www.themealdb.com/api/json/v1/1/search.php?i=" . urlencode($nombreApi);
-        $data = json_decode(file_get_contents($url), true);
-        $info = $data['ingredients'][0] ?? null;
-
-        // Buscar ingrediente global
+        // Buscar ingrediente global en la BD
         $ingredienteGlobal = DB::table('ingredientes')->where('nombre', $ing)->first();
 
-        // Imagen desde BD
-        $img = $ingredienteGlobal->imagen ?? null;
-
-        // Imagen por defecto si no existe
-
+        // Si existe en la BD y tiene imagen → usarla
+        if ($ingredienteGlobal && $ingredienteGlobal->imagen) {
+        $img = $ingredienteGlobal->imagen;
+        } else {
+        // Si NO existe o no tiene imagen → generar URL automática
+        $img = "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
+        }
 
         // Nombre traducido
         $nombre = $traducciones[$ing] ?? ucfirst($ing);
@@ -49,9 +46,6 @@
         $estaAñadido = in_array($ingredienteGlobal->id_ingrediente, $misIngredientes);
         }
         @endphp
-
-
-
 
 
         <li class="flex items-center justify-between py-2 border-b last:border-none">

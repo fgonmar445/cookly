@@ -10,32 +10,70 @@
 
 <body class="bg-gray-100 min-h-screen">
 
-    <!-- NAVBAR -->
-    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+    <div class="flex">
 
-        <div class="text-xl font-bold text-green-600">
-            Cookly
-        </div>
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-white shadow-md min-h-screen p-6">
 
-        <div class="space-x-4">
-            <a href="/dashboard" class="text-gray-700 hover:text-green-600">Dashboard</a>
-            <a href="/ingredientes" class="text-gray-700 hover:text-green-600">Ingredientes</a>
-            <a href="/recetas" class="text-gray-700 hover:text-green-600">Recetas</a>
-            <a href="/favoritos" class="text-gray-700 hover:text-green-600">Favoritos</a>
-        </div>
+            <!-- LOGO -->
+            <h1 class="text-3xl font-bold text-green-600 mb-8">
+                Cookly
+            </h1>
 
-    </nav>
+            <!-- NAV -->
+            <nav class="space-y-3">
 
-    <!-- CONTENIDO -->
-    <main class="p-6">
+                <a href="/dashboard"
+                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    Dashboard
+                </a>
 
-        <div class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow">
+                <a href="{{ route('ingredientes.index') }}"
+                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    Ingredientes principales
+                </a>
 
-            @yield('content')
+                <a href="{{ route('ingredientes.todos') }}"
+                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    Todos los ingredientes
+                </a>
 
-        </div>
+                <a href="{{ route('mis.ingredientes') }}"
+                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    Mis ingredientes
+                </a>
 
-    </main>
+
+
+                <a href="/recetas"
+                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    Buscar recetas
+                </a>
+
+                <a href="/categorias"
+                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    Categorías de recetas
+                </a>
+
+                <a href="/favoritos"
+                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    Favoritos
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+        <main class="flex-1 p-8">
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                @yield('content')
+            </div>
+
+        </main>
+
+    </div>
 
 </body>
 

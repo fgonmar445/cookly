@@ -39,7 +39,7 @@ return [
 
     'Otros' => [
         'rice',
-        'pasta',
+        'butter',
         'bread',
         'egg',
         'milk',

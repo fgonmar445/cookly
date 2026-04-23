@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListaIngredienteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 })->name('home');
 
 /*
@@ -106,25 +107,65 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         DB::table('lista_ingredientes')
             ->where('id_usuario', auth()->id())
-            ->where('ingrediente', request('ingredient'))
+            ->where('id_lista', request('id_lista'))
             ->delete();
 
         return back();
     })->name('ingredientes.eliminar');
 
 
-    // Mis ingredientes
-    Route::get('/mis-ingredientes', function () {
+    /*
+    |--------------------------------------------------------------------------
+    | Mis ingredientes
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/mis-ingredientes', [ListaIngredienteController::class, 'index'])
+        ->name('mis.ingredientes');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Todos los ingredientes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/ingredientes/todos', function () {
 
         $traducciones = config('ingredients');
+        $reverse = config('ingredients_reverse');
 
+        $search = strtolower(trim(request('search')));
+        $resultados = [];
+
+        // Ingredientes que el usuario ya tiene
         $misIngredientes = DB::table('lista_ingredientes')
-            ->where('id_usuario', auth()->id())
-            ->pluck('id_ingrediente')
+            ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
+            ->where('lista_ingredientes.id_usuario', auth()->id())
+            ->pluck('ingredientes.nombre')
             ->toArray();
 
-        return view('ingredientes.mis_ingredientes', compact('misIngredientes', 'traducciones'));
-    })->name('mis.ingredientes');
+
+        // 1. Descargar lista completa de ingredientes
+        $url = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
+        $data = json_decode(file_get_contents($url), true);
+        $lista = $data['meals'] ?? [];
+
+        if ($search) {
+
+            // 2. Traducir si el usuario escribe en español
+            if (array_key_exists($search, $reverse)) {
+                $search = $reverse[$search];
+            }
+
+            // 3. Filtrar ingredientes localmente
+            $resultados = array_filter($lista, function ($item) use ($search) {
+                return str_contains(strtolower($item['strIngredient']), $search);
+            });
+        }
+
+        return view('ingredientes.todos', compact('resultados', 'traducciones', 'search', 'misIngredientes'));
+    })->name('ingredientes.todos');
+
+
 
 
     /*

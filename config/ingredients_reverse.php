@@ -1,0 +1,58 @@
+<?php
+
+return [
+
+    'pollo' => 'chicken',
+    'ternera' => 'beef',
+    'cerdo' => 'pork',
+    'cordero' => 'lamb',
+    'pavo' => 'turkey',
+
+    'arroz' => 'rice',
+    'pasta' => 'pasta',
+    'pan' => 'bread',
+    'harina' => 'flour',
+    'patata' => 'potato',
+    'boniato' => 'sweet potato',
+
+    'tomate' => 'tomato',
+    'cebolla' => 'onion',
+    'ajo' => 'garlic',
+    'zanahoria' => 'carrot',
+    'pimiento' => 'pepper',
+    'lechuga' => 'lettuce',
+    'espinacas' => 'spinach',
+    'champiñón' => 'mushroom',
+
+    'manzana' => 'apple',
+    'plátano' => 'banana',
+    'naranja' => 'orange',
+    'limón' => 'lemon',
+    'lima' => 'lime',
+    'fresa' => 'strawberry',
+    'uva' => 'grape',
+    'sandía' => 'watermelon',
+    'piña' => 'pineapple',
+    'mango' => 'mango',
+    'melocotón' => 'peach',
+    'pera' => 'pear',
+    'cereza' => 'cherry',
+    'arándano' => 'blueberry',
+    'frambuesa' => 'raspberry',
+    'zarzamora' => 'blackberry',
+    'kiwi' => 'kiwi',
+    'aguacate' => 'avocado',
+
+    'leche' => 'milk',
+    'queso' => 'cheese',
+    'mantequilla' => 'butter',
+    'nata' => 'cream',
+    'huevo' => 'egg',
+    'yogur' => 'yogurt',
+
+    'aceite de oliva' => 'olive oil',
+    'sal' => 'salt',
+    'azúcar' => 'sugar',
+    'pimienta negra' => 'pepper black',
+    'vinagre' => 'vinegar',
+];
