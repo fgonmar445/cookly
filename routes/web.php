@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('welcome');
 })->name('home');
 
 /*

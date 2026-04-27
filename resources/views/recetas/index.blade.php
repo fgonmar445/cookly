@@ -2,13 +2,50 @@
 
 @section('content')
 
-<h1 class="text-2xl font-bold mb-4">Recetas</h1>
+<h1 class="text-2xl font-bold mb-6">Recetas</h1>
 
-<p class="text-gray-600 mb-4">
-    Busca recetas por nombre o usa filtros avanzados
+<p class="text-gray-600 mb-6">
+    Elige cómo quieres buscar recetas
 </p>
 
-{{-- BUSCADOR + BOTONES --}}
+{{-- BOTONES PRINCIPALES --}}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+
+    <a href="{{ route('buscar.nombre') }}"
+        class="bg-blue-500 text-white p-4 rounded text-center font-semibold">
+        Buscar por nombre
+    </a>
+
+    <a href="{{ route('buscar.ingredientes') }}"
+        class="bg-purple-600 text-white p-4 rounded text-center font-semibold">
+        Buscar por ingredientes
+    </a>
+
+    <a href="{{ route('buscar.categorias') }}"
+        class="bg-green-600 text-white p-4 rounded text-center font-semibold">
+        Buscar por categoría
+    </a>
+
+    <a href="{{ route('buscar.areas') }}"
+        class="bg-yellow-600 text-white p-4 rounded text-center font-semibold">
+        Buscar por área
+    </a>
+
+    <a href="{{ route('buscar.aleatoria') }}"
+        class="bg-pink-600 text-white p-4 rounded text-center font-semibold">
+        Receta aleatoria
+    </a>
+
+    <a href="{{ route('buscar.recomendador') }}"
+        class="bg-indigo-600 text-white p-4 rounded text-center font-semibold">
+        Recomendador
+    </a>
+
+</div>
+
+{{-- OPCIONAL: Mantener tu buscador por nombre + filtros --}}
+<h2 class="text-xl font-bold mb-4">Búsqueda rápida</h2>
+
 <div class="flex flex-col md:flex-row gap-3 mb-6">
 
     {{-- BUSCADOR --}}
@@ -61,7 +98,7 @@
 
 {{-- PANEL ÁREAS --}}
 <div id="panelAreas"
-    class="hidden    p-4 rounded mb-6 transition-all duration-300">
+    class="hidden bg-gray-100 p-4 rounded mb-6 transition-all duration-300">
 
     <h2 class="text-xl font-semibold mb-3">Áreas</h2>
 
@@ -86,16 +123,10 @@
 <div id="lista" class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4"></div>
 
 <script>
-    // ---------------------------------------------------------
-    // MOSTRAR / OCULTAR PANEL
-    // ---------------------------------------------------------
     function togglePanel(id) {
         document.getElementById(id).classList.toggle('hidden');
     }
 
-    // ---------------------------------------------------------
-    // BUSCAR POR NOMBRE
-    // ---------------------------------------------------------
     async function buscarNombre() {
         let q = document.getElementById('search').value.trim();
         let cont = document.getElementById('lista');
@@ -117,9 +148,6 @@
         mostrarResultados(data.meals);
     }
 
-    // ---------------------------------------------------------
-    // BUSCAR POR FILTROS (categorías + áreas)
-    // ---------------------------------------------------------
     async function buscarFiltros(e) {
         e.preventDefault();
 
@@ -132,14 +160,12 @@
 
         let resultados = {};
 
-        // --- Categorías ---
         for (let cat of categorias) {
             let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${cat}`);
             let data = await res.json();
             if (data.meals) data.meals.forEach(m => resultados[m.idMeal] = m);
         }
 
-        // --- Áreas ---
         for (let area of areas) {
             let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
             let data = await res.json();
@@ -156,9 +182,6 @@
         mostrarResultados(final);
     }
 
-    // ---------------------------------------------------------
-    // MOSTRAR RESULTADOS
-    // ---------------------------------------------------------
     function mostrarResultados(lista) {
         let cont = document.getElementById('lista');
         cont.innerHTML = '';
