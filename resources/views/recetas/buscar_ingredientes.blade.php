@@ -23,7 +23,7 @@
 <div id="tags" class="flex flex-wrap gap-2 mb-4"></div>
 
 <button onclick="buscarPorIngredientes()"
-    class="bg-purple-600 text-white px-4 py-2 rounded">
+    class="bg-blue-600 text-white px-4 py-2 rounded">
     Buscar recetas
 </button>
 
@@ -154,7 +154,7 @@
                     <img src="${r.strMealThumb}" class="rounded mb-2">
                     <h3 class="font-bold">${r.strMeal}</h3>
 
-                    <a href="/receta/${r.idMeal}"
+                    <a href="/receta/${r.idMeal}?name=${encodeURIComponent(r.strMeal)}"
                         class="bg-green-500 text-white px-2 py-1 rounded mt-2 inline-block">
                         Ver receta
                     </a>

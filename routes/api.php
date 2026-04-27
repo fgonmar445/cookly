@@ -35,9 +35,12 @@ Route::get('/recetas-api/{nombre}', [RecetaController::class, 'fromApi']);
 | FAVORITOS
 |-------------------------
 */
-Route::get('/favoritos', [FavoritoController::class, 'index']);
-Route::post('/favoritos', [FavoritoController::class, 'store']);
-Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/favoritos', [FavoritoController::class, 'index']);
+    Route::post('/favoritos', [FavoritoController::class, 'store']);
+    Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy']);
+});
+
 
 /*
 |-------------------------

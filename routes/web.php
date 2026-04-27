@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ListaIngredienteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecetaController;
+use App\Http\Controllers\FavoritoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -175,7 +177,47 @@ Route::middleware(['auth', 'verified'])->group(function () {
     */
     Route::get('/recetas', function () {
         return view('recetas.index');
-    })->name('recetas.index');
+    })->name('recetas');
+
+    // Página principal de búsqueda
+    Route::get('/buscar', function () {
+        return view('recetas.index');
+    })->name('buscar');
+
+    // Buscar por nombre
+    Route::get('/buscar/nombre', function () {
+        return view('recetas.buscar_nombre');
+    })->name('buscar.nombre');
+
+    // Buscar por ingredientes
+    Route::get('/buscar/ingredientes', function () {
+        return view('recetas.buscar_ingredientes');
+    })->name('buscar.ingredientes');
+
+    // Buscar por categoría
+    Route::get('/buscar/categorias', function () {
+        return view('recetas.buscar_categorias');
+    })->name('buscar.categorias');
+
+    // Buscar por área
+    Route::get('/buscar/areas', function () {
+        return view('recetas.buscar_areas');
+    })->name('buscar.areas');
+
+    // Receta aleatoria
+    Route::get('/buscar/aleatoria', function () {
+        return view('recetas.aleatoria');
+    })->name('buscar.aleatoria');
+
+    // Recomendador
+    Route::get('/buscar/recomendador', function () {
+        return view('recetas.recomendador');
+    })->name('buscar.recomendador');
+
+    Route::get('/receta/{id}', [RecetaController::class, 'show'])->name('receta.show');
+
+
+
 
 
     /*
@@ -186,6 +228,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/favoritos', function () {
         return view('favoritos.index');
     })->name('favoritos.index');
+
+    Route::post('/favoritos/toggle/{id}', [FavoritoController::class, 'toggle'])
+        ->name('favoritos.toggle')
+        ->middleware('auth');
+
+    Route::get('/favoritos-json', function () {
+        $user = auth()->user();
+
+        $favoritos = $user->favoritos()->get();
+
+        $resultado = [];
+
+        foreach ($favoritos as $fav) {
+            $receta = \App\Models\Receta::find($fav->id_receta);
+            if (!$receta) continue;
+
+            $resultado[] = [
+                'id_favorito' => $fav->id_favorito,
+                'id_receta_api' => $receta->id_receta_api,
+                'nombre' => $receta->nombre,
+                'imagen' => $receta->imagen,
+                'categoria' => $receta->categoria,
+                'area' => $receta->area,
+            ];
+        }
+
+        return response()->json($resultado);
+    })->name('favoritos.json');
 
 
     /*

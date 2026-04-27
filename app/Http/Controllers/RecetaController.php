@@ -95,10 +95,87 @@ class RecetaController extends Controller
     /**
      * Ver una receta (API o interna)
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        return Receta::findOrFail($id);
+        // 1. Intentar buscar en tu BD por id_receta_api o por id local
+        $recetaBD = Receta::where('id_receta_api', $id)->first();
+
+        if (!$recetaBD && is_numeric($id)) {
+            $recetaBD = Receta::find($id);
+        }
+
+        if ($recetaBD) {
+            // Convertir modelo a array con el MISMO formato que la API
+            $receta = [
+                'idMeal' => $recetaBD->id_receta_api ?? $recetaBD->id_receta,
+                'strMeal' => $recetaBD->nombre,
+                'strInstructions' => $recetaBD->descripcion,
+                'strMealThumb' => $recetaBD->imagen,
+                'strCategory' => $recetaBD->categoria,
+                'strArea' => $recetaBD->area,
+                'strTags' => $recetaBD->tags,
+                'strYoutube' => $recetaBD->youtube,
+            ];
+
+            // Ingredientes vacíos (tu BD no los guarda individualmente en este modelo)
+            for ($i = 1; $i <= 20; $i++) {
+                $receta["strIngredient{$i}"] = null;
+                $receta["strMeasure{$i}"] = null;
+            }
+        } else {
+            // 2. Si no existe en BD, traerla de la API
+            try {
+                $response = Http::withHeaders([
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                ])->get("https://www.themealdb.com/api/json/v1/1/lookup.php?i={$id}");
+                
+                $receta = null;
+
+                if ($response->successful()) {
+                    $receta = $response->json()['meals'][0] ?? null;
+                }
+
+                // FALLBACK: Si lookup falla (TheMealDB suele dar 500 hoy), intentamos buscar por nombre si se pasÃ³ en la URL
+                if (!$receta && $request->has('name')) {
+                    $name = $request->query('name');
+                    $fallbackResponse = Http::get("https://www.themealdb.com/api/json/v1/1/search.php?s=$name");
+                    if ($fallbackResponse->successful()) {
+                        $meals = $fallbackResponse->json()['meals'] ?? [];
+                        foreach ($meals as $m) {
+                            if ($m['idMeal'] == $id) {
+                                $receta = $m;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (!$receta) {
+                    if ($response->failed()) {
+                        abort(503, "El servicio externo de recetas (TheMealDB) tiene problemas temporales. Intenta de nuevo en unos minutos.");
+                    }
+                    abort(404, "Receta no encontrada");
+                }
+            } catch (\Exception $e) {
+                abort(500, "Error de conexiÃ³n con el servicio de recetas: " . $e->getMessage());
+            }
+        }
+
+        // 3. Comprobar si es favorita
+        $isFavorita = false;
+        if ($recetaBD) {
+            $isFavorita = auth()->user()
+                ->favoritos()
+                ->where('id_receta', $recetaBD->id_receta)
+                ->exists();
+        }
+
+        return view('recetas.show', compact('receta', 'isFavorita'));
     }
+
+
+
+
 
     /**
      * Buscar recetas internas
