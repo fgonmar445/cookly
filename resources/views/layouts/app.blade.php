@@ -45,12 +45,12 @@
 
 
 
-                <a href="/recetas"
+                <a href="{{ route('buscar') }}"
                     class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
                     Buscar recetas
                 </a>
 
-                <a href="/categorias"
+                <a href="{{ route('buscar.categorias') }}"
                     class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
                     Categorías de recetas
                 </a>

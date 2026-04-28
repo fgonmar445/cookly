@@ -5,10 +5,13 @@
 <h1 class="text-3xl font-bold text-gray-800 mb-6">Buscar ingredientes</h1>
 
 {{-- Buscador --}}
-<form method="GET" class="mb-6">
+<form method="GET" class="mb-6 flex gap-2">
     <input type="text" name="search" value="{{ $search }}"
         placeholder="Buscar ingrediente..."
         class="w-full p-3 border rounded-lg shadow-sm">
+    <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 shadow-sm transition-colors">
+        Buscar
+    </button>
 </form>
 
 @if ($search && empty($resultados))

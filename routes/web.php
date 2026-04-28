@@ -138,10 +138,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $search = strtolower(trim(request('search')));
         $resultados = [];
 
-        // Ingredientes que el usuario ya tiene
+        // Ingredientes que el usuario ya tiene (solo nombres para el in_array)
         $misIngredientes = DB::table('lista_ingredientes')
-            ->where('id_usuario', auth()->id())
-            ->get();
+            ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
+            ->where('lista_ingredientes.id_usuario', auth()->id())
+            ->pluck('ingredientes.nombre')
+            ->map(fn($n) => strtolower($n))
+            ->toArray();
 
 
 
@@ -161,6 +164,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $resultados = array_filter($lista, function ($item) use ($search) {
                 return str_contains(strtolower($item['strIngredient']), $search);
             });
+
+            // Resetear llaves para que Blade no tenga problemas
+            $resultados = array_values($resultados);
         }
 
         return view('ingredientes.todos', compact('resultados', 'traducciones', 'search', 'misIngredientes'));
