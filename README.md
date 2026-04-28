@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="C:/Users/W10/.gemini/antigravity/brain/b4afcc72-2017-4ae1-9918-91bde4c5379d/cookly_logo_banner_1777384732748.png" width="600" alt="Cookly Logo">
+  <img src="/public/cookly_logo_banner.png" width="600" alt="Cookly Logo">
 </p>
 
 # Cookly
