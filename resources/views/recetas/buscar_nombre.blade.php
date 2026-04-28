@@ -27,7 +27,7 @@
         placeholder="Ej: chicken, pasta, soup...">
 
     <button onclick="buscarNombre()"
-        class="bg-blue-500 text-white px-4 py-2 rounded">
+        class="bg-green-500 text-white px-4 py-2 rounded">
         Buscar
     </button>
 </div>

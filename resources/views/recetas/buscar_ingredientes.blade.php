@@ -26,7 +26,7 @@
 <div class="relative mb-4">
     <input id="inputIng" type="text"
         class="border p-2 rounded w-full"
-        placeholder="Ej: pollo, tomate, arroz..."
+        placeholder="Ej: Pollo, Tomate, Arroz..."
         oninput="buscarSugerencias()">
 
     <div id="sugerencias"
@@ -37,7 +37,7 @@
 <div id="tags" class="flex flex-wrap gap-2 mb-4"></div>
 
 <button onclick="buscarPorIngredientes()"
-    class="bg-blue-600 text-white px-4 py-2 rounded">
+    class="bg-green-600 text-white px-4 py-2 rounded">
     Buscar recetas
 </button>
 
@@ -46,8 +46,8 @@
 
 <script>
     // Cargar diccionarios desde config/ingredients.php
-    const dictES_EN = (config('ingredients.es_to_en'));
-    const dictEN_ES = (config('ingredients.en_to_es'));
+    const dictES_EN = @json(config('ingredients.es_to_en'));
+    const dictEN_ES = @json(config('ingredients.en_to_es'));
 
     let ingredientesSeleccionados = [];
 
@@ -73,10 +73,11 @@
             return;
         }
 
-        box.innerHTML = sugerencias.map(s =>
-            `<div class="p-2 hover:bg-gray-200 cursor-pointer"
-                  onclick="addIngrediente('${s}')">${s}</div>`
-        ).join('');
+        box.innerHTML = sugerencias.map(s => {
+            let sCap = capitalizar(s);
+            return `<div class="p-2 hover:bg-gray-200 cursor-pointer"
+                  onclick="addIngrediente('${s}')">${sCap}</div>`
+        }).join('');
 
         box.classList.remove('hidden');
     }
@@ -84,6 +85,10 @@
     // ---------------------------------------------------------
     // AÑADIR INGREDIENTE COMO TAG
     // ---------------------------------------------------------
+    function capitalizar(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     function addIngrediente(nombre) {
         if (!ingredientesSeleccionados.includes(nombre)) {
             ingredientesSeleccionados.push(nombre);
@@ -99,10 +104,11 @@
         cont.innerHTML = '';
 
         ingredientesSeleccionados.forEach(ing => {
+            let ingCap = capitalizar(ing);
             cont.innerHTML += `
-                <span class="bg-purple-200 text-purple-800 px-2 py-1 rounded flex items-center gap-2">
-                    ${ing}
-                    <button onclick="removeIngrediente('${ing}')" class="font-bold">×</button>
+                <span class="bg-white border border-green-600 text-green-600 px-2 py-1 rounded flex items-center gap-2">
+                    ${ingCap}
+                    <button onclick="removeIngrediente('${ingCap}')" class="font-bold">×</button>
                 </span>
             `;
         });
@@ -143,16 +149,29 @@
         }
 
         // Intersección: recetas que contienen TODOS los ingredientes
-        let comunes = resultados.reduce((a, b) =>
+        // resultados = array con listas de recetas por ingrediente
+
+        // 1. INTERSECCIÓN (recetas que contienen TODOS los ingredientes)
+        let interseccion = resultados.reduce((a, b) =>
             a.filter(x => b.some(y => y.idMeal === x.idMeal))
         );
 
-        if (comunes.length === 0) {
-            cont.innerHTML = "<p>No hay recetas que contengan todos esos ingredientes</p>";
-            return;
-        }
+        // 2. UNIÓN (recetas que contienen AL MENOS UNO)
+        let union = [];
+        resultados.forEach(lista => {
+            lista.forEach(r => {
+                if (!union.some(x => x.idMeal === r.idMeal)) {
+                    union.push(r);
+                }
+            });
+        });
 
-        mostrarResultados(comunes);
+        // 3. Si hay intersección, ponerlas primero
+        let final = [...interseccion, ...union.filter(r =>
+            !interseccion.some(i => i.idMeal === r.idMeal)
+        )];
+
+        mostrarResultados(final);
     }
 
     // ---------------------------------------------------------

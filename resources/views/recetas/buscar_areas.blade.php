@@ -15,10 +15,10 @@
 </div>
 
 
-<h1 class="text-2xl font-bold mb-4">Buscar por área</h1>
+<h1 class="text-2xl font-bold mb-4">Buscar por cocina</h1>
 
 <p class="text-gray-600 mb-4">
-    Selecciona un país o región para ver sus recetas típicas.
+    Selecciona un tipo de cocina para ver sus recetas típicas.
 </p>
 
 <div class="grid grid-cols-2 md:grid-cols-3 gap-3">

@@ -28,7 +28,7 @@
 
     <a href="{{ route('buscar.areas') }}"
         class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
-        País
+        Cocina
     </a>
 
     <a href="{{ route('buscar.aleatoria') }}"
