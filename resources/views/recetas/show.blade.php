@@ -4,7 +4,7 @@
 
 {{-- BOTÓN VOLVER --}}
 <div class="flex justify-end">
-    <a href="{{ route('buscar') }}" class="flex items-center gap-1 text-blue-600 hover:text-blue-800 mb-4">
+    <a href="{{ route('buscar') }}" class="flex items-center gap-1 text-green-600 hover:text-green-800 border border-green-600 px-3 py-1 rounded">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
@@ -27,7 +27,10 @@
     </button>
     @else
     <button type="submit"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+        class="inline-flex items-center justify-center 
+       bg-white border border-green-600 text-green-600 
+       hover:bg-green-50 
+       px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
         Añadir a favoritos
     </button>
     @endif

@@ -21,10 +21,13 @@
     Selecciona una categoría para ver todas sus recetas.
 </p>
 
-<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<div class="grid grid-cols-7 gap-2">
+
     @foreach(config('ingredients.categorias') as $key => $value)
     <button onclick="buscarCategoria('{{ $key }}')"
-        class="bg-green-500 text-white p-3 rounded">
+        class="inline-flex items-center justify-center 
+           px-3 py-1 border border-green-600 text-green-600 bg-white 
+           rounded text-sm hover:bg-green-50 transition-colors w-auto">
         {{ ucfirst($value) }}
     </button>
     @endforeach
