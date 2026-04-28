@@ -2,6 +2,19 @@
 
 @section('content')
 
+<div class="flex justify-end mb-4">
+    <a href="{{ route('buscar') }}"
+        class="flex items-center gap-1 text-green-600 hover:text-green-800 border border-green-600 px-3 py-1 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 19l-7-7 7-7" />
+        </svg>
+        Volver
+    </a>
+</div>
+
+
 <h1 class="text-2xl font-bold mb-4">Recomendador</h1>
 
 <p class="text-gray-600 mb-4">
@@ -67,7 +80,7 @@ $ingredientesEN[] = $ing;
 @endif
 
 <script>
-    const ingredientes = @json($ingredientesEN);
+    const ingredientes = ($ingredientesEN);
 
     async function recomendar() {
         let cont = document.getElementById('resultados');
