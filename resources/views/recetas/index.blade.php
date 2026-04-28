@@ -12,7 +12,7 @@
 <div class="flex gap-4 overflow-x-auto pb-2">
 
     <a href="{{ route('buscar.nombre') }}"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Nombre
     </a>
 
@@ -22,7 +22,7 @@
     </a>
 
     <a href="{{ route('buscar.categorias') }}"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Categoría
     </a>
 
@@ -32,7 +32,7 @@
     </a>
 
     <a href="{{ route('buscar.aleatoria') }}"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Aleatoria
     </a>
 

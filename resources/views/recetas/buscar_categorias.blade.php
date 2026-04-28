@@ -65,14 +65,18 @@
                 <img src="${r.strMealThumb}" class="rounded mb-2">
                 <h3 class="font-bold mb-2">${r.strMeal}</h3>
 
-                <div class="flex gap-2 mt-2">
+                <div class="flex justify-between items-center mt-2">
+
                     <a href="/receta/${r.idMeal}"
                         class="bg-green-600 text-white px-3 py-1 rounded inline-block text-sm">
                         Ver receta
                     </a>
 
                     <button onclick="toggleFavorito('${r.idMeal}', this)"
-                        class="px-3 py-1 rounded text-sm border border-green-600 transition-colors ${esFavorita ? 'bg-white text-green-600' : 'bg-green-600 text-white'}">
+                        class="inline-flex items-center justify-center 
+           bg-white border border-green-600 text-green-600 
+           hover:bg-green-50 
+           px-3 py-1 rounded text-sm font-semibold transition-colors">
                         ${esFavorita ? 'Quitar' : 'Añadir'}
                     </button>
                 </div>
@@ -95,11 +99,11 @@
         if (data.success) {
             if (data.isFavorito) {
                 btn.innerHTML = 'Quitar';
-                btn.className = 'px-3 py-1 rounded text-sm border border-green-600 transition-colors bg-white text-green-600';
+                btn.className = 'inline-flex items-center justify-center px-3 py-1 rounded text-sm border border-green-600 bg-white text-green-600 hover:bg-green-50 transition-colors';
                 if (!favoritos.includes(id)) favoritos.push(id);
             } else {
                 btn.innerHTML = 'Añadir';
-                btn.className = 'px-3 py-1 rounded text-sm border border-green-600 transition-colors bg-green-600 text-white';
+                btn.className = 'inline-flex items-center justify-center px-3 py-1 rounded text-sm border border-green-600 bg-white text-green-600 hover:bg-green-50 transition-colors';
                 let index = favoritos.indexOf(id);
                 if (index > -1) favoritos.splice(index, 1);
             }

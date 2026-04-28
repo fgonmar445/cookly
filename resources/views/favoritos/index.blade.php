@@ -35,19 +35,22 @@
                 <img src="${f.imagen}" class="rounded mb-3">
 
                 <h3 class="font-bold text-lg mb-1">${f.nombre}</h3>
-
+            
                 <p class="text-sm text-gray-600 mb-2">
                     ${f.categoria ?? ''} • ${f.area ?? ''}
                 </p>
 
                 <div class="flex justify-between items-center">
                     <a href="/receta/${f.id_receta_api}"
-                       class="text-green-600 font-semibold hover:underline">
+                        class="bg-green-600 text-white px-3 py-1 rounded inline-block text-sm"> 
                         Ver receta
                     </a>
 
                     <button onclick="eliminar(${f.id_favorito})"
-                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+                        class="inline-flex items-center justify-center 
+           bg-white border border-green-600 text-green-600 
+           hover:bg-green-50 
+           px-3 py-1 rounded text-sm font-semibold transition-colors">
                         Eliminar
                     </button>
                 </div>
@@ -58,9 +61,15 @@
 
 
     async function eliminar(id) {
-        await fetch('/api/favoritos/' + id, {
-            method: 'DELETE'
+        await fetch('/favoritos/toggle/' + id, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
         });
+
 
         cargar();
     }
