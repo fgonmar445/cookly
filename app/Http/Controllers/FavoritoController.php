@@ -147,6 +147,9 @@ class FavoritoController extends Controller
 
         if ($favorito) {
             $favorito->delete();
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => true, 'isFavorito' => false]);
+            }
             return back()->with('success', 'Receta eliminada de favoritos');
         }
 
@@ -156,6 +159,10 @@ class FavoritoController extends Controller
             'id_receta' => $idInterno,
             'fecha_guardado' => now(),
         ]);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['success' => true, 'isFavorito' => true]);
+        }
 
         return back()->with('success', 'Receta añadida a favoritos');
     }

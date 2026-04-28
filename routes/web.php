@@ -174,46 +174,101 @@ Route::middleware(['auth', 'verified'])->group(function () {
     | Recetas
     |--------------------------------------------------------------------------
     */
-    Route::get('/recetas', function () {
-        return view('recetas.index');
-    })->name('recetas');
-
     // Página principal de búsqueda
     Route::get('/buscar', function () {
-        return view('recetas.index');
+        $favoritos = auth()->user()
+            ->favoritos()
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
+            ->filter()
+            ->toArray();
+
+        return view('recetas.index', compact('favoritos'));
     })->name('buscar');
+
+    Route::get('/receta/{id}', [RecetaController::class, 'show'])->name('recetas.show');
+
+    Route::get('/api/receta-interna/{idMeal}', function ($idMeal) {
+        $receta = \App\Models\Receta::where('id_receta_api', $idMeal)->first();
+
+        return [
+            'id' => $receta ? $receta->id_receta : $idMeal
+        ];
+    });
+
 
     // Buscar por nombre
     Route::get('/buscar/nombre', function () {
-        return view('recetas.buscar_nombre');
+        $favoritos = auth()->user()
+            ->favoritos()
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
+            ->filter()
+            ->toArray();
+
+        return view('recetas.buscar_nombre', compact('favoritos'));
     })->name('buscar.nombre');
 
     // Buscar por ingredientes
     Route::get('/buscar/ingredientes', function () {
-        return view('recetas.buscar_ingredientes');
+        $favoritos = auth()->user()
+            ->favoritos()
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
+            ->filter()
+            ->toArray();
+
+        return view('recetas.buscar_ingredientes', compact('favoritos'));
     })->name('buscar.ingredientes');
 
     // Buscar por categoría
     Route::get('/buscar/categorias', function () {
-        return view('recetas.buscar_categorias');
+        $favoritos = auth()->user()
+            ->favoritos()
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
+            ->filter()
+            ->toArray();
+
+        return view('recetas.buscar_categorias', compact('favoritos'));
     })->name('buscar.categorias');
 
-    // Buscar por área
+    // Buscar por cocina (área)
     Route::get('/buscar/areas', function () {
-        return view('recetas.buscar_areas');
+        $favoritos = auth()->user()
+            ->favoritos()
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
+            ->filter()
+            ->toArray();
+
+        return view('recetas.buscar_areas', compact('favoritos'));
     })->name('buscar.areas');
 
     // Receta aleatoria
     Route::get('/buscar/aleatoria', function () {
-        return view('recetas.aleatoria');
+        $favoritos = auth()->user()
+            ->favoritos()
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
+            ->filter()
+            ->toArray();
+
+        return view('recetas.aleatoria', compact('favoritos'));
     })->name('buscar.aleatoria');
 
     // Recomendador
     Route::get('/buscar/recomendador', function () {
-        return view('recetas.recomendador');
+        $favoritos = auth()->user()
+            ->favoritos()
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
+            ->filter()
+            ->toArray();
+
+        return view('recetas.recomendador', compact('favoritos'));
     })->name('buscar.recomendador');
 
-    Route::get('/receta/{id}', [RecetaController::class, 'show'])->name('receta.show');
 
 
 

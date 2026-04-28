@@ -174,6 +174,8 @@
         mostrarResultados(final);
     }
 
+    const favoritos = @json($favoritos);
+
     // ---------------------------------------------------------
     // MOSTRAR RESULTADOS
     // ---------------------------------------------------------
@@ -182,18 +184,52 @@
         cont.innerHTML = '';
 
         lista.forEach(r => {
+            let esFavorita = favoritos.includes(r.idMeal);
+
             cont.innerHTML += `
                 <div class="bg-white p-3 rounded shadow">
                     <img src="${r.strMealThumb}" class="rounded mb-2">
-                    <h3 class="font-bold">${r.strMeal}</h3>
+                    <h3 class="font-bold mb-2">${r.strMeal}</h3>
 
-                    <a href="/receta/${r.idMeal}"
-                        class="bg-green-500 text-white px-2 py-1 rounded mt-2 inline-block">
-                        Ver receta
-                    </a>
+                    <div class="flex gap-2 mt-2">
+                        <a href="/receta/${r.idMeal}"
+                            class="bg-green-600 text-white px-3 py-1 rounded inline-block text-sm">
+                            Ver receta
+                        </a>
+
+                        <button onclick="toggleFavorito('${r.idMeal}', this)"
+                            class="px-3 py-1 rounded text-sm border border-green-600 transition-colors ${esFavorita ? 'bg-white text-green-600' : 'bg-green-600 text-white'}">
+                            ${esFavorita ? 'Quitar' : 'Añadir'}
+                        </button>
+                    </div>
                 </div>
             `;
         });
+    }
+
+    async function toggleFavorito(id, btn) {
+        let res = await fetch(`/favoritos/toggle/${id}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+        let data = await res.json();
+
+        if (data.success) {
+            if (data.isFavorito) {
+                btn.innerHTML = 'Quitar';
+                btn.className = 'px-3 py-1 rounded text-sm border border-green-600 transition-colors bg-white text-green-600';
+                if (!favoritos.includes(id)) favoritos.push(id);
+            } else {
+                btn.innerHTML = 'Añadir';
+                btn.className = 'px-3 py-1 rounded text-sm border border-green-600 transition-colors bg-green-600 text-white';
+                let index = favoritos.indexOf(id);
+                if (index > -1) favoritos.splice(index, 1);
+            }
+        }
     }
 </script>
 

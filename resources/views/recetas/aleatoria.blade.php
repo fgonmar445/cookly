@@ -26,6 +26,8 @@
 <div id="resultado"></div>
 
 <script>
+    const favoritos = @json($favoritos);
+
     async function cargarAleatoria() {
         let res = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
         let data = await res.json();
@@ -33,17 +35,52 @@
         if (!data.meals) return;
 
         let r = data.meals[0];
+        let esFavorita = favoritos.includes(r.idMeal);
 
+        // Pintar el card
         document.getElementById('resultado').innerHTML = `
-        <div class="bg-white p-4 rounded shadow">
-            <img src="${r.strMealThumb}" class="rounded mb-2 w-64 h-64 object-cover">
+        <div class="bg-white p-4 rounded shadow max-w-sm">
+            <img src="${r.strMealThumb}" class="rounded mb-2 w-full h-64 object-cover">
             <h2 class="text-xl font-bold mb-2">${r.strMeal}</h2>
-            <a href="/receta/${r.idMeal}"
-            class="bg-green-600 text-white px-3 py-1 rounded inline-block">
-                Ver receta completa
-            </a>
+
+            <div class="flex gap-2 mt-2">
+                <a href="/receta/${r.idMeal}"
+                    class="bg-green-600 text-white px-3 py-1 rounded inline-block text-sm">
+                    Ver receta completa
+                </a>
+
+                <button onclick="toggleFavorito('${r.idMeal}', this)"
+                    class="px-3 py-1 rounded text-sm border border-green-600 transition-colors ${esFavorita ? 'bg-white text-green-600' : 'bg-green-600 text-white'}">
+                    ${esFavorita ? 'Quitar' : 'Añadir'}
+                </button>
+            </div>
         </div>
     `;
+    }
+
+    async function toggleFavorito(id, btn) {
+        let res = await fetch(`/favoritos/toggle/${id}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+        let data = await res.json();
+
+        if (data.success) {
+            if (data.isFavorito) {
+                btn.innerHTML = 'Quitar';
+                btn.className = 'px-3 py-1 rounded text-sm border border-green-600 transition-colors bg-white text-green-600';
+                if (!favoritos.includes(id)) favoritos.push(id);
+            } else {
+                btn.innerHTML = 'Añadir';
+                btn.className = 'px-3 py-1 rounded text-sm border border-green-600 transition-colors bg-green-600 text-white';
+                let index = favoritos.indexOf(id);
+                if (index > -1) favoritos.splice(index, 1);
+            }
+        }
     }
 </script>
 
