@@ -1,59 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="C:/Users/W10/.gemini/antigravity/brain/b4afcc72-2017-4ae1-9918-91bde4c5379d/cookly_logo_banner_1777384732748.png" width="600" alt="Cookly Logo">
 </p>
 
-## About Laravel
+# Cookly
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Cookly es tu asistente de cocina definitivo. Descubre miles de recetas, gestiona tus ingredientes y encuentra la inspiración que necesitas para tu próximo plato.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Características Principales
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Búsqueda Avanzada**: Encuentra recetas por nombre, categoría, país o incluso por los ingredientes que tienes en tu despensa.
+- **Favoritos**: Guarda tus recetas preferidas para acceder a ellas rápidamente en cualquier momento.
+- **Receta Aleatoria**: ¿No sabes qué cocinar? ¡Deja que Cookly decida por ti con un solo clic!
+- **Recomendador Inteligente**: Cookly analiza los ingredientes que ya tienes y te sugiere las mejores recetas que puedes preparar ahora mismo.
+- **Diseño Responsivo**: Una interfaz moderna y limpia diseñada con Tailwind CSS para una experiencia fluida en cualquier dispositivo.
 
-## Learning Laravel
+## Tecnologías Utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Framework**: [Laravel 10+](https://laravel.com)
+- **Estilos**: [Tailwind CSS](https://tailwindcss.com)
+- **API**: [TheMealDB](https://www.themealdb.com/api.php) para una base de datos de recetas global y actualizada.
+- **Base de Datos**: MySQL/SQLite para gestionar usuarios, ingredientes y favoritos.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalación y Configuración
 
-## Laravel Sponsors
+Sigue estos pasos para poner en marcha Cookly en tu entorno local:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clonar el repositorio**:
 
-### Premium Partners
+    ```bash
+    git clone https://github.com/fgonmar445/cookly.git
+    cd cookly
+    ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Instalar dependencias**:
 
-## Contributing
+    ```bash
+    composer install
+    npm install && npm run dev
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Configurar el entorno**:
 
-## Code of Conduct
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Configurar la base de datos**:
+   Crea una base de datos y actualiza las credenciales en el archivo `.env`.
 
-## Security Vulnerabilities
+5. **Ejecutar migraciones**:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ```bash
+    php artisan migrate
+    ```
 
-## License
+6. **Iniciar el servidor**:
+    ```bash
+    php artisan serve
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+---
