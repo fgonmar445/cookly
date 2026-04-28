@@ -34,8 +34,8 @@
         <div class="bg-white p-4 rounded shadow">
             <img src="${r.strMealThumb}" class="rounded mb-2 w-64 h-64 object-cover">
             <h2 class="text-xl font-bold mb-2">${r.strMeal}</h2>
-            <a href="/receta/${r.idMeal}?name=${encodeURIComponent(r.strMeal)}"
-                class="bg-green-600 text-white px-3 py-1 rounded inline-block">
+            <a href="/receta/${r.idMeal}"
+            class="bg-green-600 text-white px-3 py-1 rounded inline-block">
                 Ver receta completa
             </a>
         </div>

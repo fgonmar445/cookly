@@ -113,7 +113,7 @@ $ingredientesEN[] = $ing;
                         Coincidencias: <strong>${item.coincidencias}</strong>
                     </p>
 
-                    <a href="/receta/${r.idMeal}?name=${encodeURIComponent(r.strMeal)}"
+                    <a href="/receta/${r.idMeal}"
                         class="bg-green-500 text-white px-2 py-1 rounded inline-block">
                         Ver receta
                     </a>

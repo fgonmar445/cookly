@@ -53,7 +53,7 @@
             <div class="bg-white p-3 rounded shadow">
                 <img src="${r.strMealThumb}" class="rounded mb-2">
                 <h3 class="font-bold">${r.strMeal}</h3>
-                <a href="/receta/${r.idMeal}?name=${encodeURIComponent(r.strMeal)}"
+                <a href="/receta/${r.idMeal}"
                     class="bg-green-500 text-white px-2 py-1 rounded mt-2 inline-block">
                     Ver receta
                 </a>
