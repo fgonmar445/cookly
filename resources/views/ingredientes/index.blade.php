@@ -37,14 +37,18 @@
         }
 
         // Nombre traducido
-        $nombre = $traducciones[$ing] ?? ucfirst($ing);
+        $nombre = ucfirst($traducciones[$ing] ?? $ing);
 
         // Comprobar si está añadido
+        $registro = null;
         $estaAñadido = false;
 
         if ($ingredienteGlobal) {
-        $estaAñadido = in_array($ingredienteGlobal->id_ingrediente, $misIngredientes);
+        $registro = $misIngredientes->firstWhere('id_ingrediente', $ingredienteGlobal->id_ingrediente);
+        $estaAñadido = $registro !== null;
         }
+
+
         @endphp
 
 
@@ -67,7 +71,7 @@
             @if ($estaAñadido)
             <form action="{{ route('ingredientes.eliminar') }}" method="POST">
                 @csrf
-                <input type="hidden" name="ingredient" value="{{ $ing }}">
+                <input type="hidden" name="id_lista" value="{{ $registro->id_lista }}">
                 <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
                     Eliminar
                 </button>

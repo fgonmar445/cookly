@@ -80,7 +80,7 @@ $ingredientesEN[] = $ing;
 @endif
 
 <script>
-    const ingredientes = ($ingredientesEN);
+    const ingredientes = @json($ingredientesEN);
 
     async function recomendar() {
         let cont = document.getElementById('resultados');

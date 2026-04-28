@@ -50,13 +50,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/ingredientes', function () {
 
         $categorias = config('categories');
-        $traducciones = config('ingredients');
+        $traducciones = config('ingredients.en_to_es');
 
         // Ingredientes que el usuario ya tiene
         $misIngredientes = DB::table('lista_ingredientes')
             ->where('id_usuario', auth()->id())
-            ->pluck('id_ingrediente')
-            ->toArray();
+            ->get();
+
 
         return view('ingredientes.index', compact('categorias', 'traducciones', 'misIngredientes'));
     })->name('ingredientes.index');
@@ -132,7 +132,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     */
     Route::get('/ingredientes/todos', function () {
 
-        $traducciones = config('ingredients');
+        $traducciones = config('ingredients.en_to_es');
         $reverse = config('ingredients_reverse');
 
         $search = strtolower(trim(request('search')));
@@ -140,10 +140,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Ingredientes que el usuario ya tiene
         $misIngredientes = DB::table('lista_ingredientes')
-            ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
-            ->where('lista_ingredientes.id_usuario', auth()->id())
-            ->pluck('ingredientes.nombre')
-            ->toArray();
+            ->where('id_usuario', auth()->id())
+            ->get();
+
 
 
         // 1. Descargar lista completa de ingredientes
