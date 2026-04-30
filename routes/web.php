@@ -6,6 +6,7 @@ use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\FavoritoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,143 +31,156 @@ Route::middleware(['auth', 'verified'])->group(function () {
     | Dashboard
     |--------------------------------------------------------------------------
     */
+
+
     Route::get('/dashboard', function () {
 
-        // Favoritos del usuario (solo IDs)
+        // FAVORITOS DEL USUARIO (solo IDs)
         $favoritosUsuario = DB::table('favoritos')
             ->where('id_usuario', auth()->id())
             ->pluck('id_receta')
             ->toArray();
 
         // -------------------------
-        // 1. RECETA ALEATORIA
+        // 1. RECETAS ALEATORIAS (3 con caché 1 hora)
         // -------------------------
+        $random = Cache::remember('random_recipes_' . auth()->id(), 3600, function () use ($favoritosUsuario) {
 
-        $random = [];
+            $arr = [];
 
-        for ($i = 0; $i < 3; $i++) {
-            $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/random.php"), true);
+            for ($i = 0; $i < 3; $i++) {
+                $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/random.php"), true);
 
-            if (!empty($data['meals'][0])) {
-                $meal = $data['meals'][0];
+                if (!empty($data['meals'][0])) {
+                    $meal = $data['meals'][0];
 
-                $random[] = [
+                    $arr[] = [
+                        'idMeal' => $meal['idMeal'],
+                        'strMeal' => $meal['strMeal'],
+                        'strMealThumb' => $meal['strMealThumb'],
+                        'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
+                    ];
+                }
+            }
+
+            return $arr;
+        });
+
+        // -------------------------
+        // 2. POPULARES (3 con caché 1 hora)
+        // -------------------------
+        $populares = Cache::remember('popular_recipes', 3600, function () use ($favoritosUsuario) {
+
+            $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/filter.php?c=Beef"), true);
+
+            $arr = [];
+
+            foreach (array_slice($data['meals'], 0, 3) as $meal) {
+                $arr[] = [
                     'idMeal' => $meal['idMeal'],
                     'strMeal' => $meal['strMeal'],
                     'strMealThumb' => $meal['strMealThumb'],
                     'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
                 ];
             }
-        }
 
+            return $arr;
+        });
 
         // -------------------------
-        // 2. POPULARES
+        // 3. RECOMENDACIONES (caché 10 minutos)
         // -------------------------
-        $popularData = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/filter.php?c=Beef"), true);
-        $populares = [];
+        $cacheKey = 'recomendaciones_' . auth()->id();
 
-        if (!empty($popularData['meals'])) {
-            foreach (array_slice($popularData['meals'], 0, 5) as $meal) {
-                $populares[] = [
-                    'idMeal' => $meal['idMeal'],
-                    'strMeal' => $meal['strMeal'],
-                    'strMealThumb' => $meal['strMealThumb'],
-                    'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
-                ];
+        $recomendaciones = Cache::remember($cacheKey, 600, function () use ($favoritosUsuario) {
+
+            // INGREDIENTES DEL USUARIO
+            $misIngredientes = DB::table('lista_ingredientes')
+                ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
+                ->where('lista_ingredientes.id_usuario', auth()->id())
+                ->pluck('ingredientes.nombre')
+                ->map(fn($n) => strtolower($n))
+                ->toArray();
+
+            // INGREDIENTES VÁLIDOS PARA THEMEALDB
+            $validos = [
+                'chicken',
+                'beef',
+                'lamb',
+                'pork',
+                'salmon',
+                'shrimp',
+                'rice',
+                'pasta',
+                'tomato',
+                'onion',
+                'garlic',
+                'egg',
+                'milk',
+                'cheese',
+                'bread'
+            ];
+
+            // FILTRAR SOLO LOS VÁLIDOS
+            $ingredientesFiltrados = array_values(array_intersect($misIngredientes, $validos));
+
+            // LIMITAR A 3 PARA QUE SEA RÁPIDO
+            $ingredientesFiltrados = array_slice($ingredientesFiltrados, 0, 3);
+
+            $recetas = [];
+
+            foreach ($ingredientesFiltrados as $ing) {
+
+                $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/filter.php?i=" . urlencode($ing)), true);
+
+                if (empty($data['meals'])) continue;
+
+                foreach ($data['meals'] as $meal) {
+
+                    $id = $meal['idMeal'];
+
+                    if (!isset($recetas[$id])) {
+                        $recetas[$id] = [
+                            'idMeal' => $meal['idMeal'],
+                            'strMeal' => $meal['strMeal'],
+                            'strMealThumb' => $meal['strMealThumb'],
+                            'match_count' => 0,
+                            'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
+                        ];
+                    }
+
+                    $recetas[$id]['match_count']++;
+                }
             }
-        }
+
+            // ORDENAR POR COINCIDENCIAS
+            usort($recetas, fn($a, $b) => $b['match_count'] <=> $a['match_count']);
+
+            // TOMAR 3
+            return array_slice($recetas, 0, 3);
+        });
 
         // -------------------------
-        // 3. FAVORITOS RECIENTES
+        // 4. FAVORITOS RECIENTES
         // -------------------------
-        $favoritosDB = DB::table('favoritos')
+        $favoritos = DB::table('favoritos')
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
             ->where('favoritos.id_usuario', auth()->id())
             ->orderBy('favoritos.id_favorito', 'desc')
             ->limit(3)
-            ->get();
+            ->get()
+            ->map(function ($f) {
+                return [
+                    'idMeal' => $f->id_receta_api,
+                    'strMeal' => $f->nombre,
+                    'strMealThumb' => $f->imagen,
+                    'esFavorita' => true
+                ];
+            });
 
-        $favoritos = [];
-
-        foreach ($favoritosDB as $f) {
-            $favoritos[] = [
-                'idMeal' => $f->id_receta_api,
-                'strMeal' => $f->nombre,
-                'strMealThumb' => $f->imagen,
-                'esFavorita' => true
-            ];
-        }
-
-        // -------------------------
-        // 4. RECOMENDACIONES MULTI-INGREDIENTE
-        // -------------------------
-        $misIngredientes = DB::table('lista_ingredientes')
-            ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
-            ->where('lista_ingredientes.id_usuario', auth()->id())
-            ->pluck('ingredientes.nombre')
-            ->map(fn($n) => strtolower($n))
-            ->toArray();
-
-        $validos = [
-            'chicken',
-            'beef',
-            'lamb',
-            'pork',
-            'salmon',
-            'shrimp',
-            'rice',
-            'pasta',
-            'tomato',
-            'onion',
-            'garlic',
-            'egg',
-            'milk',
-            'cheese',
-            'bread'
-        ];
-
-        $ingredientesFiltrados = array_values(array_intersect($misIngredientes, $validos));
-
-        $ingredientesFiltrados = array_slice($ingredientesFiltrados, 0, 3);
-
-        $recetas = [];
-
-        foreach ($ingredientesFiltrados as $ing) {
-
-            $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/filter.php?i=" . urlencode($ing)), true);
-
-            if (empty($data['meals'])) continue;
-
-            foreach ($data['meals'] as $meal) {
-
-                $id = $meal['idMeal'];
-
-                if (!isset($recetas[$id])) {
-                    $recetas[$id] = [
-                        'idMeal' => $meal['idMeal'],
-                        'strMeal' => $meal['strMeal'],
-                        'strMealThumb' => $meal['strMealThumb'],
-                        'match_count' => 0,
-                        'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
-                    ];
-                }
-
-                $recetas[$id]['match_count']++;
-            }
-        }
-
-        usort($recetas, fn($a, $b) => $b['match_count'] <=> $a['match_count']);
-
-        $recomendaciones = array_slice($recetas, 0, 3);
-
-        return view('dashboard', compact(
-            'random',
-            'populares',
-            'favoritos',
-            'recomendaciones'
-        ));
+        return view('dashboard', compact('random', 'populares', 'recomendaciones', 'favoritos'));
     });
+
 
 
     /*
