@@ -90,7 +90,7 @@ $ingredientesEN[] = $ing;
         let mapa = {}; // idMeal → { datos, coincidencias }
 
         for (let ing of ingredientes) {
-            let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`);
+            let res = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?i=${ing}`);
             let data = await res.json();
 
             if (!data.meals) continue;

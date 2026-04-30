@@ -21,24 +21,30 @@
     Escribe el nombre de una receta o parte del nombre.
 </p>
 
-<div class="flex gap-3 mb-6">
-    <input id="search" type="text"
-        class="border p-2 rounded w-full"
-        placeholder="Ej: Pasta carbonara...">
+<div class="flex-1 max-w-sm gap-3 mb-6">
 
-    <button onclick="buscarNombre()"
-        class="bg-emerald-500 text-white px-4 py-2 rounded">
-        Buscar
-    </button>
+    <form onsubmit="event.preventDefault(); buscarNombre();" class="flex gap-3 mb-6">
+        <input id="search" type="text"
+            class="border p-2 rounded w-full
+           focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            placeholder=" Ej: Pasta carbonara...">
+
+        <button type="submit"
+            class="bg-emerald-500 text-white px-4 py-2 rounded">
+            Buscar
+        </button>
+    </form>
+
 </div>
 
 <div id="lista" class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4"></div>
 
 <script>
     const favoritos = @json($favoritos);
+    const esToEn = @json(config('ingredients.es_to_en'));
 
     async function buscarNombre() {
-        let q = document.getElementById('search').value.trim();
+        let q = document.getElementById('search').value.trim().toLowerCase();
         let cont = document.getElementById('lista');
         cont.innerHTML = '';
 
@@ -47,16 +53,52 @@
             return;
         }
 
-        let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${q}`);
+        // Normalizar acentos
+        q = q.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        // Traducir si existe en el diccionario ES → EN
+        let q_en = esToEn[q] ?? q;
+
+        // Buscar en inglés
+        let res = await fetch(`https://www.themealdb.com/api/json/v2/1/search.php?s=${q_en}`);
         let data = await res.json();
 
+        // Si no encuentra nada, intentar búsqueda parcial
         if (!data.meals) {
-            cont.innerHTML = "<p>No hay resultados</p>";
+            let all = await fetch(`https://www.themealdb.com/api/json/v2/1/search.php?s=`);
+            let allData = await all.json();
+
+            if (!allData.meals) {
+                cont.innerHTML = "<p>No hay resultados</p>";
+                return;
+            }
+
+            // Filtrar manualmente por coincidencia en español o inglés
+            let filtradas = allData.meals.filter(r =>
+                r.strMeal.toLowerCase().includes(q_en) ||
+                r.strMeal.toLowerCase().includes(q)
+            );
+
+            if (filtradas.length === 0) {
+                cont.innerHTML = "<p>No hay resultados</p>";
+                return;
+            }
+
+            mostrarResultados(filtradas);
             return;
         }
 
         mostrarResultados(data.meals);
+
+        document.getElementById('search').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // evita recargar la página
+                buscarNombre();
+            }
+        });
+
     }
+
 
     function mostrarResultados(lista) {
         let cont = document.getElementById('lista');

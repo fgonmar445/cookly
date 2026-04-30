@@ -42,7 +42,7 @@
         let cont = document.getElementById('lista');
         cont.innerHTML = '';
 
-        let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+        let res = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?a=${area}`);
         let data = await res.json();
 
         if (!data.meals) {

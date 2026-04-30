@@ -23,25 +23,31 @@
 </p>
 
 {{-- INPUT + SUGERENCIAS --}}
-<div class="relative mb-4">
-    <input id="inputIng" type="text"
-        class="border p-2 rounded w-full"
-        placeholder="Ej: Pollo, Tomate, Arroz..."
-        oninput="buscarSugerencias()">
+<form onsubmit="event.preventDefault(); buscarPorIngredientes();" class="flex gap-3 mb-6">
 
-    <div id="sugerencias"
-        class="absolute bg-white border rounded w-full mt-1 hidden z-10"></div>
-</div>
+    <div class="relative flex-1 max-w-sm">
+        <input id="inputIng" type="text"
+            class="border p-2 rounded w-full
+           focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            placeholder="Ej: Pollo, Tomate, Arroz..."
+            oninput="buscarSugerencias()">
 
-{{-- TAGS SELECCIONADOS --}}
+        <div id="sugerencias"
+            class="absolute bg-white border rounded w-full mt-1 hidden z-10"></div>
+    </div>
+
+    <button type="submit"
+        class="bg-emerald-600 text-white px-4 py-2 rounded">
+        Buscar recetas
+    </button>
+
+</form>
+
 <div id="tags" class="flex flex-wrap gap-2 mb-4"></div>
 
-<button onclick="buscarPorIngredientes()"
-    class="bg-emerald-600 text-white px-4 py-2 rounded">
-    Buscar recetas
-</button>
 
 {{-- RESULTADOS --}}
+
 <div id="lista" class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6"></div>
 
 <script>
@@ -90,6 +96,8 @@
     }
 
     function addIngrediente(nombre) {
+        nombre = nombre.toLowerCase(); // normalizar SIEMPRE
+
         if (!ingredientesSeleccionados.includes(nombre)) {
             ingredientesSeleccionados.push(nombre);
             renderTags();
@@ -99,6 +107,7 @@
         document.getElementById('sugerencias').classList.add('hidden');
     }
 
+
     function renderTags() {
         let cont = document.getElementById('tags');
         cont.innerHTML = '';
@@ -106,18 +115,21 @@
         ingredientesSeleccionados.forEach(ing => {
             let ingCap = capitalizar(ing);
             cont.innerHTML += `
-                <span class="bg-white border border-emerald-600 text-emerald-600 px-2 py-1 rounded flex items-center gap-2">
-                    ${ingCap}
-                    <button onclick="removeIngrediente('${ingCap}')" class="font-bold">×</button>
-                </span>
-            `;
+            <span class="bg-white border border-emerald-600 text-emerald-600 px-2 py-1 rounded flex items-center gap-2">
+                ${ingCap}
+                <button onclick="removeIngrediente('${ing}')" class="font-bold">×</button>
+            </span>
+        `;
         });
     }
 
+
     function removeIngrediente(nombre) {
+        nombre = nombre.toLowerCase();
         ingredientesSeleccionados = ingredientesSeleccionados.filter(i => i !== nombre);
         renderTags();
     }
+
 
     // ---------------------------------------------------------
     // BUSCAR RECETAS POR TODOS LOS INGREDIENTES
@@ -133,30 +145,116 @@
 
         let resultados = [];
 
+        // Mapeos para ampliar búsqueda sin descargar toda la base
+        const categoriasRelacionadas = {
+            'pasta': ['Pasta'],
+            'spaghetti': ['Pasta'],
+            'fideos': ['Miscellaneous'],
+            'noodles': ['Miscellaneous'],
+            'arroz': ['Side'],
+            'arroz arborio': ['Side'],
+            'queso': ['Vegetarian'],
+            'carne': ['Beef', 'Pork', 'Chicken'],
+            'pescado': ['Seafood'],
+        };
+
+        const areasRelacionadas = {
+            'pasta': ['Italian'],
+            'spaghetti': ['Italian'],
+            'risotto': ['Italian'],
+            'arroz': ['Chinese', 'Japanese', 'Indian'],
+            'fideos': ['Chinese', 'Thai'],
+            'noodles': ['Chinese', 'Thai'],
+            'curry': ['Indian'],
+        };
+
         for (let ing of ingredientesSeleccionados) {
+
+            // Normalizar el ingrediente seleccionado como tag
+            let original = ing; // por si quieres mostrarlo luego
+            ing = ing.toLowerCase().trim();
+
+            // Correcciones de palabras comunes del usuario
+            const equivalenciasBusqueda = {
+                'pasta': 'pasta',
+                'pasta cocida': 'pasta',
+                'espagueti': 'spaghetti',
+                'espaguetis': 'spaghetti',
+                'spagueti': 'spaghetti',
+                'spaguetti': 'spaghetti',
+                'spagetti': 'spaghetti',
+                'fideo': 'noodles',
+                'fideos': 'noodles'
+            };
+
+            // Si existe equivalencia, reemplazar
+            if (equivalenciasBusqueda[ing]) {
+                ing = equivalenciasBusqueda[ing];
+            }
+
+
             // Traducir ES → EN usando tu diccionario real
             let ingEN = dictES_EN[ing] ?? ing;
 
-            let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingEN}`);
+            // 1) Buscar por ingrediente principal
+            let res = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?i=${ingEN}`);
             let data = await res.json();
 
-            if (!data.meals) {
-                cont.innerHTML = `<p>No hay recetas con ${ing}</p>`;
-                return;
+            if (data.meals) {
+                resultados.push(data.meals);
+                continue;
             }
 
-            resultados.push(data.meals);
+            // 2) Buscar por nombre
+            let resName = await fetch(`https://www.themealdb.com/api/json/v2/1/search.php?s=${ing}`);
+            let dataName = await resName.json();
+
+            if (dataName.meals) {
+                resultados.push(dataName.meals);
+                continue;
+            }
+
+            // 3) Buscar por categoría relacionada
+            let cats = categoriasRelacionadas[ing] || [];
+            let catResults = [];
+
+            for (let c of cats) {
+                let resCat = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?c=${c}`);
+                let dataCat = await resCat.json();
+                if (dataCat.meals) catResults.push(...dataCat.meals);
+            }
+
+            if (catResults.length > 0) {
+                resultados.push(catResults);
+                continue;
+            }
+
+            // 4) Buscar por área relacionada
+            let ars = areasRelacionadas[ing] || [];
+            let areaResults = [];
+
+            for (let a of ars) {
+                let resArea = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?a=${a}`);
+                let dataArea = await resArea.json();
+                if (dataArea.meals) areaResults.push(...dataArea.meals);
+            }
+
+            if (areaResults.length > 0) {
+                resultados.push(areaResults);
+                continue;
+            }
+
+            // 5) Si no hay nada de nada
+            cont.innerHTML = `<p>No hay recetas con ${ing}</p>`;
+            return;
         }
 
-        // Intersección: recetas que contienen TODOS los ingredientes
-        // resultados = array con listas de recetas por ingrediente
-
-        // 1. INTERSECCIÓN (recetas que contienen TODOS los ingredientes)
+        // INTERSECCIÓN (recetas que contienen TODOS los ingredientes)
         let interseccion = resultados.reduce((a, b) =>
             a.filter(x => b.some(y => y.idMeal === x.idMeal))
         );
 
-        // 2. UNIÓN (recetas que contienen AL MENOS UNO)
+        // UNIÓN (recetas que contienen AL MENOS UNO)
         let union = [];
         resultados.forEach(lista => {
             lista.forEach(r => {
@@ -166,13 +264,14 @@
             });
         });
 
-        // 3. Si hay intersección, ponerlas primero
+        // Final: intersección primero, luego unión sin duplicados
         let final = [...interseccion, ...union.filter(r =>
             !interseccion.some(i => i.idMeal === r.idMeal)
         )];
 
         mostrarResultados(final);
     }
+
 
     const favoritos = @json($favoritos);
 

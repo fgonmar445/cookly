@@ -13,7 +13,7 @@ class RecetaController extends Controller
      */
     public function fromApi($nombre)
     {
-        $response = Http::get("https://www.themealdb.com/api/json/v1/1/search.php?s=$nombre");
+        $response = Http::get("https://www.themealdb.com/api/json/v2/1/search.php?s=$nombre");
 
         $data = $response->json();
 
@@ -127,8 +127,8 @@ class RecetaController extends Controller
             try {
                 $response = Http::withHeaders([
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                ])->get("https://www.themealdb.com/api/json/v1/1/lookup.php?i={$id}");
-                
+                ])->get("https://www.themealdb.com/api/json/v2/1/lookup.php?i={$id}");
+
                 $receta = null;
 
                 if ($response->successful()) {
@@ -138,7 +138,7 @@ class RecetaController extends Controller
                 // FALLBACK: Si lookup falla (TheMealDB suele dar 500 hoy), intentamos buscar por nombre si se pasÃ³ en la URL
                 if (!$receta && $request->has('name')) {
                     $name = $request->query('name');
-                    $fallbackResponse = Http::get("https://www.themealdb.com/api/json/v1/1/search.php?s=$name");
+                    $fallbackResponse = Http::get("https://www.themealdb.com/api/json/v2/1/search.php?s=$name");
                     if ($fallbackResponse->successful()) {
                         $meals = $fallbackResponse->json()['meals'] ?? [];
                         foreach ($meals as $m) {

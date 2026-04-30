@@ -29,7 +29,7 @@
     const favoritos = @json($favoritos);
 
     async function cargarAleatoria() {
-        let res = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
+        let res = await fetch("https://www.themealdb.com/api/json/v2/1/random.php");
         let data = await res.json();
 
         if (!data.meals) return;

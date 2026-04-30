@@ -75,7 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // 2) Si no existe, lo creamos usando la API
         if (!$ingrediente) {
 
-            $url = "https://www.themealdb.com/api/json/v1/1/search.php?i=" . urlencode($nombre);
+            $url = "https://www.themealdb.com/api/json/v2/1/search.php?i=" . urlencode($nombre);
             $data = json_decode(file_get_contents($url), true);
             $info = $data['ingredients'][0] ?? null;
 
@@ -149,7 +149,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
         // 1. Descargar lista completa de ingredientes
-        $url = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
+        $url = "https://www.themealdb.com/api/json/v2/1/list.php?i=list";
         $data = json_decode(file_get_contents($url), true);
         $lista = $data['meals'] ?? [];
 

@@ -96,7 +96,7 @@ class FavoritoController extends Controller
         // 2. Si no existe, traerla de la API y guardarla
         if (!$receta) {
             // Intentar lookup normal
-            $response = Http::get("https://www.themealdb.com/api/json/v1/1/lookup.php?i={$id}");
+            $response = Http::get("https://www.themealdb.com/api/json/v2/1/lookup.php?i={$id}");
             $data = null;
             
             if ($response->successful()) {
@@ -106,7 +106,7 @@ class FavoritoController extends Controller
             // FALLBACK: Si lookup falla hoy en TheMealDB, buscamos por nombre
             if (!$data && $request->has('name')) {
                 $name = $request->input('name');
-                $fallbackResponse = Http::get("https://www.themealdb.com/api/json/v1/1/search.php?s=$name");
+                $fallbackResponse = Http::get("https://www.themealdb.com/api/json/v2/1/search.php?s=$name");
                 if ($fallbackResponse->successful()) {
                     $meals = $fallbackResponse->json()['meals'] ?? [];
                     foreach ($meals as $m) {
