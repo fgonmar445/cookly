@@ -6,7 +6,7 @@
 
 {{-- Buscador --}}
 <form method="GET" class="mb-6 flex gap-2">
-    <input type="text" name="search" value="{{ $search }}"
+    <input type="text" name="search" value="{{ request()->query('search') }}"
         placeholder="Buscar ingrediente..."
         class="w-full p-3 border rounded-lg shadow-sm">
     <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 shadow-sm transition-colors">
@@ -24,9 +24,11 @@
 
     @php
     $nombre = strtolower($ing['strIngredient']);
+    if (str_contains($nombre, 'graham')) continue;
+
     $nombreApi = ucfirst($nombre);
     $img = "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
-    $nombreTrad = $traducciones[$nombre] ?? ucfirst($nombre);
+    $nombreTrad = ucfirst($traducciones[$nombre] ?? $nombre);
     @endphp
 
     <div class="bg-white p-4 rounded-xl shadow hover:shadow-md transition">

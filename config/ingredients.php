@@ -106,6 +106,7 @@ return [
         'milk' => 'leche',
         'mint' => 'menta',
         'minced beef' => 'carne picada de ternera',
+        'chicken breasts' => 'pechugas de pollo',
         'chicken breast' => 'pechuga de pollo',
         'chicken thighs' => 'muslos de pollo',
         'mussels' => 'mejillones',
@@ -229,6 +230,7 @@ return [
         // CARNES Y PESCADOS
         'pollo' => 'chicken',
         'pechuga de pollo' => 'chicken breast',
+        'pechugas de pollo' => 'chicken breasts',
         'muslos de pollo' => 'chicken thighs',
         'ternera' => 'beef',
         'carne picada de ternera' => 'minced beef',
@@ -238,6 +240,7 @@ return [
         'bacalao' => 'cod',
         'pato' => 'duck',
         'jamon' => 'ham',
+        'jamón' => 'ham',
         'langosta' => 'lobster',
         'ostras' => 'oysters',
         'mejillones' => 'mussels',

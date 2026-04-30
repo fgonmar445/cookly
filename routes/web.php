@@ -31,8 +31,64 @@ Route::middleware(['auth', 'verified'])->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+        dd($misIngredientesES, $misIngredientesEN);
+
+
+        // 1. Receta aleatoria
+        $randomUrl = "https://www.themealdb.com/api/json/v2/1/random.php";
+        $randomData = json_decode(file_get_contents($randomUrl), true);
+        $random = $randomData['meals'][0] ?? null;
+
+        // 2. Recetas populares
+        $popularUrl = "https://www.themealdb.com/api/json/v2/1/filter.php?c=Beef";
+        $popularData = json_decode(file_get_contents($popularUrl), true);
+        $populares = array_slice($popularData['meals'] ?? [], 0, 3);
+
+        // 3. Favoritos del usuario
+        $favoritos = DB::table('favoritos')
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->where('favoritos.id_usuario', auth()->id())
+            ->orderBy('favoritos.id_favorito', 'desc')
+            ->limit(3)
+            ->get();
+
+        // 4. Recomendaciones basadas en ingredientes del usuario
+        $dict = config('ingredients'); // tu archivo
+        $esToEn = $dict['es_to_en'];   // ← ESTE es el diccionario correcto
+
+        // Ingredientes del usuario en español
+        $misIngredientesES = DB::table('lista_ingredientes')
+            ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
+            ->where('lista_ingredientes.id_usuario', auth()->id())
+            ->pluck('ingredientes.nombre')
+            ->map(fn($n) => strtolower($n))
+            ->toArray();
+
+        // Traducir al inglés usando es_to_en
+        $misIngredientesEN = array_map(function ($ing) use ($esToEn) {
+            return $esToEn[$ing] ?? null;
+        }, $misIngredientesES);
+
+        // Limpiar nulls
+        $misIngredientesEN = array_filter($misIngredientesEN);
+
+        $recomendaciones = [];
+
+        if (!empty($misIngredientesEN)) {
+
+            // Usamos el primer ingrediente traducido
+            $primero = urlencode($misIngredientesEN[array_key_first($misIngredientesEN)]);
+
+            $recUrl = "https://www.themealdb.com/api/json/v2/1/filter.php?i={$primero}";
+            $recData = json_decode(file_get_contents($recUrl), true);
+
+            $recomendaciones = array_slice($recData['meals'] ?? [], 0, 3);
+        }
+
+        return view('dashboard', compact('random', 'populares', 'favoritos', 'recomendaciones'));
+    })->middleware(['auth'])->name('dashboard');
+
 
 
     /*
@@ -185,7 +241,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta_api')
+            ->pluck('recetas.id_receta')
             ->filter()
             ->toArray();
 
@@ -195,7 +251,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/receta/{id}', [RecetaController::class, 'show'])->name('recetas.show');
 
     Route::get('/api/receta-interna/{idMeal}', function ($idMeal) {
-        $receta = \App\Models\Receta::where('id_receta_api', $idMeal)->first();
+        $receta = \App\Models\Receta::where('id_receta', $idMeal)->first();
 
         return [
             'id' => $receta ? $receta->id_receta : $idMeal
@@ -208,7 +264,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta_api')
+            ->pluck('recetas.id_receta')
             ->filter()
             ->toArray();
 
@@ -220,7 +276,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta_api')
+            ->pluck('recetas.id_receta')
             ->filter()
             ->toArray();
 
@@ -232,7 +288,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta_api')
+            ->pluck('recetas.id_receta')
             ->filter()
             ->toArray();
 
@@ -244,7 +300,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta_api')
+            ->pluck('recetas.id_receta')
             ->filter()
             ->toArray();
 
@@ -256,7 +312,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta_api')
+            ->pluck('recetas.id_receta')
             ->filter()
             ->toArray();
 
@@ -268,7 +324,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta_api')
+            ->pluck('recetas.id_receta')
             ->filter()
             ->toArray();
 
@@ -306,7 +362,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             $resultado[] = [
                 'id_favorito' => $fav->id_favorito,
-                'id_receta_api' => $receta->id_receta_api,
+                'id_receta' => $receta->id_receta,
                 'nombre' => $receta->nombre,
                 'imagen' => $receta->imagen,
                 'categoria' => $receta->categoria,
