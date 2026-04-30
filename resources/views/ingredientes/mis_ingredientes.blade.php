@@ -24,7 +24,9 @@
     : "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
 
     // Nombre traducido
-    $nombre = $traducciones[$ing->nombre] ?? ucfirst($ing->nombre);
+    $clave = strtolower(trim($ing->nombre));
+    $traducido = $traducciones['en_to_es'][$clave] ?? ucfirst($ing->nombre);
+    $nombre = ucfirst($traducido);
     @endphp
 
     <li class="flex items-center justify-between py-3 border-b last:border-none">
