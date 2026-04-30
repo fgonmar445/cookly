@@ -9,7 +9,7 @@
     <input type="text" name="search" value="{{ $search }}"
         placeholder="Buscar ingrediente..."
         class="w-full p-3 border rounded-lg shadow-sm">
-    <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 shadow-sm transition-colors">
+    <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 shadow-sm transition-colors">
         Buscar
     </button>
 </form>
@@ -45,7 +45,7 @@
         <form action="{{ route('ingredientes.add') }}" method="POST">
             @csrf
             <input type="hidden" name="ingredient" value="{{ $nombre }}">
-            <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 w-full">
+            <button class="bg-emerald-600 text-white px-3 py-1 rounded hover:bg-emerald-700 w-full">
                 Añadir
             </button>
         </form>

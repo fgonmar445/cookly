@@ -42,14 +42,14 @@
 
                 <div class="flex justify-between items-center">
                     <a href="/receta/${f.id_receta_api}"
-                        class="bg-green-600 text-white px-3 py-1 rounded inline-block text-sm"> 
+                        class="bg-emerald-600 text-white px-3 py-1 rounded inline-block text-sm"> 
                         Ver receta
                     </a>
 
                     <button onclick="eliminar(${f.id_favorito})"
                         class="inline-flex items-center justify-center 
-           bg-white border border-green-600 text-green-600 
-           hover:bg-green-50 
+           bg-white border border-emerald-600 text-emerald-600 
+           hover:bg-emerald-50 
            px-3 py-1 rounded text-sm font-semibold transition-colors">
                         Eliminar
                     </button>

@@ -16,7 +16,7 @@
         <aside class="w-64 bg-white shadow-md min-h-screen p-6">
 
             <!-- LOGO -->
-            <h1 class="text-3xl font-bold text-green-600 mb-8">
+            <h1 class="text-3xl font-bold text-emerald-600 mb-8">
                 Cookly
             </h1>
 
@@ -24,39 +24,39 @@
             <nav class="space-y-3">
 
                 <a href="/dashboard"
-                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Dashboard
                 </a>
 
                 <a href="{{ route('ingredientes.index') }}"
-                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Ingredientes principales
                 </a>
 
                 <a href="{{ route('ingredientes.todos') }}"
-                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Todos los ingredientes
                 </a>
 
                 <a href="{{ route('mis.ingredientes') }}"
-                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Mis ingredientes
                 </a>
 
 
 
                 <a href="{{ route('buscar') }}"
-                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Buscar recetas
                 </a>
 
                 <a href="{{ route('buscar.categorias') }}"
-                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Categorías de recetas
                 </a>
 
                 <a href="/favoritos"
-                    class="block px-3 py-2 rounded hover:bg-green-100 text-gray-700 hover:text-green-700">
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Favoritos
                 </a>
 

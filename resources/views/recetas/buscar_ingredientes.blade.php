@@ -4,7 +4,7 @@
 
 <div class="flex justify-end mb-4">
     <a href="{{ route('buscar') }}"
-        class="flex items-center gap-1 text-green-600 hover:text-green-800 border border-green-600 px-3 py-1 rounded">
+        class="flex items-center gap-1 text-emerald-600 hover:text-emerald-800 border border-emerald-600 px-3 py-1 rounded">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -37,7 +37,7 @@
 <div id="tags" class="flex flex-wrap gap-2 mb-4"></div>
 
 <button onclick="buscarPorIngredientes()"
-    class="bg-green-600 text-white px-4 py-2 rounded">
+    class="bg-emerald-600 text-white px-4 py-2 rounded">
     Buscar recetas
 </button>
 
@@ -106,7 +106,7 @@
         ingredientesSeleccionados.forEach(ing => {
             let ingCap = capitalizar(ing);
             cont.innerHTML += `
-                <span class="bg-white border border-green-600 text-green-600 px-2 py-1 rounded flex items-center gap-2">
+                <span class="bg-white border border-emerald-600 text-emerald-600 px-2 py-1 rounded flex items-center gap-2">
                     ${ingCap}
                     <button onclick="removeIngrediente('${ingCap}')" class="font-bold">×</button>
                 </span>
@@ -194,12 +194,12 @@
                     <div class="flex justify-between items-center mt-2">
 
                         <a href="/receta/${r.idMeal}"
-                            class="bg-green-600 text-white px-3 py-1 rounded inline-block text-sm">
+                            class="bg-emerald-600 text-white px-3 py-1 rounded inline-block text-sm">
                             Ver receta
                         </a>
 
                         <button onclick="toggleFavorito('${r.idMeal}', this)"
-                            class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1 rounded text-sm font-semibold transition-colors ">
+                            class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1 rounded text-sm font-semibold transition-colors ">
                             ${esFavorita ? 'Quitar' : 'Añadir'}
                         </button>
                     </div>
@@ -222,11 +222,11 @@
         if (data.success) {
             if (data.isFavorito) {
                 btn.innerHTML = 'Quitar';
-                btn.className = "inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1 rounded text-sm font-semibold transition-colors ";
+                btn.className = "inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1 rounded text-sm font-semibold transition-colors ";
                 if (!favoritos.includes(id)) favoritos.push(id);
             } else {
                 btn.innerHTML = 'Añadir';
-                btn.className = "inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1 rounded text-sm font-semibold transition-colors ";
+                btn.className = "inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1 rounded text-sm font-semibold transition-colors ";
                 let index = favoritos.indexOf(id);
                 if (index > -1) favoritos.splice(index, 1);
             }

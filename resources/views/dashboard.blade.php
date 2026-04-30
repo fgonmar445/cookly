@@ -10,32 +10,32 @@
 <div class="flex gap-2 overflow-x-auto pb-2 mb-8">
 
     <a href="{{ route('buscar.nombre') }}"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Nombre
     </a>
 
     <a href="{{ route('buscar.ingredientes') }}"
-        class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Ingredientes
     </a>
 
     <a href="{{ route('buscar.categorias') }}"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Categoría
     </a>
 
     <a href="{{ route('buscar.areas') }}"
-        class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         País
     </a>
 
     <a href="{{ route('buscar.aleatoria') }}"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Aleatoria
     </a>
 
     <a href="{{ route('buscar.recomendador') }}"
-        class="inline-flex items-center justify-center bg-white border border-green-600 text-green-600 hover:bg-green-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Recomendador
     </a>
 
@@ -61,7 +61,7 @@
 <div class="bg-white shadow rounded-lg p-4 mb-10">
     <p class="font-semibold mb-2">Nombre de la receta</p>
     <a href="{{ route('buscar.aleatoria') }}"
-        class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold">
+        class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold">
         Ver receta
     </a>
 </div>

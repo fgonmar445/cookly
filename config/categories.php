@@ -7,9 +7,6 @@
             'beef',
             'pork',
             'lamb',
-            'bacon',
-            'ham',
-            'minced beef',
             'chicken breast',
             'chicken thighs',
         ],
@@ -18,10 +15,6 @@
             'salmon',
             'tuna',
             'shrimp',
-            'prawns',
-            'mussels',
-            'anchovies',
-            'cod',
         ],
 
         'Vegetales' => [
@@ -67,6 +60,7 @@
             'rice',
             'noodles',
             'spaghetti',
+            'cheese',
             'couscous',
             'bread',
             'flour',
