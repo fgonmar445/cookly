@@ -25,6 +25,11 @@
 
 <div id="resultado"></div>
 
+{{-- PLANTILLA PARA JS --}}
+<template id="tarjeta-template">
+    @include('components.tarjeta-receta', ['r' => null])
+</template>
+
 <script>
     const favoritos = @json($favoritos);
 
@@ -37,26 +42,15 @@
         let r = data.meals[0];
         let esFavorita = favoritos.includes(r.idMeal);
 
-        // Pintar el card
-        document.getElementById('resultado').innerHTML = `
-        <div class="bg-white p-4 rounded shadow max-w-sm">
-            <img src="${r.strMealThumb}" class="rounded mb-2 w-full h-64 object-cover">
-            <h2 class="text-xl font-bold mb-2">${r.strMeal}</h2>
+        // Pintar el card usando la plantilla
+        let template = document.getElementById('tarjeta-template').innerHTML;
+        let html = template
+            .replace(/STR_MEAL_THUMB/g, r.strMealThumb)
+            .replace(/STR_MEAL/g, r.strMeal)
+            .replace(/ID_MEAL/g, r.idMeal)
+            .replace('Añadir', esFavorita ? 'Quitar' : 'Añadir');
 
-            <div class="flex justify-between items-center mt-2">
-
-                <a href="/receta/${r.idMeal}"
-                    class="bg-emerald-600 text-white px-3 py-1 rounded inline-block text-sm">
-                    Ver receta
-                </a>
-
-                <button onclick="toggleFavorito('${r.idMeal}', this)"
-                    class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1 rounded text-sm font-semibold transition-colors ">
-                    ${esFavorita ? 'Quitar' : 'Añadir'}
-                </button>
-            </div>
-        </div>
-    `;
+        document.getElementById('resultado').innerHTML = html;
     }
 
     async function toggleFavorito(id, btn) {

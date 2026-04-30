@@ -6,6 +6,11 @@
 
 <div id="lista" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
 
+{{-- PLANTILLA PARA JS --}}
+<template id="tarjeta-template">
+    @include('components.tarjeta-receta', ['r' => null])
+</template>
+
 {{-- MENSAJE SI NO HAY FAVORITOS --}}
 <p id="vacio" class="text-gray-500 text-center mt-10 hidden">
     No tienes recetas en favoritos todavía.
@@ -15,10 +20,11 @@
     async function cargar() {
         let res = await fetch('/favoritos-json');
         let data = await res.json();
-        console.log("DATA:", data); // <-- para verificar
+        console.log("DATA:", data);
 
         let cont = document.getElementById('lista');
         let vacio = document.getElementById('vacio');
+        let template = document.getElementById('tarjeta-template').innerHTML;
 
         cont.innerHTML = '';
 
@@ -30,37 +36,19 @@
         vacio.classList.add('hidden');
 
         data.forEach(f => {
-            cont.innerHTML += `
-            <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-3">
-                <img src="${f.imagen}" class="rounded mb-3">
+            // Mapeamos los datos de la BD a la estructura que espera el componente (estilo API)
+            let html = template
+                .replace(/STR_MEAL_THUMB/g, f.imagen)
+                .replace(/STR_MEAL/g, f.nombre)
+                .replace(/ID_MEAL/g, f.id_receta_api)
+                .replace('Añadir', 'Eliminar'); // En favoritos siempre es para eliminar
 
-                <h3 class="font-bold text-lg mb-1">${f.nombre}</h3>
-            
-                <p class="text-sm text-gray-600 mb-2">
-                    ${f.categoria ?? ''} • ${f.area ?? ''}
-                </p>
-
-                <div class="flex justify-between items-center">
-                    <a href="/receta/${f.id_receta_api}"
-                        class="bg-emerald-600 text-white px-3 py-1 rounded inline-block text-sm"> 
-                        Ver receta
-                    </a>
-
-                    <button onclick="eliminar(${f.id_favorito})"
-                        class="inline-flex items-center justify-center 
-           bg-white border border-emerald-600 text-emerald-600 
-           hover:bg-emerald-50 
-           px-3 py-1 rounded text-sm font-semibold transition-colors">
-                        Eliminar
-                    </button>
-                </div>
-            </div>
-        `;
+            cont.innerHTML += html;
         });
     }
 
-
-    async function eliminar(id) {
+    // Definimos toggleFavorito para que sea compatible con el componente
+    async function toggleFavorito(id, btn) {
         await fetch('/favoritos/toggle/' + id, {
             method: 'POST',
             headers: {
@@ -70,7 +58,7 @@
             }
         });
 
-
+        // Recargar la lista para que desaparezca la tarjeta eliminada
         cargar();
     }
 

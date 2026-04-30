@@ -79,6 +79,15 @@ $ingredientesEN[] = $ing;
 
 @endif
 
+{{-- PLANTILLA PARA JS --}}
+<template id="tarjeta-template">
+    @include('components.tarjeta-receta', [
+    'r' => [
+    'extraHtml' => 'EXTRA_HTML'
+    ]
+    ])
+</template>
+
 <script>
     const ingredientes = @json($ingredientesEN);
     const favoritos = @json($favoritos);
@@ -115,33 +124,26 @@ $ingredientesEN[] = $ing;
 
         lista.sort((a, b) => b.coincidencias - a.coincidencias);
 
+        let template = document.getElementById('tarjeta-template').innerHTML;
+
         lista.forEach(item => {
             let r = item.datos;
             let esFavorita = favoritos.includes(r.idMeal);
 
-            cont.innerHTML += `
-                <div class="bg-white p-3 rounded shadow">
-                    <img src="${r.strMealThumb}" class="rounded mb-2">
-                    <h3 class="font-bold mb-1">${r.strMeal}</h3>
-
-                    <p class="text-xs text-gray-500 mb-2">
-                        Coincidencias: <strong>${item.coincidencias}</strong>
-                    </p>
-
-                    <div class="flex justify-between items-center mt-2">
-
-                        <a href="/receta/${r.idMeal}"
-                            class="bg-emerald-600 text-white px-3 py-1 rounded inline-block text-sm">
-                            Ver receta
-                        </a>
-
-                        <button onclick="toggleFavorito('${r.idMeal}', this)"
-                            class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1 rounded text-sm font-semibold transition-colors ">
-                            ${esFavorita ? 'Quitar' : 'Añadir'}
-                        </button>
-                    </div>
-                </div>
+            let extraHtml = `
+                <p class="text-xs text-gray-500 mb-2">
+                    Coincidencias: <strong>${item.coincidencias}</strong>
+                </p>
             `;
+
+            let html = template
+                .replace(/STR_MEAL_THUMB/g, r.strMealThumb)
+                .replace(/STR_MEAL/g, r.strMeal)
+                .replace(/ID_MEAL/g, r.idMeal)
+                .replace('EXTRA_HTML', extraHtml)
+                .replace('Añadir', esFavorita ? 'Quitar' : 'Añadir');
+
+            cont.innerHTML += html;
         });
     }
 
