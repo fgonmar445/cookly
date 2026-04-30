@@ -37,9 +37,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // FAVORITOS DEL USUARIO (solo IDs)
         $favoritosUsuario = DB::table('favoritos')
-            ->where('id_usuario', auth()->id())
-            ->pluck('id_receta')
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->where('favoritos.id_usuario', auth()->id())
+            ->pluck('recetas.id_receta')
             ->toArray();
+
 
         // -------------------------
         // 1. RECETAS ALEATORIAS (3 con caché 1 hora)
@@ -69,23 +71,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // -------------------------
         // 2. POPULARES (3 con caché 1 hora)
         // -------------------------
-        $populares = Cache::remember('popular_recipes', 3600, function () use ($favoritosUsuario) {
-
-            $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/filter.php?c=Beef"), true);
-
-            $arr = [];
-
-            foreach (array_slice($data['meals'], 0, 3) as $meal) {
-                $arr[] = [
-                    'idMeal' => $meal['idMeal'],
-                    'strMeal' => $meal['strMeal'],
-                    'strMealThumb' => $meal['strMealThumb'],
-                    'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
+        $populares = DB::table('favoritos')
+            ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+            ->select(
+                'recetas.id_receta',              // ID interno
+                'recetas.id_receta_api as idMeal', // ID API
+                'recetas.nombre as strMeal',
+                'recetas.imagen as strMealThumb',
+                DB::raw('COUNT(favoritos.id_favorito) as total_favs')
+            )
+            ->groupBy('recetas.id_receta', 'recetas.id_receta_api', 'recetas.nombre', 'recetas.imagen')
+            ->orderByDesc('total_favs')
+            ->limit(3)
+            ->get()
+            ->map(function ($r) use ($favoritosUsuario) {
+                return [
+                    'idMeal' => $r->idMeal,
+                    'strMeal' => $r->strMeal,
+                    'strMealThumb' => $r->strMealThumb,
+                    'esFavorita' => in_array($r->id_receta, $favoritosUsuario) // ← AQUÍ LA MAGIA
                 ];
-            }
+            });
 
-            return $arr;
-        });
+
 
         // -------------------------
         // 3. RECOMENDACIONES (caché 10 minutos)
