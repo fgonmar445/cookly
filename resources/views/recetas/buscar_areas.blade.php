@@ -76,30 +76,6 @@
         });
     }
 
-    async function toggleFavorito(id, btn) {
-        let res = await fetch(`/favoritos/toggle/${id}`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
-        let data = await res.json();
-
-        if (data.success) {
-            if (data.isFavorito) {
-                btn.innerHTML = 'Quitar';
-                btn.className = 'inline-flex items-center justify-center px-3 py-1 rounded text-sm border border-emerald-600 bg-white text-emerald-600 hover:bg-emerald-50 transition-colors';
-                if (!favoritos.includes(id)) favoritos.push(id);
-            } else {
-                btn.innerHTML = 'Añadir';
-                btn.className = 'inline-flex items-center justify-center px-3 py-1 rounded text-sm border border-emerald-600 bg-white text-emerald-600 hover:bg-emerald-50 transition-colors';
-                let index = favoritos.indexOf(id);
-                if (index > -1) favoritos.splice(index, 1);
-            }
-        }
-    }
 </script>
 
 @endsection

@@ -39,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritosUsuario = DB::table('favoritos')
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
             ->where('favoritos.id_usuario', auth()->id())
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->toArray();
 
 
@@ -89,7 +89,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'idMeal' => $r->idMeal,
                     'strMeal' => $r->strMeal,
                     'strMealThumb' => $r->strMealThumb,
-                    'esFavorita' => in_array($r->id_receta, $favoritosUsuario) // ← AQUÍ LA MAGIA
+                    'esFavorita' => in_array($r->idMeal, $favoritosUsuario) // ← AQUÍ LA MAGIA
                 ];
             });
 
@@ -341,7 +341,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->filter()
             ->toArray();
 
@@ -364,7 +364,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->filter()
             ->toArray();
 
@@ -376,7 +376,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->filter()
             ->toArray();
 
@@ -388,7 +388,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->filter()
             ->toArray();
 
@@ -400,7 +400,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->filter()
             ->toArray();
 
@@ -412,7 +412,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->filter()
             ->toArray();
 
@@ -424,7 +424,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $favoritos = auth()->user()
             ->favoritos()
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
-            ->pluck('recetas.id_receta')
+            ->pluck('recetas.id_receta_api')
             ->filter()
             ->toArray();
 

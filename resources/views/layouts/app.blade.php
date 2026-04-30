@@ -6,6 +6,44 @@
     <title>Cookly</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        async function toggleFavorito(id, btn) {
+            try {
+                let res = await fetch(`/favoritos/toggle/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                let data = await res.json();
+
+                if (data.success) {
+                    if (data.isFavorito) {
+                        btn.innerHTML = 'Quitar';
+                        // Actualizamos la clase si fuera necesario, aunque aquí son iguales
+                        if (typeof favoritos !== 'undefined' && Array.isArray(favoritos)) {
+                            if (!favoritos.includes(id)) favoritos.push(id);
+                        }
+                    } else {
+                        btn.innerHTML = 'Añadir';
+                        if (typeof favoritos !== 'undefined' && Array.isArray(favoritos)) {
+                            let index = favoritos.indexOf(id);
+                            if (index > -1) favoritos.splice(index, 1);
+                        }
+                    }
+                    
+                    // Si estamos en la página de favoritos, recargamos
+                    if (window.location.pathname === '/favoritos') {
+                        if (typeof cargar === 'function') cargar();
+                    }
+                }
+            } catch (error) {
+                console.error("Error toggling favorito:", error);
+            }
+        }
+    </script>
 </head>
 
 <body class="bg-gray-100 min-h-screen">

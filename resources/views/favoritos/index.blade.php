@@ -47,20 +47,6 @@
         });
     }
 
-    // Definimos toggleFavorito para que sea compatible con el componente
-    async function toggleFavorito(id, btn) {
-        await fetch('/favoritos/toggle/' + id, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
-
-        // Recargar la lista para que desaparezca la tarjeta eliminada
-        cargar();
-    }
 
     cargar();
 </script>
