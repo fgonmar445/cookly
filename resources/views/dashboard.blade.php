@@ -10,7 +10,7 @@
 <div class="flex gap-2 overflow-x-auto pb-2 mb-8">
 
     <a href="{{ route('buscar.nombre') }}"
-        class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Nombre
     </a>
 
@@ -20,7 +20,7 @@
     </a>
 
     <a href="{{ route('buscar.categorias') }}"
-        class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Categoría
     </a>
 
@@ -30,7 +30,7 @@
     </a>
 
     <a href="{{ route('buscar.aleatoria') }}"
-        class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
+        class="inline-flex items-center justify-center bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">
         Aleatoria
     </a>
 
@@ -46,13 +46,17 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
 
     @forelse ($recomendaciones as $rec)
+    @if(isset($rec['strMealThumb']))
     <div class="bg-white shadow rounded-lg p-4 text-center">
         <img src="{{ $rec['strMealThumb'] }}" class="w-full rounded mb-2">
         <p class="font-semibold">{{ $rec['strMeal'] }}</p>
     </div>
+    @endif
     @empty
     <p class="text-gray-500">Añade ingredientes para recibir recomendaciones.</p>
     @endforelse
+
+
 
 </div>
 

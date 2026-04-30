@@ -32,9 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     */
     Route::get('/dashboard', function () {
 
-        dd($misIngredientesES, $misIngredientesEN);
-
-
         // 1. Receta aleatoria
         $randomUrl = "https://www.themealdb.com/api/json/v2/1/random.php";
         $randomData = json_decode(file_get_contents($randomUrl), true);
@@ -53,40 +50,63 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->limit(3)
             ->get();
 
-        // 4. Recomendaciones basadas en ingredientes del usuario
-        $dict = config('ingredients'); // tu archivo
-        $esToEn = $dict['es_to_en'];   // ← ESTE es el diccionario correcto
-
-        // Ingredientes del usuario en español
-        $misIngredientesES = DB::table('lista_ingredientes')
+        // 4. Ingredientes del usuario (YA EN INGLÉS)
+        $misIngredientes = DB::table('lista_ingredientes')
             ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
             ->where('lista_ingredientes.id_usuario', auth()->id())
             ->pluck('ingredientes.nombre')
             ->map(fn($n) => strtolower($n))
             ->toArray();
 
-        // Traducir al inglés usando es_to_en
-        $misIngredientesEN = array_map(function ($ing) use ($esToEn) {
-            return $esToEn[$ing] ?? null;
-        }, $misIngredientesES);
-
-        // Limpiar nulls
-        $misIngredientesEN = array_filter($misIngredientesEN);
-
-        $recomendaciones = [];
-
-        if (!empty($misIngredientesEN)) {
-
-            // Usamos el primer ingrediente traducido
-            $primero = urlencode($misIngredientesEN[array_key_first($misIngredientesEN)]);
-
-            $recUrl = "https://www.themealdb.com/api/json/v2/1/filter.php?i={$primero}";
-            $recData = json_decode(file_get_contents($recUrl), true);
-
-            $recomendaciones = array_slice($recData['meals'] ?? [], 0, 3);
+        // Si no hay ingredientes → no hay recomendaciones
+        if (empty($misIngredientes)) {
+            return view('dashboard', [
+                'random' => $random,
+                'populares' => $populares,
+                'favoritos' => $favoritos,
+                'recomendaciones' => []
+            ]);
         }
 
-        return view('dashboard', compact('random', 'populares', 'favoritos', 'recomendaciones'));
+        // 5. Buscar recetas por cada ingrediente
+        $recetasPorIngrediente = [];
+
+        foreach ($misIngredientes as $ing) {
+            $url = "https://www.themealdb.com/api/json/v2/1/filter.php?i=" . urlencode($ing);
+            $data = json_decode(file_get_contents($url), true);
+
+            if (!empty($data['meals'])) {
+                foreach ($data['meals'] as $meal) {
+                    $id = $meal['idMeal'];
+
+                    // Si no existe, inicializar
+                    if (!isset($recetasPorIngrediente[$id])) {
+                        $recetasPorIngrediente[$id] = [
+                            'data' => $meal,
+                            'match_count' => 0
+                        ];
+                    }
+
+                    // Sumar coincidencia
+                    $recetasPorIngrediente[$id]['match_count']++;
+                }
+            }
+        }
+
+        // 6. Ordenar por número de coincidencias
+        usort($recetasPorIngrediente, function ($a, $b) {
+            return $b['match_count'] <=> $a['match_count'];
+        });
+
+        // 7. Tomar las 3 mejores
+        $recomendaciones = array_slice($recetasPorIngrediente, 0, 3);
+
+        return view('dashboard', [
+            'random' => $random,
+            'populares' => $populares,
+            'favoritos' => $favoritos,
+            'recomendaciones' => $recomendaciones
+        ]);
     })->middleware(['auth'])->name('dashboard');
 
 
