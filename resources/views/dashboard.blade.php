@@ -39,7 +39,7 @@
     <!-- Sections Layout -->
     <div class="space-y-16">
 
-        <!-- Recomendaciones Section -->
+        <!-- Recomendaciones -->
         @if(count($recomendaciones) > 0)
         <div>
             <div class="flex items-center justify-between mb-8">
@@ -54,7 +54,7 @@
         </div>
         @endif
 
-        <!-- Random Recipes -->
+        <!-- Aleatorias -->
         <div>
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl font-bold text-slate-800">Recetas del mundo</h2>
