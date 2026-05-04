@@ -1,100 +1,94 @@
 @extends('layouts.app')
 
+@section('header_title', 'Editar Receta')
+
 @section('content')
-<div class="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow">
-
-    <h2 class="text-3xl font-bold mb-6 text-gray-800">Editar receta</h2>
-
-    <form action="{{ route('recetas.update', $receta->id_receta) }}" method="POST" enctype="multipart/form-data">
+<div class="max-w-4xl mx-auto">
+    <form action="{{ route('recetas.update', $receta->id_receta) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
         @csrf
         @method('PUT')
 
-        <!-- Nombre -->
-        <div class="mb-4">
-            <label class="block text-gray-700 font-semibold mb-1">Nombre</label>
-            <input type="text" name="nombre" value="{{ $receta->nombre }}"
-                class="w-full rounded-lg border border-emerald-500 px-4 py-2 text-gray-700 
-                          focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition">
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <!-- Nombre -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Nombre de la receta</label>
+                    <input type="text" name="nombre" value="{{ $receta->nombre }}" required
+                        class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700 
+                              focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none">
+                </div>
 
-        <!-- Descripción -->
-        <div class="mb-4">
-            <label class="block text-gray-700 font-semibold mb-1">Descripción</label>
-            <textarea name="descripcion" rows="4"
-                class="w-full rounded-lg border border-emerald-500 px-4 py-2 text-gray-700 
-                             focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition">{{ $receta->descripcion }}</textarea>
-        </div>
+                <!-- Categoría -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Categoría</label>
+                    <select name="categoria"
+                        class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700 
+                               focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none appearance-none">
+                        <option value="">Selecciona una categoría</option>
+                        @php
+                        $categorias = ["Entrantes", "Sopas y cremas", "Ensaladas", "Pastas", "Arroces", "Carnes", "Aves", "Pescados", "Mariscos", "Verduras", "Legumbres", "Salsas", "Panes y masas", "Postres", "Bebidas"];
+                        @endphp
+                        @foreach($categorias as $cat)
+                        <option value="{{ $cat }}" {{ $receta->categoria == $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-        <!-- Categoría -->
-        <div class="mb-4">
-            <label class="block text-gray-700 font-semibold mb-1">Categoría</label>
-            <select name="categoria"
-                class="w-full rounded-lg border border-emerald-500 px-4 py-2 text-gray-700 
-                       focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition">
+                <!-- Cocina -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Tipo de Cocina</label>
+                    <select name="area"
+                        class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700 
+                               focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none appearance-none">
+                        <option value="">Selecciona un tipo de cocina</option>
+                        @php
+                        $cocinas = ["Española", "Italiana", "Mexicana", "Japonesa", "China", "India", "Mediterránea", "Americana", "Francesa", "Griega", "Tailandesa", "Coreana", "Árabe", "Turca", "Marroquí"];
+                        @endphp
+                        @foreach($cocinas as $cocina)
+                        <option value="{{ $cocina }}" {{ $receta->area == $cocina ? 'selected' : '' }}>Cocina {{ $cocina }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-                <option value="">Selecciona una categoría</option>
+                <!-- Imagen -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Cambiar fotografía</label>
+                    <div class="relative group">
+                        <input type="file" name="imagen" accept="image/*"
+                            class="w-full rounded-xl border border-dashed border-slate-300 bg-slate-50/50 px-4 py-8 text-slate-500 
+                                  text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/30 transition-all">
+                    </div>
+                    @if($receta->imagen)
+                        <p class="mt-2 text-xs text-slate-400 italic">Dejar vacío para mantener la imagen actual.</p>
+                    @endif
+                </div>
+            </div>
 
-                @php
-                $categorias = [
-                "Entrantes", "Sopas y cremas", "Ensaladas", "Pastas", "Arroces",
-                "Carnes", "Aves", "Pescados", "Mariscos", "Verduras",
-                "Legumbres", "Salsas", "Panes y masas", "Postres", "Bebidas"
-                ];
-                @endphp
-
-                @foreach($categorias as $cat)
-                <option value="{{ $cat }}" {{ $receta->categoria == $cat ? 'selected' : '' }}>
-                    {{ $cat }}
-                </option>
-                @endforeach
-
-            </select>
-        </div>
-
-        <!-- Cocina -->
-        <div class="mb-4">
-            <label class="block text-gray-700 font-semibold mb-1">Cocina</label>
-            <select name="area"
-                class="w-full rounded-lg border border-emerald-500 px-4 py-2 text-gray-700 
-                       focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition">
-
-                <option value="">Selecciona un tipo de cocina</option>
-
-                @php
-                $cocinas = [
-                "Española", "Italiana", "Mexicana", "Japonesa", "China",
-                "India", "Mediterránea", "Americana", "Francesa", "Griega",
-                "Tailandesa", "Coreana", "Árabe", "Turca", "Marroquí"
-                ];
-                @endphp
-
-                @foreach($cocinas as $cocina)
-                <option value="{{ $cocina }}" {{ $receta->area == $cocina ? 'selected' : '' }}>
-                    Cocina {{ strtolower($cocina) }}
-                </option>
-                @endforeach
-
-            </select>
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <!-- Descripción -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Instrucciones y descripción</label>
+                    <textarea name="descripcion" rows="12" required
+                        class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700 
+                                     focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none resize-none"
+                        placeholder="Describe el paso a paso detallado de tu receta...">{{ $receta->descripcion }}</textarea>
+                </div>
+            </div>
         </div>
 
         <!-- Botones -->
-        <div class="flex justify-between mt-6">
-
-            <!-- Guardar (izquierda) -->
-            <button type="submit"
-                class="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition">
-                Guardar cambios
-            </button>
-
-            <!-- Cancelar (derecha) -->
+        <div class="flex items-center justify-end gap-4 pt-8 border-t border-slate-200">
             <a href="{{ route('recetas.mias') }}"
-                class="px-4 py-2 rounded-lg border border-gray-400 text-gray-600 hover:bg-gray-100 transition">
+                class="px-6 py-3 rounded-xl font-semibold text-slate-600 hover:bg-slate-100 transition-all">
                 Cancelar
             </a>
-
+            <button type="submit"
+                class="px-8 py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-200 transition-all">
+                Guardar Cambios
+            </button>
         </div>
-
     </form>
-
 </div>
-@endsection
+@endsection
