@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Http;
 
 class RecetaController extends Controller
 {
+
+
+    public function create()
+    {
+        return view('recetas.create');
+    }
+
     /**
      * Buscar recetas en API externa (TheMealDB)
      */
@@ -27,28 +34,37 @@ class RecetaController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:200',
-            'descripcion' => 'nullable|string',
-            'imagen' => 'nullable|string',
-            'categoria' => 'nullable|string',
-            'area' => 'nullable|string',
-            'tags' => 'nullable|string',
-            'youtube' => 'nullable|string',
+            'categoria' => 'nullable|string|max:200',
+            'ingredientes' => 'required|string',
+            'instrucciones' => 'required|string',
+            'imagen' => 'nullable|image|max:2048',
         ]);
 
+        // Subir imagen si existe
+        $rutaImagen = null;
+
+        if ($request->hasFile('imagen')) {
+            $rutaImagen = $request->file('imagen')->store('recetas', 'public');
+        }
+
+        // Guardar receta
         $receta = Receta::create([
             'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
-            'imagen' => $request->imagen,
+            'descripcion' => $request->instrucciones, // tu BD usa "descripcion"
+            'imagen' => $rutaImagen,
             'categoria' => $request->categoria,
-            'area' => $request->area,
-            'tags' => $request->tags,
-            'youtube' => $request->youtube,
+            'area' => null,
+            'tags' => null,
+            'youtube' => null,
             'origen' => 'usuario',
             'id_usuario' => $request->user()->id,
         ]);
 
-        return response()->json($receta);
+        return redirect()
+            ->route('recetas.show', $receta->id_receta)
+            ->with('success', 'Receta creada correctamente.');
     }
+
 
     /**
      * Guardar receta desde API (cuando el usuario la guarda o favoritos)

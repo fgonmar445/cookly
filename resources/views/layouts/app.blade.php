@@ -33,7 +33,7 @@
                             if (index > -1) favoritos.splice(index, 1);
                         }
                     }
-                    
+
                     // Si estamos en la página de favoritos, recargamos
                     if (window.location.pathname === '/favoritos') {
                         if (typeof cargar === 'function') cargar();
@@ -51,7 +51,7 @@
     <div class="flex">
 
         <!-- SIDEBAR -->
-        <aside class="w-64 bg-white shadow-md min-h-screen p-6">
+        <aside class="w-64 bg-white shadow-md min-h-screen p-6 sticky top-0 h-screen">
 
             <!-- LOGO -->
             <h1 class="text-3xl font-bold text-emerald-600 mb-8">
@@ -88,9 +88,9 @@
                     Buscar recetas
                 </a>
 
-                <a href="{{ route('buscar.categorias') }}"
+                <a href="{{ route('recetas.create') }}"
                     class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
-                    Categorías de recetas
+                    Crear receta
                 </a>
 
                 <a href="/favoritos"
@@ -98,7 +98,29 @@
                     Favoritos
                 </a>
 
+
             </nav>
+
+            <div class="mt-24">
+
+                {{-- PERFIL --}}
+                <a href="{{ route('profile.edit') }}"
+                    class="block bg-white border border-emerald-600 text-emerald-600 
+           px-4 py-2 rounded-lg font-semibold hover:bg-emerald-50 transition mt-6">
+                    Perfil
+                </a>
+
+                {{-- LOGOUT --}}
+                <form method="POST" action="{{ route('logout') }}" class="mt-2">
+                    @csrf
+                    <button type="submit"
+                        class="w-full bg-red-600 text-white px-4 py-2 rounded-lg font-semibold 
+               hover:bg-red-700 transition">
+                        Cerrar sesión
+                    </button>
+                </form>
+            </div>
+
 
         </aside>
 
