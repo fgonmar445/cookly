@@ -61,6 +61,16 @@ class RecetaController extends Controller
         return view('recetas.mis_recetas', compact('recetas'));
     }
 
+    public function recetasUsuarios()
+    {
+        $recetas = Receta::whereNotNull('id_usuario')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12); // o ->take(20)->get(); si no quieres paginación
+
+        return view('recetas.usuarios', compact('recetas'));
+    }
+
+
 
     /**
      * Buscar recetas en API externa (TheMealDB)
