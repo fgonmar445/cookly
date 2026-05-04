@@ -3,18 +3,18 @@
 @section('content')
 <div class="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow">
 
-    <h2 class="text-3xl font-bold mb-6 text-gray-800">Crear receta</h2>
+    <h2 class="text-3xl font-bold mb-6 text-gray-800">Editar receta</h2>
 
-    <form action="{{ route('recetas.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('recetas.update', $receta->id_receta) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <!-- Nombre -->
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold mb-1">Nombre</label>
-            <input type="text" name="nombre"
+            <input type="text" name="nombre" value="{{ $receta->nombre }}"
                 class="w-full rounded-lg border border-emerald-500 px-4 py-2 text-gray-700 
-                          focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition"
-                placeholder="Ej: Pasta carbonara">
+                          focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition">
         </div>
 
         <!-- Descripción -->
@@ -22,8 +22,7 @@
             <label class="block text-gray-700 font-semibold mb-1">Descripción</label>
             <textarea name="descripcion" rows="4"
                 class="w-full rounded-lg border border-emerald-500 px-4 py-2 text-gray-700 
-                             focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition"
-                placeholder="Describe brevemente la receta..."></textarea>
+                             focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition">{{ $receta->descripcion }}</textarea>
         </div>
 
         <!-- Categoría -->
@@ -44,7 +43,9 @@
                 @endphp
 
                 @foreach($categorias as $cat)
-                <option value="{{ $cat }}">{{ $cat }}</option>
+                <option value="{{ $cat }}" {{ $receta->categoria == $cat ? 'selected' : '' }}>
+                    {{ $cat }}
+                </option>
                 @endforeach
 
             </select>
@@ -68,18 +69,12 @@
                 @endphp
 
                 @foreach($cocinas as $cocina)
-                <option value="{{ $cocina }}">Cocina {{ strtolower($cocina) }}</option>
+                <option value="{{ $cocina }}" {{ $receta->area == $cocina ? 'selected' : '' }}>
+                    Cocina {{ strtolower($cocina) }}
+                </option>
                 @endforeach
 
             </select>
-        </div>
-
-        <!-- Imagen -->
-        <div class="mb-4">
-            <label class="block text-gray-700 font-semibold mb-1">Imagen</label>
-            <input type="file" name="imagen"
-                class="w-full rounded-lg border border-emerald-500 px-4 py-2 text-gray-700 
-                          focus:border-emerald-600 focus:ring-emerald-600 shadow-sm transition">
         </div>
 
         <!-- Botones -->
@@ -88,12 +83,12 @@
             <!-- Guardar (izquierda) -->
             <button type="submit"
                 class="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition">
-                Crear receta
+                Guardar cambios
             </button>
 
             <!-- Cancelar (derecha) -->
             <a href="{{ route('recetas.mias') }}"
-                class="px-4 py-2 rounded-lg border border-emerald-600 text-emerald-600 hover:bg-emerald-100 transition">
+                class="px-4 py-2 rounded-lg border border-gray-400 text-gray-600 hover:bg-gray-100 transition">
                 Cancelar
             </a>
 

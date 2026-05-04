@@ -47,7 +47,7 @@
 {{-- INFO EXTRA --}}
 <div class="text-gray-600 mb-6">
     <p><strong>Categoría:</strong> {{ $receta['strCategory'] }}</p>
-    <p><strong>País:</strong> {{ $receta['strArea'] }}</p>
+    <p><strong>Cocina:</strong> {{ $receta['strArea'] }}</p>
 </div>
 
 {{-- INGREDIENTES --}}

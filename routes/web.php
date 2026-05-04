@@ -26,10 +26,23 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-
+    // Crear receta
     Route::get('/recetas/crear', [RecetaController::class, 'create'])->name('recetas.create');
     Route::post('/recetas', [RecetaController::class, 'store'])->name('recetas.store');
+
+    // Mis recetas
+    Route::get('/mis-recetas', [RecetaController::class, 'misRecetas'])->name('recetas.mias');
+
+    // Editar receta
+    Route::get('/recetas/{id}/editar', [RecetaController::class, 'edit'])->name('recetas.edit');
+
+    // Actualizar receta
+    Route::put('/recetas/{id}', [RecetaController::class, 'update'])->name('recetas.update');
+
+    // Borrar receta
+    Route::delete('/recetas/{id}', [RecetaController::class, 'destroy'])->name('recetas.destroy');
 });
+
 
 /*
     |--------------------------------------------------------------------------

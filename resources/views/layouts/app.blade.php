@@ -93,6 +93,11 @@
                     Crear receta
                 </a>
 
+                <a href="{{ route('recetas.mias') }}"
+                    class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
+                    Mis recetas
+                </a>
+
                 <a href="/favoritos"
                     class="block px-3 py-2 rounded hover:bg-emerald-100 text-gray-700 hover:text-emerald-700">
                     Favoritos
@@ -101,7 +106,7 @@
 
             </nav>
 
-            <div class="mt-24">
+            <div class="mt-12">
 
                 {{-- PERFIL --}}
                 <a href="{{ route('profile.edit') }}"

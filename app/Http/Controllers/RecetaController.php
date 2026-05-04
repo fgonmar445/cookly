@@ -15,6 +15,53 @@ class RecetaController extends Controller
         return view('recetas.create');
     }
 
+    public function edit($id)
+    {
+        $receta = Receta::where('id_receta', $id)
+            ->where('id_usuario', auth()->id())
+            ->firstOrFail();
+
+        return view('recetas.editar', compact('receta'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $receta = Receta::where('id_receta', $id)
+            ->where('id_usuario', auth()->id())
+            ->firstOrFail();
+
+        $receta->update([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'categoria' => $request->categoria,
+            'area' => $request->area,
+        ]);
+
+        return redirect()->route('recetas.mias')->with('success', 'Receta actualizada');
+    }
+
+    public function destroy($id)
+    {
+        $receta = Receta::where('id_receta', $id)
+            ->where('id_usuario', auth()->id())
+            ->firstOrFail();
+
+        $receta->delete();
+
+        return redirect()->route('recetas.mias')->with('success', 'Receta eliminada');
+    }
+
+
+    public function misRecetas()
+    {
+        $recetas = Receta::where('id_usuario', auth()->id())
+            ->orderBy('id_receta', 'desc')
+            ->get();
+
+        return view('recetas.mis_recetas', compact('recetas'));
+    }
+
+
     /**
      * Buscar recetas en API externa (TheMealDB)
      */
