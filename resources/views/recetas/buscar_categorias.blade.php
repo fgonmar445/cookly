@@ -2,32 +2,27 @@
 
 @section('content')
 
-<div class="flex justify-end mb-4">
+<div class="flex justify-start mb-8">
     <a href="{{ route('buscar') }}"
-        class="flex items-center gap-1 text-emerald-600 hover:text-emerald-800 border border-emerald-600 px-3 py-1 rounded">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 19l-7-7 7-7" />
-        </svg>
-        Volver
+        class="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 font-bold text-sm transition-all group">
+        <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center group-hover:bg-emerald-50 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </div>
+        Volver al explorador
     </a>
 </div>
 
+<div class="mb-10">
+    <h1 class="text-3xl font-black text-slate-800 mb-2 tracking-tight">Buscar por categoría</h1>
+    <p class="text-slate-500">Explora platos filtrados por tipo de cocina o estilo de alimento.</p>
+</div>
 
-<h1 class="text-2xl font-bold mb-4">Buscar por categoría</h1>
-
-<p class="text-gray-600 mb-4">
-    Selecciona una categoría para ver todas sus recetas.
-</p>
-
-<div class="grid grid-cols-7 gap-2">
-
+<div class="flex flex-wrap gap-2 mb-12">
     @foreach(config('ingredients.categorias') as $key => $value)
     <button onclick="buscarCategoria('{{ $key }}')"
-        class="inline-flex items-center justify-center 
-           px-3 py-1 border border-emerald-600 text-emerald-600 bg-white 
-           rounded text-sm hover:bg-emerald-50 transition-colors w-auto">
+        class="inline-flex items-center px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:border-emerald-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all shadow-sm active:scale-95">
         {{ ucfirst($value) }}
     </button>
     @endforeach

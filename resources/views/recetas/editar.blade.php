@@ -79,13 +79,16 @@
         </div>
 
         <!-- Botones -->
-        <div class="flex items-center justify-end gap-4 pt-8 border-t border-slate-200">
+        <div class="flex items-center justify-end gap-4 pt-8 border-t border-slate-100">
             <a href="{{ route('recetas.mias') }}"
-                class="px-6 py-3 rounded-xl font-semibold text-slate-600 hover:bg-slate-100 transition-all">
+                class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-95">
                 Cancelar
             </a>
             <button type="submit"
-                class="px-8 py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-200 transition-all">
+                class="px-10 py-3 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all active:scale-95 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
                 Guardar Cambios
             </button>
         </div>

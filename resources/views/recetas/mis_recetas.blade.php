@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
-@section('header_title', 'Mis Recetas Personales')
-
 @section('content')
 <div class="max-w-6xl mx-auto">
-    <div class="flex justify-between items-center mb-10">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
         <div>
-            <p class="text-slate-500 text-sm">Gestiona las recetas que has compartido con la comunidad.</p>
+            <h1 class="text-3xl font-black text-slate-800 tracking-tight mb-2">Mis Recetas Personales</h1>
+            <p class="text-slate-500">Gestiona las recetas que has compartido con la comunidad.</p>
         </div>
-        <a href="{{ route('recetas.create') }}" class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-sm">
+        <a href="{{ route('recetas.create') }}" class="inline-flex items-center px-8 py-3.5 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>

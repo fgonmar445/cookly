@@ -86,8 +86,8 @@
 
         box.innerHTML = sugerencias.map(s => {
             let sCap = capitalizar(s);
-            return `<div class="p-2 hover:bg-gray-200 cursor-pointer"
-                  onclick="addIngrediente('${s}')">${sCap}</div>`
+            return `<div class="p-4 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-colors border-b border-slate-50 last:border-0 font-medium"
+                   onclick="addIngrediente('${s}')">${sCap}</div>`
         }).join('');
 
         box.classList.remove('hidden');
@@ -112,7 +112,6 @@
         document.getElementById('sugerencias').classList.add('hidden');
     }
 
-
     function renderTags() {
         let cont = document.getElementById('tags');
         cont.innerHTML = '';
@@ -120,9 +119,13 @@
         ingredientesSeleccionados.forEach(ing => {
             let ingCap = capitalizar(ing);
             cont.innerHTML += `
-            <span class="bg-white border border-emerald-600 text-emerald-600 px-2 py-1 rounded flex items-center gap-2">
+            <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl font-bold text-xs border border-emerald-100 shadow-sm animate-in fade-in zoom-in duration-300">
                 ${ingCap}
-                <button onclick="removeIngrediente('${ing}')" class="font-bold">×</button>
+                <button onclick="removeIngrediente('${ing}')" class="w-5 h-5 flex items-center justify-center hover:bg-emerald-200 rounded-full transition-colors">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </span>
         `;
         });

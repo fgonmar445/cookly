@@ -2,24 +2,22 @@
 
 @section('content')
 
-<div class="flex justify-end mb-4">
+<div class="flex justify-start mb-8">
     <a href="{{ route('buscar') }}"
-        class="flex items-center gap-1 text-emerald-600 hover:text-emerald-800 border border-emerald-600 px-3 py-1 rounded">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 19l-7-7 7-7" />
-        </svg>
-        Volver
+        class="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 font-bold text-sm transition-all group">
+        <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center group-hover:bg-emerald-50 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </div>
+        Volver al explorador
     </a>
 </div>
 
-
-<h1 class="text-2xl font-bold mb-4">Recomendador</h1>
-
-<p class="text-gray-600 mb-4">
-    Te recomendamos recetas basadas en los ingredientes que ya tienes en tu lista.
-</p>
+<div class="mb-10">
+    <h1 class="text-3xl font-black text-slate-800 mb-2 tracking-tight">Recomendador inteligente</h1>
+    <p class="text-slate-500">Analizamos tu despensa para sugerirte las mejores recetas que puedes cocinar ahora mismo.</p>
+</div>
 
 @php
 // 1. Obtener IDs de ingredientes del usuario desde lista_ingredientes
@@ -71,8 +69,11 @@ $ingredientesEN[] = $ing;
 @else
 
 <button onclick="recomendar()"
-    class="bg-emerald-600 text-white px-4 py-2 rounded">
-    Buscar recetas recomendadas
+    class="inline-flex items-center px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95 mb-12">
+    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </svg>
+    Generar Recomendaciones
 </button>
 
 <div id="resultados" class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6"></div>

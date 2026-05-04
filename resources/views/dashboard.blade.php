@@ -44,7 +44,7 @@
         <div>
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl font-bold text-slate-800">Para chuparse los dedos</h2>
-                <a href="{{ route('buscar.recomendador') }}" class="text-emerald-600 font-bold text-sm hover:underline">Ver más sugerencias</a>
+                <a href="{{ route('buscar.recomendador') }}" class="px-4 py-2 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">Ver sugerencias</a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($recomendaciones as $r)
@@ -58,7 +58,7 @@
         <div>
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl font-bold text-slate-800">Recetas del mundo</h2>
-                <a href="{{ route('buscar.aleatoria') }}" class="text-emerald-600 font-bold text-sm hover:underline">¡Otra al azar!</a>
+                <a href="{{ route('buscar.aleatoria') }}" class="px-4 py-2 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">¡Otra al azar!</a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($random as $r)
@@ -85,7 +85,7 @@
         <div>
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl font-bold text-slate-800">Tus favoritos recientes</h2>
-                <a href="{{ route('favoritos.index') }}" class="text-emerald-600 font-bold text-sm hover:underline">Ver todo mi libro</a>
+                <a href="{{ route('favoritos.index') }}" class="px-4 py-2 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">Ver todo mi libro</a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($favoritos as $r)
