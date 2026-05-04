@@ -96,7 +96,7 @@
             <!-- Navigation -->
             <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-8">
 
-                <!-- Section: Ingredientes -->
+                <!-- Ingredientes -->
                 <div>
                     <h3 class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Tu Despensa</h3>
                     <div class="space-y-1">
@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <a href="{{ route('profile.edit') }}" class="flex-1 flex items-center justify-center px-3 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-all">
+                    <a href="{{ route('profile.edit') }}" class="flex-1 flex items-center justify-center px-3 py-2 text-xs font-medium text-grey-700 bg-white border border-emerald-200 rounded-lg hover:bg-emerald-100 hover:border-emerald-400 transition-all">
                         Perfil
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="flex-1">
