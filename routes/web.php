@@ -41,6 +41,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Borrar receta
     Route::delete('/recetas/{id}', [RecetaController::class, 'destroy'])->name('recetas.destroy');
+
+    Route::get('/recetas/usuarios', [RecetaController::class, 'recetasUsuarios'])
+        ->name('recetas.usuarios');
 });
 
 

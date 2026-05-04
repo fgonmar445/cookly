@@ -13,50 +13,54 @@
 
         @foreach($recetas as $receta)
 
-        <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+        <div class="relative bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
 
-            <img src="{{ $receta->imagen ? asset('storage/'.$receta->imagen) : '/img/no-image.png' }}"
-                class="w-full h-40 object-cover">
+            <!-- TARJETA CLICABLE -->
+            <a href="{{ route('recetas.show', $receta->id_receta) }}" class="block">
 
-            <div class="p-4">
-                <h3 class="font-semibold text-lg text-gray-800">{{ $receta->nombre }}</h3>
+                <img src="{{ $receta->imagen ? asset('storage/'.$receta->imagen) : '/img/no-image.png' }}"
+                    class="w-full h-40 object-cover">
 
-                <p class="text-sm text-gray-500 mt-1">
-                    {{ $receta->categoria ?? 'Sin categoría' }} ·
-                    {{ $receta->area ?? 'Sin cocina' }}
-                </p>
+                <div class="p-4 pb-12"> <!-- pb-10 para que los botones no tapen el texto -->
 
-                <!-- Botón Ver receta -->
-                <a href="{{ route('recetas.show', $receta->id_receta) }}"
-                    class="mt-3 inline-block px-3 py-1 rounded-lg bg-emerald-600 text-white 
-                              hover:bg-emerald-700 transition text-sm">
-                    Ver receta
-                </a>
+                    <h3 class="font-semibold text-lg text-gray-800">{{ $receta->nombre }}</h3>
 
-                <!-- Botones Editar / Borrar -->
-                <div class="flex gap-2 mt-4">
-
-                    <!-- Editar -->
-                    <a href="{{ route('recetas.edit', $receta->id_receta) }}"
-                        class="px-3 py-1 rounded-lg border border-emerald-500 text-emerald-600 
-                                  hover:bg-emerald-50 transition text-sm">
-                        Editar
-                    </a>
-
-                    <!-- Borrar -->
-                    <form action="{{ route('recetas.destroy', $receta->id_receta) }}" method="POST"
-                        onsubmit="return confirm('¿Seguro que quieres borrar esta receta?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="px-3 py-1 rounded-lg bg-red-600 text-white hover:bg-red-700 
-                                       transition text-sm">
-                            Borrar
-                        </button>
-                    </form>
+                    <!-- Categoría y Cocina mejoradas -->
+                    <p class="text-sm text-gray-600 mt-2 font-medium">
+                        <span class="text-emerald-600">{{ $receta->categoria ?? 'Sin categoría' }}</span>
+                        ·
+                        <span class="text-gray-700">{{ $receta->area ?? 'Sin cocina' }}</span>
+                    </p>
 
                 </div>
+
+            </a>
+
+            <!-- BOTÓN EDITAR (ESQUINA IZQUIERDA) -->
+            <div class="absolute bottom-3 left-3">
+                <a href="{{ route('recetas.edit', $receta->id_receta) }}"
+                    class="px-3 py-1 rounded-md border border-emerald-500 text-emerald-600 
+                              bg-white/90 backdrop-blur hover:bg-emerald-50 transition text-sm shadow-sm"
+                    onclick="event.stopPropagation()">
+                    Editar
+                </a>
             </div>
+
+            <!-- BOTÓN BORRAR (ESQUINA DERECHA) -->
+            <div class="absolute bottom-3 right-3">
+                <form action="{{ route('recetas.destroy', $receta->id_receta) }}" method="POST"
+                    onsubmit="return confirm('¿Seguro que quieres borrar esta receta?')"
+                    onclick="event.stopPropagation()">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="px-3 py-1 rounded-md bg-red-600 text-white hover:bg-red-700 
+                                   transition text-sm shadow-sm">
+                        Borrar
+                    </button>
+                </form>
+            </div>
+
         </div>
 
         @endforeach
