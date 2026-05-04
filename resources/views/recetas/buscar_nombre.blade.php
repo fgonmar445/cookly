@@ -2,39 +2,41 @@
 
 @section('content')
 
-<div class="flex justify-end mb-4">
+<div class="flex justify-start mb-8">
     <a href="{{ route('buscar') }}"
-        class="flex items-center gap-1 text-emerald-600 hover:text-emerald-800 border border-emerald-600 px-3 py-1 rounded">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 19l-7-7 7-7" />
-        </svg>
-        Volver
+        class="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 font-bold text-sm transition-all group">
+        <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center group-hover:bg-emerald-50 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </div>
+        Volver al explorador
     </a>
 </div>
 
+<div class="mb-10">
+    <h1 class="text-3xl font-black text-slate-800 mb-2 tracking-tight">Buscar por nombre</h1>
+    <p class="text-slate-500">Encuentra tu próxima comida favorita entre miles de recetas internacionales.</p>
+</div>
 
-<h1 class="text-2xl font-bold mb-4">Buscar por nombre</h1>
-
-<p class="text-gray-600 mb-4">
-    Escribe el nombre de una receta o parte del nombre.
-</p>
-
-<div class="flex-1 max-w-sm gap-3 mb-6">
-
-    <form onsubmit="event.preventDefault(); buscarNombre();" class="flex gap-3 mb-6">
-        <input id="search" type="text"
-            class="border p-2 rounded w-full
-           focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-            placeholder=" Ej: Pasta carbonara...">
+<div class="max-w-2xl mb-12">
+    <form onsubmit="event.preventDefault(); buscarNombre();" class="flex gap-3">
+        <div class="relative flex-1">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <input id="search" type="text"
+                class="block w-full pl-11 pr-4 py-4 bg-white border border-slate-100 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all shadow-sm"
+                placeholder="Ej: Pasta carbonara, Tacos, Sushi...">
+        </div>
 
         <button type="submit"
-            class="bg-emerald-500 text-white px-4 py-2 rounded">
-            Buscar
+            class="px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95">
+            Buscar Receta
         </button>
     </form>
-
 </div>
 
 <div id="lista" class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4"></div>

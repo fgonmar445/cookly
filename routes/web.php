@@ -93,13 +93,14 @@ Route::get('/dashboard', function () {
     $populares = DB::table('favoritos')
         ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
         ->select(
-            'recetas.id_receta',              // ID interno
-            'recetas.id_receta_api as idMeal', // ID API
+            'recetas.id_receta',
+            'recetas.id_receta_api as idMeal',
             'recetas.nombre as strMeal',
             'recetas.imagen as strMealThumb',
+            'recetas.id_usuario',
             DB::raw('COUNT(favoritos.id_favorito) as total_favs')
         )
-        ->groupBy('recetas.id_receta', 'recetas.id_receta_api', 'recetas.nombre', 'recetas.imagen')
+        ->groupBy('recetas.id_receta', 'recetas.id_receta_api', 'recetas.nombre', 'recetas.imagen', 'recetas.id_usuario')
         ->orderByDesc('total_favs')
         ->limit(3)
         ->get()
@@ -108,7 +109,9 @@ Route::get('/dashboard', function () {
                 'idMeal' => $r->idMeal,
                 'strMeal' => $r->strMeal,
                 'strMealThumb' => $r->strMealThumb,
-                'esFavorita' => in_array($r->idMeal, $favoritosUsuario) // ← AQUÍ LA MAGIA
+                'esFavorita' => in_array($r->idMeal, $favoritosUsuario),
+                'id_usuario' => $r->id_usuario,
+                'id_receta' => $r->id_receta
             ];
         });
 
@@ -192,6 +195,7 @@ Route::get('/dashboard', function () {
     // -------------------------
     $favoritos = DB::table('favoritos')
         ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
+        ->select('recetas.*')
         ->where('favoritos.id_usuario', auth()->id())
         ->orderBy('favoritos.id_favorito', 'desc')
         ->limit(3)
@@ -199,8 +203,10 @@ Route::get('/dashboard', function () {
         ->map(function ($f) {
             return [
                 'idMeal' => $f->id_receta_api,
+                'id_receta' => $f->id_receta,
                 'strMeal' => $f->nombre,
                 'strMealThumb' => $f->imagen,
+                'id_usuario' => $f->id_usuario,
                 'esFavorita' => true
             ];
         });

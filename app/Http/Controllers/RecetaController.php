@@ -243,7 +243,7 @@ class RecetaController extends Controller
                 ->exists();
         }
 
-        return view('recetas.show', compact('receta', 'isFavorita'));
+        return view('recetas.show', compact('receta', 'isFavorita', 'recetaBD'));
     }
 
 

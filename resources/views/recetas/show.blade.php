@@ -25,6 +25,27 @@
                     </h1>
                 </div>
                 <div class="flex items-center gap-3">
+                    @if($recetaBD && $recetaBD->id_usuario == Auth::id())
+                        <a href="{{ route('recetas.edit', $recetaBD->id_receta) }}" 
+                           class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white hover:bg-white hover:text-slate-900 transition-all px-6 py-3 rounded-2xl font-bold text-sm shadow-xl border border-white/30">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            Editar
+                        </a>
+                        <form action="{{ route('recetas.destroy', $recetaBD->id_receta) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres borrar esta receta?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" 
+                                    class="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-md text-red-200 hover:bg-red-500 hover:text-white transition-all px-6 py-3 rounded-2xl font-bold text-sm shadow-xl border border-red-500/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                Borrar
+                            </button>
+                        </form>
+                    @endif
+
                     <form action="{{ route('favoritos.toggle', $receta['idMeal']) }}" method="POST">
                         @csrf
                         <input type="hidden" name="name" value="{{ $receta['strMeal'] }}">

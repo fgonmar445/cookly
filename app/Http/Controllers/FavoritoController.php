@@ -33,11 +33,13 @@ class FavoritoController extends Controller
 
             $resultado[] = [
                 'id_favorito' => $fav->id_favorito,
+                'id_receta' => $receta->id_receta,
                 'id_receta_api' => $receta->id_receta_api,
                 'nombre' => $receta->nombre,
                 'imagen' => $receta->imagen,
                 'categoria' => $receta->categoria,
                 'area' => $receta->area,
+                'id_usuario' => $receta->id_usuario,
             ];
         }
 

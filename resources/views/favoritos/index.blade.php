@@ -17,11 +17,12 @@
 </p>
 
 <script>
+    const currentUserId = {{ Auth::id() }};
+
     async function cargar() {
         let res = await fetch('/favoritos-json');
         let data = await res.json();
-        console.log("DATA:", data);
-
+        
         let cont = document.getElementById('lista');
         let vacio = document.getElementById('vacio');
         let template = document.getElementById('tarjeta-template').innerHTML;
@@ -37,16 +38,29 @@
 
         data.forEach(f => {
             // Mapeamos los datos de la BD a la estructura que espera el componente (estilo API)
-            let html = template
+            let div = document.createElement('div');
+            div.innerHTML = template
                 .replace(/STR_MEAL_THUMB/g, f.imagen)
                 .replace(/STR_MEAL/g, f.nombre)
                 .replace(/ID_MEAL/g, f.id_receta_api)
-                .replace('Añadir', 'Eliminar'); // En favoritos siempre es para eliminar
+                .replace(/ID_RECETA_VAL/g, f.id_receta)
+                .replace('Añadir', 'Eliminar');
 
-            cont.innerHTML += html;
+            let card = div.firstElementChild;
+            
+            // Si la receta es del usuario, mostrar botones de gestión
+            if (f.id_usuario && f.id_usuario == currentUserId) {
+                let buttons = card.querySelector('.management-buttons');
+                if (buttons) {
+                    buttons.classList.remove('hidden');
+                    buttons.classList.remove('opacity-0');
+                    buttons.classList.add('opacity-100');
+                }
+            }
+
+            cont.appendChild(card);
         });
     }
-
 
     cargar();
 </script>

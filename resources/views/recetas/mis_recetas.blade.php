@@ -30,57 +30,7 @@
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             @foreach($recetas as $receta)
-                <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 overflow-hidden flex flex-col h-full">
-                    <!-- Image Wrapper -->
-                    <div class="relative h-56 overflow-hidden">
-                        <img src="{{ $receta->imagen ? asset('storage/'.$receta->imagen) : '/img/no-image.png' }}"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <a href="{{ route('recetas.show', $receta->id_receta) }}" class="text-white font-semibold text-sm underline underline-offset-4">Ver detalles</a>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-emerald-700 shadow-sm">
-                            {{ $receta->categoria ?? 'General' }}
-                        </div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-600 transition-colors">
-                                {{ $receta->nombre }}
-                            </h3>
-                            <p class="text-slate-500 text-sm line-clamp-2 mb-4">
-                                {{ $receta->descripcion ?? 'Sin descripción disponible.' }}
-                            </p>
-                        </div>
-
-                        <!-- Actions -->
-                        <div class="flex items-center justify-between pt-6 border-t border-slate-50 mt-auto">
-                            <div class="flex items-center gap-2">
-                                <a href="{{ route('recetas.edit', $receta->id_receta) }}"
-                                    class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 transition-all shadow-sm">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </a>
-                                <form action="{{ route('recetas.destroy', $receta->id_receta) }}" method="POST"
-                                    onsubmit="return confirm('¿Seguro que quieres borrar esta receta?')" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-600 hover:bg-red-50 hover:text-red-600 transition-all shadow-sm">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                </form>
-                            </div>
-                            <span class="text-xs font-medium text-slate-400">
-                                {{ $receta->area ?? 'Cocina variada' }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                @include('components.tarjeta-receta', ['r' => $receta])
             @endforeach
         </div>
     @endif
