@@ -262,20 +262,31 @@ class RecetaController extends Controller
                     $receta = $response->json()['meals'][0] ?? null;
                 }
 
-                // FALLBACK: Si lookup falla (TheMealDB suele dar 500 hoy), intentamos buscar por nombre si se pasÃ³ en la URL
-                if (!$receta && $request->has('name')) {
-                    $name = $request->query('name');
-                    $fallbackResponse = Http::get("https://www.themealdb.com/api/json/v2/1/search.php?s=$name");
-                    if ($fallbackResponse->successful()) {
-                        $meals = $fallbackResponse->json()['meals'] ?? [];
-                        foreach ($meals as $m) {
-                            if ($m['idMeal'] == $id) {
-                                $receta = $m;
-                                break;
+                // Traducir ingredientes de la API
+                if ($receta) {
+                    $map = config('ingredients.en_to_es');
+                    for ($i = 1; $i <= 20; $i++) {
+                        if (!empty($receta["strIngredient{$i}"])) {
+                            $enIng = strtolower($receta["strIngredient{$i}"]);
+                            if (isset($map[$enIng])) {
+                                $receta["strIngredient{$i}"] = ucfirst($map[$enIng]);
                             }
                         }
                     }
+                    // También traducir categoría y área si están en el mapa
+                    $catMap = config('ingredients.categorias');
+                    $areaMap = config('ingredients.areas');
+                    if (isset($receta['strCategory'])) {
+                        $enCat = strtolower($receta['strCategory']);
+                        if (isset($catMap[$enCat])) $receta['strCategory'] = ucfirst($catMap[$enCat]);
+                    }
+                    if (isset($receta['strArea'])) {
+                        $enArea = strtolower($receta['strArea']);
+                        if (isset($areaMap[$enArea])) $receta['strArea'] = ucfirst($areaMap[$enArea]);
+                    }
                 }
+
+                // FALLBACK... (rest of the code)
 
                 if (!$receta) {
                     if ($response->failed()) {
