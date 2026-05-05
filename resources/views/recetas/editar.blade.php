@@ -124,15 +124,31 @@
                 <script>
                     function addIngrediente() {
                         const contenedor = document.getElementById('contenedor-ingredientes');
-                        const filas = contenedor.querySelectorAll('.fila-ingrediente');
-                        const nuevaFila = filas[0].cloneNode(true);
-                        
-                        // Limpiar valores
-                        nuevaFila.querySelectorAll('input, select').forEach(el => el.value = '');
-                        
-                        contenedor.appendChild(nuevaFila);
+                        const template = document.getElementById('ingrediente-template');
+                        const clone = template.content.cloneNode(true);
+                        contenedor.appendChild(clone);
                     }
                 </script>
+
+                <!-- Template para JS -->
+                <template id="ingrediente-template">
+                    <div class="flex gap-2 items-center fila-ingrediente animate-fade-in">
+                        <select name="ingredientes_ids[]" required
+                            class="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
+                            <option value="">Selecciona ingrediente</option>
+                            @foreach($ingredientes as $ing)
+                                <option value="{{ $ing->id_ingrediente }}">{{ $ing->nombre }}</option>
+                            @endforeach
+                        </select>
+                        <input type="text" name="cantidades[]" placeholder="Cant." required
+                            class="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
+                        <button type="button" onclick="this.closest('.fila-ingrediente').remove()" class="p-2 text-slate-300 hover:text-rose-500 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </template>
 
                 <!-- Descripción -->
                 <div>
