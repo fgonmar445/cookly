@@ -108,4 +108,24 @@ class AdminController extends Controller
 
         return back()->with('success', 'Receta eliminada correctamente.');
     }
+
+    public function changeRole(Request $request, User $user)
+    {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'No puedes cambiar tu propio rol.');
+        }
+
+        $oldRole = $user->rol;
+        $newRole = $request->input('rol');
+
+        $user->update(['rol' => $newRole]);
+
+        ActivityLog::create([
+            'action' => 'change_role',
+            'description' => "Cambiado rol de {$user->name}: {$oldRole} -> {$newRole}",
+            'admin_id' => auth()->id(),
+        ]);
+
+        return back()->with('success', "Rol de {$user->name} actualizado a {$newRole}.");
+    }
 }

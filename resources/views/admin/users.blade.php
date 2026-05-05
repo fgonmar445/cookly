@@ -63,19 +63,29 @@
                             <p class="text-[10px] text-slate-400">{{ $user->created_at->diffForHumans() }}</p>
                         </td>
                         <td class="px-6 py-4 text-right">
-                            @if($user->id !== auth()->id())
-                            <form action="{{ route('admin.users.delete', $user) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar a este usuario? Esta acción no se puede deshacer.')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors" title="Eliminar Usuario">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </form>
-                            @else
-                            <span class="text-xs text-slate-400 italic">Eres tú</span>
-                            @endif
+                            <div class="flex items-center justify-end gap-3">
+                                @if($user->id !== auth()->id())
+                                <form action="{{ route('admin.users.role', $user) }}" method="POST" class="flex items-center gap-2">
+                                    @csrf
+                                    <select name="rol" onchange="this.form.submit()" class="text-xs bg-slate-50 border-none rounded-lg focus:ring-emerald-500 py-1 pl-2 pr-8 transition-all">
+                                        <option value="user" {{ $user->rol === 'user' ? 'selected' : '' }}>User</option>
+                                        <option value="admin" {{ $user->rol === 'admin' ? 'selected' : '' }}>Admin</option>
+                                    </select>
+                                </form>
+
+                                <form action="{{ route('admin.users.delete', $user) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar a este usuario? Esta acción no se puede deshacer.')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors" title="Eliminar Usuario">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </form>
+                                @else
+                                <span class="text-xs text-slate-400 italic">Eres tú</span>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     @endforeach

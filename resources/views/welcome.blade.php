@@ -33,12 +33,21 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="{{ route('login') }}" class="text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
-                    Iniciar sesión
-                </a>
-                <a href="{{ route('register') }}" class="bg-slate-900 text-white px-6 py-3 font-bold rounded-2xl hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 active:scale-95 text-sm">
-                    Unirse gratis
-                </a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
+                        Panel de Control
+                    </a>
+                    <a href="{{ route('profile.edit') }}" class="bg-emerald-600 text-white px-6 py-3 font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 text-sm">
+                        Mi Perfil
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
+                        Iniciar sesión
+                    </a>
+                    <a href="{{ route('register') }}" class="bg-emerald-600 text-white px-6 py-3 font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 text-sm">
+                        Unirse gratis
+                    </a>
+                @endauth
             </div>
         </header>
 
@@ -57,9 +66,9 @@
             </p>
 
             <div class="mt-12 flex flex-col sm:flex-row justify-center gap-6 w-full">
-                <a href="{{ route('register') }}"
+                <a href="{{ Auth::check() ? route('dashboard') : route('register') }}"
                     class="px-10 py-5 bg-emerald-600 text-white font-black rounded-2xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/30 active:scale-95 text-lg">
-                    Empezar a cocinar
+                    {{ Auth::check() ? 'Ir a mi cocina' : 'Empezar a cocinar' }}
                 </a>
 
                 <a href="#features"

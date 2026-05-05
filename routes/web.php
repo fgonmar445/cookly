@@ -528,6 +528,7 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/usuarios', [AdminController::class, 'users'])->name('users');
+    Route::post('/usuarios/{user}/rol', [AdminController::class, 'changeRole'])->name('users.role');
     Route::delete('/usuarios/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
     
     Route::get('/recetas', [AdminController::class, 'recipes'])->name('recipes');

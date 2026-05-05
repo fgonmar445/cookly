@@ -1,113 +1,115 @@
 <x-guest-layout>
 
     <!-- TÍTULO -->
-    <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold text-emerald-600">
-            Crear cuenta
+    <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold text-slate-800 tracking-tight">
+            Únete a Cookly
         </h2>
-        <p class="text-sm text-gray-500">
-            Regístrate para empezar a usar Cookly
+        <p class="text-slate-500 mt-2 font-medium">
+            Empieza a cocinar de forma inteligente hoy
         </p>
     </div>
 
     <!-- FORMULARIO -->
-    <form method="POST" action="{{ route('register') }}" class="space-y-4">
+    <form method="POST" action="{{ route('register') }}" class="space-y-5">
         @csrf
 
         <!-- NOMBRE -->
-        <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">
-                Nombre
+        <div class="space-y-2">
+            <label for="name" class="block text-sm font-semibold text-slate-700 ml-1">
+                Tu nombre
             </label>
-
-            <input
-                id="name"
-                type="text"
-                name="name"
-                value="{{ old('name') }}"
-                required
-                autofocus
-                class="mt-1 w-full border border-gray-300 rounded-md p-2
-                       focus:border-emerald-500 focus:ring-emerald-500">
-
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                </div>
+                <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    value="{{ old('name') }}"
+                    required
+                    autofocus
+                    placeholder="Ej. Juan Pérez"
+                    class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none text-slate-700 font-medium placeholder:text-slate-300">
+            </div>
             @error('name')
-            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-xs text-rose-500 font-bold ml-1">{{ $message }}</p>
             @enderror
         </div>
 
         <!-- EMAIL -->
-        <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">
-                Email
+        <div class="space-y-2">
+            <label for="email" class="block text-sm font-semibold text-slate-700 ml-1">
+                Correo electrónico
             </label>
-
-            <input
-                id="email"
-                type="email"
-                name="email"
-                value="{{ old('email') }}"
-                required
-                class="mt-1 w-full border border-gray-300 rounded-md p-2
-                       focus:border-emerald-500 focus:ring-emerald-500">
-
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" />
+                    </svg>
+                </div>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    required
+                    placeholder="nombre@email.com"
+                    class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none text-slate-700 font-medium placeholder:text-slate-300">
+            </div>
             @error('email')
-            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <p class="text-xs text-rose-500 font-bold ml-1">{{ $message }}</p>
             @enderror
         </div>
 
         <!-- PASSWORD -->
-        <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">
-                Contraseña
-            </label>
-
-            <input
-                id="password"
-                type="password"
-                name="password"
-                required
-                class="mt-1 w-full border border-gray-300 rounded-md p-2
-                       focus:border-emerald-500 focus:ring-emerald-500">
-
-            @error('password')
-            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-            @enderror
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+                <label for="password" class="block text-sm font-semibold text-slate-700 ml-1">
+                    Contraseña
+                </label>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    required
+                    placeholder="••••••••"
+                    class="w-full px-4 py-3.5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none text-slate-700 font-medium placeholder:text-slate-300">
+            </div>
+            <div class="space-y-2">
+                <label for="password_confirmation" class="block text-sm font-semibold text-slate-700 ml-1">
+                    Confirmar
+                </label>
+                <input
+                    id="password_confirmation"
+                    type="password"
+                    name="password_confirmation"
+                    required
+                    placeholder="••••••••"
+                    class="w-full px-4 py-3.5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none text-slate-700 font-medium placeholder:text-slate-300">
+            </div>
         </div>
+        @error('password')
+            <p class="text-xs text-rose-500 font-bold ml-1">{{ $message }}</p>
+        @enderror
 
-        <!-- CONFIRM PASSWORD -->
-        <div>
-            <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
-                Confirmar contraseña
-            </label>
-
-            <input
-                id="password_confirmation"
-                type="password"
-                name="password_confirmation"
-                required
-                class="mt-1 w-full border border-gray-300 rounded-md p-2
-                       focus:border-emerald-500 focus:ring-emerald-500">
-        </div>
-
-        <!-- BOTONES EN DOS COLUMNAS -->
-        <div class="grid grid-cols-2 gap-3 pt-2">
-
-            <!-- REGISTRARSE -->
+        <!-- ACCIONES -->
+        <div class="flex flex-col gap-4 pt-4">
             <button
                 type="submit"
-                class="bg-emerald-600 text-white font-semibold py-2 rounded-md
-                       hover:bg-emerald-700 transition">
-                Crear cuenta
+                class="w-full bg-emerald-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-200 hover:bg-emerald-700 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+                Crear mi cuenta
             </button>
 
-            <!-- VOLVER A LOGIN -->
-            <a
-                href="{{ route('login') }}"
-                class="border border-emerald-600 text-emerald-600 font-semibold py-2 rounded-md
-                       text-center hover:bg-emerald-50 transition">
-                Iniciar sesión
-            </a>
-
+            <p class="text-center text-sm font-medium text-slate-500">
+                ¿Ya tienes una cuenta? 
+                <a href="{{ route('login') }}" class="text-emerald-600 font-bold hover:text-emerald-700 transition-colors">
+                    Inicia sesión aquí
+                </a>
+            </p>
         </div>
 
     </form>

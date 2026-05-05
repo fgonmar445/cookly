@@ -205,7 +205,7 @@
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <a href="{{ route('profile.edit') }}" class="flex-1 flex items-center justify-center px-3 py-2 text-xs font-medium text-grey-700 bg-white border border-emerald-200 rounded-lg hover:bg-emerald-100 hover:border-emerald-400 transition-all">
+                    <a href="{{ route('profile.edit') }}" class="flex-1 flex items-center justify-center px-3 py-2 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg hover:bg-emerald-100 hover:border-emerald-200 transition-all shadow-sm">
                         Perfil
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="flex-1">
