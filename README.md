@@ -140,4 +140,4 @@ El proyecto sigue los estándares de **Clean Code** de Laravel:
 
 ---
 
-Desarrollado por **Fernando González** para el **TFG de DAW**.
+Desarrollado por **Felipe González** para el **TFG de DAW**.
