@@ -1,4 +1,4 @@
-# 🍳 Cookly — Tu Asistente de Cocina Inteligente
+# Cookly — Tu Asistente de Cocina Inteligente
 
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
