@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <button class="px-8 py-3 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 shadow-lg shadow-slate-900/10 transition-all active:scale-95">
+                <button class="px-8 py-3 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all active:scale-95">
                     Actualizar contraseña
                 </button>
             </form>
