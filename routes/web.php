@@ -4,6 +4,7 @@ use App\Http\Controllers\ListaIngredienteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
@@ -518,5 +519,21 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 | Rutas de autenticación
 |--------------------------------------------------------------------------
 */
+
+/*
+|--------------------------------------------------------------------------
+| Rutas de Administración
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/usuarios', [AdminController::class, 'users'])->name('users');
+    Route::delete('/usuarios/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
+    
+    Route::get('/recetas', [AdminController::class, 'recipes'])->name('recipes');
+    Route::delete('/recetas/{recipe}', [AdminController::class, 'deleteRecipe'])->name('recipes.delete');
+    
+    Route::get('/logs', [AdminController::class, 'logs'])->name('logs');
+});
 
 require __DIR__ . '/auth.php';
