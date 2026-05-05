@@ -30,14 +30,29 @@ class RecetaController extends Controller
             ->where('id_usuario', auth()->id())
             ->firstOrFail();
 
-        $receta->update([
+        $request->validate([
+            'nombre' => 'required|string|max:200',
+            'categoria' => 'nullable|string|max:200',
+            'area' => 'nullable|string|max:200',
+            'descripcion' => 'required|string',
+            'imagen' => 'nullable|image|max:2048',
+        ]);
+
+        $data = [
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'categoria' => $request->categoria,
             'area' => $request->area,
-        ]);
+        ];
 
-        return redirect()->route('recetas.mias')->with('success', 'Receta actualizada');
+        if ($request->hasFile('imagen')) {
+            $rutaImagen = $request->file('imagen')->store('recetas', 'public');
+            $data['imagen'] = "/storage/" . $rutaImagen;
+        }
+
+        $receta->update($data);
+
+        return redirect()->route('recetas.mias')->with('success', 'Receta actualizada correctamente.');
     }
 
     public function destroy($id)
@@ -92,8 +107,8 @@ class RecetaController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:200',
             'categoria' => 'nullable|string|max:200',
-            'ingredientes' => 'required|string',
-            'instrucciones' => 'required|string',
+            'area' => 'nullable|string|max:200',
+            'descripcion' => 'required|string',
             'imagen' => 'nullable|image|max:2048',
         ]);
 
@@ -102,23 +117,25 @@ class RecetaController extends Controller
 
         if ($request->hasFile('imagen')) {
             $rutaImagen = $request->file('imagen')->store('recetas', 'public');
+            // Si usamos almacenamiento público, queremos la URL completa o relativa correcta
+            $rutaImagen = "/storage/" . $rutaImagen;
         }
 
         // Guardar receta
         $receta = Receta::create([
             'nombre' => $request->nombre,
-            'descripcion' => $request->instrucciones, // tu BD usa "descripcion"
+            'descripcion' => $request->descripcion,
             'imagen' => $rutaImagen,
             'categoria' => $request->categoria,
-            'area' => null,
+            'area' => $request->area,
             'tags' => null,
             'youtube' => null,
             'origen' => 'usuario',
-            'id_usuario' => $request->user()->id,
+            'id_usuario' => auth()->id(),
         ]);
 
         return redirect()
-            ->route('recetas.show', $receta->id_receta)
+            ->route('recetas.mias')
             ->with('success', 'Receta creada correctamente.');
     }
 

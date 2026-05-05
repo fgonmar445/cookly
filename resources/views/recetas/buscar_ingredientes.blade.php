@@ -42,7 +42,7 @@
             Buscar Recetas
         </button>
     </form>
-    
+
     <div id="tags" class="flex flex-wrap gap-2 mt-6"></div>
 </div>
 
@@ -205,7 +205,7 @@
             let ingEN = dictES_EN[ing] ?? ing;
 
             // 1) Buscar por ingrediente principal
-            let res = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?i=${ingEN}`);
+            let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingEN}`);
             let data = await res.json();
 
             if (data.meals) {
@@ -227,7 +227,7 @@
             let catResults = [];
 
             for (let c of cats) {
-                let resCat = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?c=${c}`);
+                let resCat = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${c}`);
                 let dataCat = await resCat.json();
                 if (dataCat.meals) catResults.push(...dataCat.meals);
             }
@@ -242,7 +242,7 @@
             let areaResults = [];
 
             for (let a of ars) {
-                let resArea = await fetch(`https://www.themealdb.com/api/json/v2/1/filter.php?a=${a}`);
+                let resArea = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${a}`);
                 let dataArea = await resArea.json();
                 if (dataArea.meals) areaResults.push(...dataArea.meals);
             }
@@ -303,7 +303,6 @@
             cont.innerHTML += html;
         });
     }
-
 </script>
 
 @endsection

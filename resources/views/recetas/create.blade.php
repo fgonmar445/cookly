@@ -7,6 +7,16 @@
     <div class="flex flex-col md:flex-row gap-12">
         <!-- Sidebar within content for context (optional, but let's keep it simple) -->
         <div class="flex-1">
+            @if ($errors->any())
+                <div class="mb-6 p-4 bg-rose-50 border border-rose-100 rounded-2xl text-rose-600 text-sm font-medium">
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('recetas.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                 @csrf
 

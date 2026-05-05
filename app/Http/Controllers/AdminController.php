@@ -37,17 +37,17 @@ class AdminController extends Controller
         if ($request->has('search')) {
             $search = $request->get('search');
             $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                ->orWhere('email', 'like', "%{$search}%");
         }
 
         $users = $query->withCount(['favoritos', 'recetas'])
-                       ->latest()
-                       ->paginate(10);
+            ->latest()
+            ->paginate(10);
 
         // For "cuántas recetas ha creado cada usuario", we need to count recipes where id_usuario = user.id
         // Since Receta model uses 'id_usuario', let's check if there's a relationship in User model.
         // I'll add it if it doesn't exist.
-        
+
         return view('admin.users', compact('users'));
     }
 
@@ -61,8 +61,8 @@ class AdminController extends Controller
         }
 
         $recipes = $query->with('usuario')
-                         ->latest()
-                         ->paginate(10);
+            ->latest()
+            ->paginate(10);
 
         return view('admin.recipes', compact('recipes'));
     }
@@ -98,16 +98,19 @@ class AdminController extends Controller
         $recipeName = $recipe->nombre;
         $creatorName = $recipe->usuario ? $recipe->usuario->name : 'Desconocido';
 
-        $recipe->delete();
-
+        // Guardar log ANTES de borrar
         ActivityLog::create([
             'action' => 'delete_recipe',
             'description' => "Eliminada receta: {$recipeName} (Creada por: {$creatorName})",
             'admin_id' => auth()->id(),
         ]);
 
+        // Ahora sí, eliminar receta
+        $recipe->delete();
+
         return back()->with('success', 'Receta eliminada correctamente.');
     }
+
 
     public function changeRole(Request $request, User $user)
     {

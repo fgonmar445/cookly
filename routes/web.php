@@ -162,7 +162,7 @@ Route::get('/dashboard', function () {
 
         foreach ($ingredientesFiltrados as $ing) {
 
-            $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v2/1/filter.php?i=" . urlencode($ing)), true);
+            $data = json_decode(file_get_contents("https://www.themealdb.com/api/json/v1/1/filter.php?i=" . urlencode($ing)), true);
 
             if (empty($data['meals'])) continue;
 
@@ -530,10 +530,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/usuarios', [AdminController::class, 'users'])->name('users');
     Route::post('/usuarios/{user}/rol', [AdminController::class, 'changeRole'])->name('users.role');
     Route::delete('/usuarios/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
-    
+
     Route::get('/recetas', [AdminController::class, 'recipes'])->name('recipes');
     Route::delete('/recetas/{recipe}', [AdminController::class, 'deleteRecipe'])->name('recipes.delete');
-    
+
     Route::get('/logs', [AdminController::class, 'logs'])->name('logs');
 });
 
