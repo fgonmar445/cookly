@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        body { font-family: 'Outfit', sans-serif; }
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
     </style>
 </head>
 
@@ -34,19 +36,19 @@
 
             <div class="flex items-center gap-4">
                 @auth
-                    <a href="{{ route('dashboard') }}" class="text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
-                        Panel de Control
-                    </a>
-                    <a href="{{ route('profile.edit') }}" class="bg-emerald-600 text-white px-6 py-3 font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 text-sm">
-                        Mi Perfil
-                    </a>
+                <a href="{{ route('dashboard') }}" class="text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
+                    Panel de Control
+                </a>
+                <a href="{{ route('profile.edit') }}" class="bg-emerald-600 text-white px-6 py-3 font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 text-sm">
+                    Mi Perfil
+                </a>
                 @else
-                    <a href="{{ route('login') }}" class="text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
-                        Iniciar sesión
-                    </a>
-                    <a href="{{ route('register') }}" class="bg-emerald-600 text-white px-6 py-3 font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 text-sm">
-                        Unirse gratis
-                    </a>
+                <a href="{{ route('login') }}" class="text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
+                    Iniciar sesión
+                </a>
+                <a href="{{ route('register') }}" class="bg-emerald-600 text-white px-6 py-3 font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 text-sm">
+                    Unirse gratis
+                </a>
                 @endauth
             </div>
         </header>
@@ -54,9 +56,9 @@
         <!-- HERO -->
         <main class="flex-1 flex flex-col items-center justify-center px-6 text-center py-20">
             <span class="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-xs font-black uppercase tracking-widest mb-6 animate-bounce">
-                🚀 Nueva versión 2.0 disponible
+                Nueva versión 2.0 disponible
             </span>
-            
+
             <h2 class="text-5xl md:text-7xl font-black leading-[1.1] text-slate-900 tracking-tight max-w-4xl">
                 Domina tu cocina con lo que <span class="text-emerald-600">ya tienes.</span>
             </h2>

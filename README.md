@@ -9,7 +9,7 @@
 
 ---
 
-## 🚀 Índice
+## Índice
 
 1. [Características Principales](#-características-principales)
 2. [Vistas de la Aplicación](#-vistas-de-la-aplicación)
@@ -21,7 +21,7 @@
 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
 - **Gestión de Despensa**: Inventario digital de ingredientes con categorización inteligente.
 - **Búsqueda Multimodal**: Localiza recetas por nombre, país, categoría o por los ingredientes que ya posees.
@@ -32,33 +32,41 @@
 
 ---
 
-## 🖼️ Vistas de la Aplicación
+## Vistas de la Aplicación
 
-*(En esta sección puedes incluir capturas de pantalla para cada módulo)*
+_(En esta sección puedes incluir capturas de pantalla para cada módulo)_
 
-### 🏠 Landing Page & Dashboard
+### Landing Page & Dashboard
+
 La puerta de entrada a Cookly, con un diseño hero impactante y un resumen de actividad para el usuario.
+
 > **[CAPTURA: LANDING PAGE]**
 > ![Landing Preview](https://via.placeholder.com/800x400?text=Captura+de+la+Landing+Page)
 
-### 🧺 Despensa y Catálogo
+### Despensa y Catálogo
+
 Gestión visual de ingredientes con búsqueda predictiva y selección rápida.
+
 > **[CAPTURA: MI DESPENSA]**
 > ![Pantry Preview](https://via.placeholder.com/800x400?text=Captura+de+la+Despensa)
 
-### 📖 Buscador de Recetas
+### Buscador de Recetas
+
 Explorador visual con tarjetas detalladas, filtros por región (Cocina Italiana, Japonesa, etc.) y categorías.
+
 > **[CAPTURA: BUSCADOR]**
 > ![Search Preview](https://via.placeholder.com/800x400?text=Captura+del+Buscador)
 
-### 🍴 Detalle de Receta
+### Detalle de Receta
+
 Vista inmersiva con ingredientes traducidos, instrucciones detalladas y video tutorial (YouTube integration).
+
 > **[CAPTURA: DETALLE DE RECETA]**
 > ![Recipe Detail](https://via.placeholder.com/800x400?text=Captura+de+Detalle+de+Receta)
 
 ---
 
-## 🛡️ Panel de Administración
+## Panel de Administración
 
 Cookly incluye un robusto sistema de gestión para administradores:
 
@@ -72,20 +80,20 @@ Cookly incluye un robusto sistema de gestión para administradores:
 
 ---
 
-## 💻 Tecnologías
+## Tecnologías
 
-| Tecnología | Uso |
-| :--- | :--- |
-| **Laravel 12** | Core del Framework & Arquitectura MVC |
-| **Tailwind CSS** | Estilizado premium y diseño responsivo |
-| **MySQL / SQLite** | Persistencia de datos y relaciones complejas |
-| **TheMealDB API** | Fuente de datos externa para recetas globales |
+| Tecnología         | Uso                                           |
+| :----------------- | :-------------------------------------------- |
+| **Laravel 12**     | Core del Framework & Arquitectura MVC         |
+| **Tailwind CSS**   | Estilizado premium y diseño responsivo        |
+| **MySQL / SQLite** | Persistencia de datos y relaciones complejas  |
+| **TheMealDB API**  | Fuente de datos externa para recetas globales |
 | **Alpine.js / JS** | Micro-interacciones y dinamismo en el cliente |
-| **Blade** | Motor de plantillas servidor |
+| **Blade**          | Motor de plantillas servidor                  |
 
 ---
 
-## ⚙️ Instalación
+## Instalación
 
 ```bash
 # 1. Obtener el código
@@ -110,24 +118,26 @@ php artisan serve
 
 ---
 
-## 🔐 Cuentas de Prueba
+## Cuentas de Prueba
 
 Para facilitar la evaluación del proyecto, se han pre-configurado los siguientes perfiles:
 
-| Perfil | Email | Password |
-| :--- | :--- | :--- |
-| **Administrador** | `admin@cookly.com` | `admin123` |
-| **Usuario Estándar** | `user@cookly.com` | `user123` |
+| Perfil               | Email              | Password   |
+| :------------------- | :----------------- | :--------- |
+| **Administrador**    | `admin@cookly.com` | `admin123` |
+| **Usuario Estándar** | `user@cookly.com`  | `user123`  |
 
 ---
 
-## 📐 Arquitectura
+## Arquitectura
 
 El proyecto sigue los estándares de **Clean Code** de Laravel:
+
 - **Modelos Eloquent** con relaciones complejas (M:N para ingredientes/recetas).
 - **Middleware Personalizado** para la seguridad del panel administrativo.
 - **Caché Layer** para optimizar las peticiones a la API externa.
 - **Controladores Focused** para una lógica de negocio desacoplada.
 
 ---
-⭐ Desarrollado por **Fernando González** para el **TFG de DAW**.
+
+Desarrollado por **Fernando González** para el **TFG de DAW**.
