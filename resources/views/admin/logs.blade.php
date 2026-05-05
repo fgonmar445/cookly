@@ -26,12 +26,12 @@
                     <tr class="hover:bg-slate-50/50 transition-colors">
                         <td class="px-6 py-4">
                             <span class="px-2 py-1 rounded-lg text-[10px] font-bold uppercase 
-                                {{ $log->action === 'delete_user' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600' }}">
-                                {{ str_replace('_', ' ', $log->action) }}
+                                {{ $log->accion === 'delete_user' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600' }}">
+                                {{ str_replace('_', ' ', $log->accion) }}
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            <p class="text-sm text-slate-700 font-medium">{{ $log->description }}</p>
+                            <p class="text-sm text-slate-700 font-medium">{{ $log->descripcion }}</p>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-2">
@@ -42,8 +42,8 @@
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <p class="text-xs text-slate-500">{{ $log->created_at->format('d/m/Y H:i') }}</p>
-                            <p class="text-[10px] text-slate-400">{{ $log->created_at->diffForHumans() }}</p>
+                            <p class="text-xs text-slate-500">{{ $log->fecha_creacion->format('d/m/Y H:i') }}</p>
+                            <p class="text-[10px] text-slate-400">{{ $log->fecha_creacion->diffForHumans() }}</p>
                         </td>
                     </tr>
                     @empty

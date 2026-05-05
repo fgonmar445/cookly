@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Receta;
-use App\Models\ActivityLog;
+use App\Models\Actividad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,7 +69,7 @@ class AdminController extends Controller
 
     public function logs()
     {
-        $logs = ActivityLog::with('admin')->latest()->paginate(20);
+        $logs = Actividad::with('admin')->latest('fecha_creacion')->paginate(20);
         return view('admin.logs', compact('logs'));
     }
 
@@ -84,10 +84,10 @@ class AdminController extends Controller
 
         $user->delete();
 
-        ActivityLog::create([
-            'action' => 'delete_user',
-            'description' => "Eliminado usuario: {$userName} ({$userEmail})",
-            'admin_id' => auth()->id(),
+        Actividad::create([
+            'accion' => 'delete_user',
+            'descripcion' => "Eliminado usuario: {$userName} ({$userEmail})",
+            'id_admin' => auth()->id(),
         ]);
 
         return back()->with('success', 'Usuario eliminado correctamente.');
@@ -99,10 +99,10 @@ class AdminController extends Controller
         $creatorName = $recipe->usuario ? $recipe->usuario->name : 'Desconocido';
 
         // Guardar log ANTES de borrar
-        ActivityLog::create([
-            'action' => 'delete_recipe',
-            'description' => "Eliminada receta: {$recipeName} (Creada por: {$creatorName})",
-            'admin_id' => auth()->id(),
+        Actividad::create([
+            'accion' => 'delete_recipe',
+            'descripcion' => "Eliminada receta: {$recipeName} (Creada por: {$creatorName})",
+            'id_admin' => auth()->id(),
         ]);
 
         // Ahora sí, eliminar receta
@@ -123,10 +123,10 @@ class AdminController extends Controller
 
         $user->update(['rol' => $newRole]);
 
-        ActivityLog::create([
-            'action' => 'change_role',
-            'description' => "Cambiado rol de {$user->name}: {$oldRole} -> {$newRole}",
-            'admin_id' => auth()->id(),
+        Actividad::create([
+            'accion' => 'change_role',
+            'descripcion' => "Cambiado rol de {$user->name}: {$oldRole} -> {$newRole}",
+            'id_admin' => auth()->id(),
         ]);
 
         return back()->with('success', "Rol de {$user->name} actualizado a {$newRole}.");
