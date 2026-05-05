@@ -19,15 +19,17 @@
     <p class="text-slate-500 text-sm">¿No sabes qué cocinar? Deja que el azar decida tu próxima gran cena.</p>
 </div>
 
-<button onclick="cargarAleatoria()"
-    class="inline-flex items-center px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95 mb-12">
-    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-    </svg>
-    ¡Sorpréndeme con algo nuevo!
-</button>
+<div class="flex flex-col items-start">
+    <button onclick="cargarAleatoria()"
+        class="inline-flex items-center px-10 py-5 bg-emerald-600 text-white font-black rounded-3xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 mb-12">
+        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        ¡Sorpréndeme con algo nuevo!
+    </button>
 
-<div id="resultado"></div>
+    <div id="resultado" class="w-full max-w-md animate-fade-in"></div>
+</div>
 
 {{-- PLANTILLA PARA JS --}}
 <template id="tarjeta-template">

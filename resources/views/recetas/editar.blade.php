@@ -67,10 +67,77 @@
 
             <!-- Right Column -->
             <div class="space-y-6">
+                <!-- Ingredientes -->
+                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <label class="text-sm font-bold text-slate-700">Ingredientes necesarios</label>
+                        <button type="button" onclick="addIngrediente()" 
+                            class="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Añadir otro
+                        </button>
+                    </div>
+                    
+                    <div id="contenedor-ingredientes" class="space-y-3">
+                        @forelse($receta->ingredientes as $ingRel)
+                        <div class="flex gap-2 items-center fila-ingrediente animate-fade-in">
+                            <select name="ingredientes_ids[]" required
+                                class="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
+                                <option value="">Selecciona ingrediente</option>
+                                @foreach($ingredientes as $ing)
+                                    <option value="{{ $ing->id_ingrediente }}" {{ $ingRel->id_ingrediente == $ing->id_ingrediente ? 'selected' : '' }}>
+                                        {{ $ing->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="cantidades[]" value="{{ $ingRel->pivot->cantidad }}" placeholder="Cant." required
+                                class="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
+                            <button type="button" onclick="this.closest('.fila-ingrediente').remove()" class="p-2 text-slate-300 hover:text-rose-500 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                        @empty
+                        <div class="flex gap-2 items-center fila-ingrediente animate-fade-in">
+                            <select name="ingredientes_ids[]" required
+                                class="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
+                                <option value="">Selecciona ingrediente</option>
+                                @foreach($ingredientes as $ing)
+                                    <option value="{{ $ing->id_ingrediente }}">{{ $ing->nombre }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="cantidades[]" placeholder="Cant." required
+                                class="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
+                            <button type="button" onclick="this.closest('.fila-ingrediente').remove()" class="p-2 text-slate-300 hover:text-rose-500 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                        @endforelse
+                    </div>
+                </div>
+
+                <script>
+                    function addIngrediente() {
+                        const contenedor = document.getElementById('contenedor-ingredientes');
+                        const filas = contenedor.querySelectorAll('.fila-ingrediente');
+                        const nuevaFila = filas[0].cloneNode(true);
+                        
+                        // Limpiar valores
+                        nuevaFila.querySelectorAll('input, select').forEach(el => el.value = '');
+                        
+                        contenedor.appendChild(nuevaFila);
+                    }
+                </script>
+
                 <!-- Descripción -->
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Instrucciones y descripción</label>
-                    <textarea name="descripcion" rows="12" required
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Instrucciones detalladas</label>
+                    <textarea name="descripcion" rows="8" required
                         class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700 
                                      focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none resize-none"
                         placeholder="Describe el paso a paso detallado de tu receta...">{{ $receta->descripcion }}</textarea>

@@ -12,7 +12,8 @@ class RecetaController extends Controller
 
     public function create()
     {
-        return view('recetas.create');
+        $ingredientes = \App\Models\Ingrediente::orderBy('nombre')->get();
+        return view('recetas.create', compact('ingredientes'));
     }
 
     public function edit($id)
@@ -21,7 +22,8 @@ class RecetaController extends Controller
             ->where('id_usuario', auth()->id())
             ->firstOrFail();
 
-        return view('recetas.editar', compact('receta'));
+        $ingredientes = \App\Models\Ingrediente::orderBy('nombre')->get();
+        return view('recetas.editar', compact('receta', 'ingredientes'));
     }
 
     public function update(Request $request, $id)
@@ -51,6 +53,24 @@ class RecetaController extends Controller
         }
 
         $receta->update($data);
+
+        // Actualizar ingredientes
+        if ($request->has('ingredientes_ids')) {
+            $ids = $request->input('ingredientes_ids');
+            $cantidades = $request->input('cantidades');
+            
+            $syncData = [];
+            foreach ($ids as $index => $id_ing) {
+                if (!empty($id_ing)) {
+                    $syncData[$id_ing] = ['cantidad' => $cantidades[$index] ?? ''];
+                }
+            }
+            
+            $receta->ingredientes()->sync($syncData);
+        } else {
+            // Si se envían cero ingredientes (se vació la lista)
+            $receta->ingredientes()->sync([]);
+        }
 
         return redirect()->route('recetas.mias')->with('success', 'Receta actualizada correctamente.');
     }
@@ -134,6 +154,21 @@ class RecetaController extends Controller
             'id_usuario' => auth()->id(),
         ]);
 
+        // Guardar ingredientes
+        if ($request->has('ingredientes_ids')) {
+            $ids = $request->input('ingredientes_ids');
+            $cantidades = $request->input('cantidades');
+            
+            $syncData = [];
+            foreach ($ids as $index => $id_ing) {
+                if (!empty($id_ing)) {
+                    $syncData[$id_ing] = ['cantidad' => $cantidades[$index] ?? ''];
+                }
+            }
+            
+            $receta->ingredientes()->sync($syncData);
+        }
+
         return redirect()
             ->route('recetas.mias')
             ->with('success', 'Receta creada correctamente.');
@@ -207,10 +242,12 @@ class RecetaController extends Controller
                 'strYoutube' => $recetaBD->youtube,
             ];
 
-            // Ingredientes vacíos (tu BD no los guarda individualmente en este modelo)
+            // Ingredientes
+            $localIngredientes = $recetaBD->ingredientes;
             for ($i = 1; $i <= 20; $i++) {
-                $receta["strIngredient{$i}"] = null;
-                $receta["strMeasure{$i}"] = null;
+                $ing = $localIngredientes[$i-1] ?? null;
+                $receta["strIngredient{$i}"] = $ing ? $ing->nombre : null;
+                $receta["strMeasure{$i}"] = $ing ? $ing->pivot->cantidad : null;
             }
         } else {
             // 2. Si no existe en BD, traerla de la API
