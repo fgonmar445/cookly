@@ -13,12 +13,12 @@ class AdminController extends Controller
     public function dashboard()
     {
         $totalUsers = User::count();
-        $totalRecipes = Receta::count();
-        $recipesThisWeek = Receta::where('created_at', '>=', now()->startOfWeek())->count();
+        $totalRecipes = Receta::where('origen', 'usuario')->count();
+        $recipesThisWeek = Receta::where('origen', 'usuario')->where('created_at', '>=', now()->startOfWeek())->count();
         $totalFavorites = DB::table('favoritos')->count();
 
         $latestUsers = User::latest()->take(5)->get();
-        $latestRecipes = Receta::latest()->take(5)->get();
+        $latestRecipes = Receta::where('origen', 'usuario')->latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
             'totalUsers',

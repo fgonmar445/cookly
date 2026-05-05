@@ -2,100 +2,132 @@
 
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)](https://php.net)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**Cookly** es una plataforma moderna diseñada para revolucionar la forma en que cocinas. Utilizando una interfaz premium basada en **Emerald Design**, Cookly te ayuda a gestionar tu despensa, descubrir recetas internacionales y conectar con una comunidad de amantes de la cocina.
+**Cookly** es una plataforma integral diseñada para optimizar la gestión de la cocina doméstica y fomentar la exploración culinaria. Mediante el uso de inteligencia de datos y una interfaz de usuario premium, Cookly permite a los usuarios maximizar el uso de sus ingredientes disponibles, reducir el desperdicio y descubrir nuevas gastronomías de todo el mundo.
+
+---
+
+## 🚀 Índice
+
+1. [Características Principales](#-características-principales)
+2. [Vistas de la Aplicación](#-vistas-de-la-aplicación)
+3. [Panel de Administración](#-panel-de-administración)
+4. [Tecnologías](#-tecnologías)
+5. [Instalación](#-instalación)
+6. [Cuentas de Prueba](#-cuentas-de-prueba)
+7. [Arquitectura](#-arquitectura)
 
 ---
 
 ## ✨ Características Principales
 
-### 👨‍🍳 Para Usuarios
-- **Despensa Inteligente**: Gestiona tus ingredientes en tiempo real y recibe sugerencias basadas en lo que tienes.
-- **Búsqueda Avanzada**: Filtra miles de platos por nombre, ingredientes, categorías o regiones (TheMealDB API).
-- **Comunidad**: Crea, edita y comparte tus propias recetas con otros usuarios.
-- **Favoritos**: Guarda tus platos preferidos en una biblioteca personal.
-- **Recomendador**: Algoritmo inteligente que sugiere qué cocinar hoy para evitar el desperdicio de comida.
-
-### 🛡️ Panel de Administración
-- **Dashboard de Estadísticas**: Visualización de métricas clave (usuarios totales, recetas nuevas, actividad).
-- **Gestión de Usuarios**: Control total sobre cuentas, roles (Admin/User) y seguridad.
-- **Moderación de Contenido**: Supervisión y eliminación de recetas de la comunidad inapropiadas.
-- **Logs de Actividad**: Registro histórico de acciones administrativas para mayor transparencia.
+- **Gestión de Despensa**: Inventario digital de ingredientes con categorización inteligente.
+- **Búsqueda Multimodal**: Localiza recetas por nombre, país, categoría o por los ingredientes que ya posees.
+- **Generador de Recetas**: Algoritmo que cruza tu despensa con la base de datos global para sugerir platos instantáneos.
+- **Comunidad**: Sistema de publicación donde los usuarios pueden compartir sus propias creaciones culinarias.
+- **Favoritos Dinámicos**: Biblioteca personal con guardado rápido y sincronización en tiempo real.
+- **Aesthetic Emerald Design**: Interfaz moderna, limpia y minimalista optimizada para cualquier dispositivo.
 
 ---
 
-## 🚀 Tecnologías
+## 🖼️ Vistas de la Aplicación
 
-| Capa | Tecnología |
-|------|------------|
-| **Backend** | Laravel 12 (PHP 8.2+) |
-| **Frontend** | Blade Templates + Tailwind CSS (Emerald Theme) |
-| **Base de Datos** | MySQL / SQLite |
-| **API Externa** | TheMealDB (Global Recipe Database) |
-| **Iconografía** | Heroicons & Custom SVG |
+*(En esta sección puedes incluir capturas de pantalla para cada módulo)*
 
----
+### 🏠 Landing Page & Dashboard
+La puerta de entrada a Cookly, con un diseño hero impactante y un resumen de actividad para el usuario.
+> **[CAPTURA: LANDING PAGE]**
+> ![Landing Preview](https://via.placeholder.com/800x400?text=Captura+de+la+Landing+Page)
 
-## 🛠️ Instalación y Configuración
+### 🧺 Despensa y Catálogo
+Gestión visual de ingredientes con búsqueda predictiva y selección rápida.
+> **[CAPTURA: MI DESPENSA]**
+> ![Pantry Preview](https://via.placeholder.com/800x400?text=Captura+de+la+Despensa)
 
-Poner en marcha **Cookly** es muy sencillo:
+### 📖 Buscador de Recetas
+Explorador visual con tarjetas detalladas, filtros por región (Cocina Italiana, Japonesa, etc.) y categorías.
+> **[CAPTURA: BUSCADOR]**
+> ![Search Preview](https://via.placeholder.com/800x400?text=Captura+del+Buscador)
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/fgonmar445/cookly.git
-   cd cookly
-   ```
-
-2. **Instalar dependencias**
-   ```bash
-   composer install
-   npm install && npm run build
-   ```
-
-3. **Configurar el entorno**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-4. **Base de Datos y Datos Iniciales**
-   ```bash
-   # Crea tu DB y configura el .env antes de este paso
-   php artisan migrate --seed
-   
-   # Para crear las cuentas de prueba (Admin y User):
-   php artisan db:seed --class=AdminSeeder
-   ```
-
-5. **Iniciar Servidor**
-   ```bash
-   php artisan serve
-   ```
+### 🍴 Detalle de Receta
+Vista inmersiva con ingredientes traducidos, instrucciones detalladas y video tutorial (YouTube integration).
+> **[CAPTURA: DETALLE DE RECETA]**
+> ![Recipe Detail](https://via.placeholder.com/800x400?text=Captura+de+Detalle+de+Receta)
 
 ---
 
-## 🔐 Cuentas de Demostración
+## 🛡️ Panel de Administración
 
-| Rol | Email | Password |
-|------|-------|----------|
+Cookly incluye un robusto sistema de gestión para administradores:
+
+- **Estadísticas en Tiempo Real**: Gráficos y contadores de crecimiento de la plataforma.
+- **Moderación de Usuarios**: Capacidad para asignar roles (Admin/User) y gestionar bajas.
+- **Control de Contenido**: Supervisión de las recetas creadas por la comunidad para garantizar la calidad.
+- **Auditoría (Logs)**: Historial detallado de todas las acciones administrativas realizadas.
+
+> **[CAPTURA: ADMIN DASHBOARD]**
+> ![Admin Preview](https://via.placeholder.com/800x400?text=Captura+del+Panel+Admin)
+
+---
+
+## 💻 Tecnologías
+
+| Tecnología | Uso |
+| :--- | :--- |
+| **Laravel 12** | Core del Framework & Arquitectura MVC |
+| **Tailwind CSS** | Estilizado premium y diseño responsivo |
+| **MySQL / SQLite** | Persistencia de datos y relaciones complejas |
+| **TheMealDB API** | Fuente de datos externa para recetas globales |
+| **Alpine.js / JS** | Micro-interacciones y dinamismo en el cliente |
+| **Blade** | Motor de plantillas servidor |
+
+---
+
+## ⚙️ Instalación
+
+```bash
+# 1. Obtener el código
+git clone https://github.com/fgonmar445/cookly.git
+cd cookly
+
+# 2. Dependencias PHP y JS
+composer install
+npm install && npm run build
+
+# 3. Entorno
+cp .env.example .env
+php artisan key:generate
+
+# 4. Base de Datos (Migraciones y Semillas)
+php artisan migrate --seed
+php artisan db:seed --class=AdminSeeder
+
+# 5. Servidor
+php artisan serve
+```
+
+---
+
+## 🔐 Cuentas de Prueba
+
+Para facilitar la evaluación del proyecto, se han pre-configurado los siguientes perfiles:
+
+| Perfil | Email | Password |
+| :--- | :--- | :--- |
 | **Administrador** | `admin@cookly.com` | `admin123` |
 | **Usuario Estándar** | `user@cookly.com` | `user123` |
 
 ---
 
-## 📸 Interfaz (Aesthetic)
+## 📐 Arquitectura
 
-Cookly utiliza un sistema de diseño basado en **Emerald Green**, con un enfoque en la legibilidad y la elegancia:
-- **Tipografía**: Outfit (Google Fonts)
-- **Componentes**: Tarjetas con bordes `rounded-2xl`, sombras suaves y micro-animaciones.
-- **Accesibilidad**: Diseño 100% responsivo.
-
----
-
-## 📄 Licencia
-
-Este proyecto es de código abierto bajo la licencia [MIT](https://opensource.org/licenses/MIT).
+El proyecto sigue los estándares de **Clean Code** de Laravel:
+- **Modelos Eloquent** con relaciones complejas (M:N para ingredientes/recetas).
+- **Middleware Personalizado** para la seguridad del panel administrativo.
+- **Caché Layer** para optimizar las peticiones a la API externa.
+- **Controladores Focused** para una lógica de negocio desacoplada.
 
 ---
-Desarrollado como proyecto de **TFG / DAW**. 🥂
+⭐ Desarrollado por **Fernando González** para el **TFG de DAW**.
