@@ -165,21 +165,21 @@ El proyecto sigue los estándares de **Clean Code** de Laravel:
 flowchart TD
 
     %% PÁGINA PÚBLICA
-    A[Inicio publica - welcome] --> B[Iniciar sesion - login]
-    A --> C[Registrarse - register]
+    A[Inicio Publico] --> B[Iniciar sesion]
+    A --> C[Registrarse]
 
     %% AUTENTICACIÓN
-    B --> D[Olvide mi contraseña - forgot_password]
-    D --> E[Restablecer contraseña - reset_password]
+    B --> D[Olvide mi contraseña]
+    D --> E[Restablecer contraseña]
     C --> B
-    B --> F[Verificar email - verify_email]
-    F --> G[Confirmar contraseña - confirm_password]
+    B --> F[Verificar email]
+    F --> G[Confirmar contraseña]
 
     %% DASHBOARD
     B --> H[Dashboard]
 
     %% INGREDIENTES
-    H --> I[Ingredientes - index]
+    H --> I[Ingredientes]
     I --> I1[Mis ingredientes]
     I --> I2[Todos los ingredientes]
 
