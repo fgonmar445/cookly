@@ -29,6 +29,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // --- Dashboard ---
     Route::get('/dashboard', function () {
+        if (auth()->user()->rol === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
         // FAVORITOS DEL USUARIO (solo IDs)
         $favoritosUsuario = DB::table('favoritos')
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')

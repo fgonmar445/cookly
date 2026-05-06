@@ -69,7 +69,7 @@
 
             <div class="flex items-center gap-2 md:gap-4">
                 @auth
-                <a href="{{ route('dashboard') }}" class="hidden sm:block text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
+                <a href="{{ Auth::user()->rol === 'admin' ? route('admin.dashboard') : route('dashboard') }}" class="hidden sm:block text-slate-600 font-bold hover:text-emerald-600 transition-colors text-sm">
                     Panel
                 </a>
                 <a href="{{ route('profile.edit') }}" class="bg-emerald-600 text-white px-4 md:px-6 py-2 md:py-3 font-bold rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/20 active:scale-95 text-xs md:text-sm">
@@ -101,7 +101,7 @@
             </p>
 
             <div class="mt-10 md:mt-12 flex flex-col sm:flex-row justify-center gap-4 md:gap-6 w-full max-w-md mx-auto">
-                <a href="{{ Auth::check() ? route('dashboard') : route('register') }}"
+                <a href="{{ Auth::check() ? (Auth::user()->rol === 'admin' ? route('admin.dashboard') : route('dashboard')) : route('register') }}"
                     class="px-8 md:px-10 py-4 md:py-5 bg-emerald-600 text-white font-black rounded-2xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/30 active:scale-95 text-base md:text-lg">
                     {{ Auth::check() ? 'Ir a mi cocina' : 'Empezar ahora' }}
                 </a>
