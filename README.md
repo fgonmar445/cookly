@@ -223,7 +223,3 @@ flowchart TD
 ---
 
 Desarrollado por **Felipe González** para el **TFG de DAW**.
-
-```
-
-```
