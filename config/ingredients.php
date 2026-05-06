@@ -318,7 +318,6 @@ return [
     ],
 
     'cocinas' => [
-        'american' => 'estadounidense',
         'british' => 'británica',
         'canadian' => 'canadiense',
         'chinese' => 'china',
@@ -343,7 +342,6 @@ return [
         'thai' => 'tailandesa',
         'tunisian' => 'tunecina',
         'turkish' => 'turca',
-        'unknown' => 'desconocida',
         'vietnamese' => 'vietnamita',
     ],
 ];

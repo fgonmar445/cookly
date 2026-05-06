@@ -169,11 +169,11 @@ flowchart TD
     A --> C[Registrarse - register]
 
     %% AUTENTICACIÓN
-    B --> D[Olvide mi contraseña - forgot password]
-    D --> E[Restablecer contraseña - reset password]
+    B --> D[Olvide mi contraseña - forgot_password]
+    D --> E[Restablecer contraseña - reset_password]
     C --> B
-    B --> F[Verificar email - verify email]
-    F --> G[Confirmar contraseña - confirm password]
+    B --> F[Verificar email - verify_email]
+    F --> G[Confirmar contraseña - confirm_password]
 
     %% DASHBOARD
     B --> H[Dashboard]
