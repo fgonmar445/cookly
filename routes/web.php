@@ -315,8 +315,9 @@ Route::get('/mis-ingredientes', [ListaIngredienteController::class, 'index'])
     */
 Route::get('/ingredientes/todos', function () {
 
-    $traducciones = config('ingredients.en_to_es');
-    $reverse = config('ingredients_reverse');
+    $traducciones = config('ingredients');
+    $reverse = $traducciones['es_to_en'];   // español → inglés
+
 
     $search = strtolower(trim(request('search')));
     $resultados = [];
@@ -326,7 +327,16 @@ Route::get('/ingredientes/todos', function () {
         ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
         ->where('lista_ingredientes.id_usuario', auth()->id())
         ->pluck('ingredientes.nombre')
-        ->map(fn($n) => strtolower($n))
+        ->map(function ($n) {
+            $n = strtolower(trim($n));
+            $n = str_replace(
+                ['á', 'é', 'í', 'ó', 'ú', 'ñ'],
+                ['a', 'e', 'i', 'o', 'u', 'n'],
+                $n
+            );
+            return $n;
+        })
+
         ->toArray();
 
 

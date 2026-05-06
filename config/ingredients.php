@@ -16,6 +16,8 @@ return [
         'asparagus' => 'esparragos',
         'aubergine' => 'berenjena',
         'bacon' => 'bacon',
+        'chicken liver' => 'higado de pollo',
+        'liver pate' => 'paté de hígado',
         'baking powder' => 'levadura quimica',
         'baking soda' => 'bicarbonato',
         'banana' => 'platano',
@@ -221,8 +223,49 @@ return [
         'cream of tartar' => 'cremor tártaro',
         'croutons' => 'picatostes',
         'cumin seeds' => 'semillas de comino',
-        'currants' => 'grosellas',
         'duck fat' => 'grasa de pato',
+
+        'beef stock' => 'caldo de ternera',
+        'chicken stock' => 'caldo de pollo',
+        'fish' => 'pescado',
+        'crab' => 'cangrejo',
+        'clam' => 'almeja',
+        'scallops' => 'vieiras',
+        'trout' => 'trucha',
+        'haddock' => 'eglefino',
+        'tilapia' => 'tilapia',
+        'smoked salmon' => 'salmon ahumado',
+        'broth' => 'caldo',
+        'penne' => 'macarrones',
+        'lasagna noodles' => 'laminas de lasaña',
+        'risotto rice' => 'arroz para risotto',
+        'barley' => 'cebada',
+
+        'double cream' => 'nata doble',
+        'whipping cream' => 'nata para montar',
+        'condensed milk' => 'leche condensada',
+
+        'green pepper' => 'pimiento verde',
+        'yellow pepper' => 'pimiento amarillo',
+        'parsley root' => 'raíz de perejil',
+        'shallot' => 'chalota',
+
+        'garam masala' => 'garam masala',
+        'five spice' => 'cinco especias',
+        'coriander seeds' => 'semillas de cilantro',
+        'cardamom pods' => 'vainas de cardamomo',
+        'bay leaves' => 'hojas de laurel',
+        'pimenton ahumado' => 'smoked paprika',
+
+        'black-eyed peas' => 'frijoles carita',
+        'split peas' => 'guisantes partidos',
+
+        'raspberry' => 'frambuesa',
+        'blueberry' => 'arándano',
+        'grapefruit' => 'pomelo',
+        'peach' => 'melocotón',
+
+
     ],
 
     'es_to_en' => [
@@ -232,6 +275,7 @@ return [
         'pechuga de pollo' => 'chicken breast',
         'pechugas de pollo' => 'chicken breasts',
         'muslos de pollo' => 'chicken thighs',
+        'cordero' => 'lamb',
         'ternera' => 'beef',
         'carne picada de ternera' => 'minced beef',
         'cerdo' => 'pork',
@@ -245,6 +289,21 @@ return [
         'ostras' => 'oysters',
         'mejillones' => 'mussels',
         'pekín' => 'peking duck',
+        'higado de pollo' => 'chicken liver',
+        'paté de hígado' => 'liver pate',
+        'caldo de ternera' => 'beef stock',
+        'caldo de pollo' => 'chicken stock',
+        'pescado' => 'fish',
+        'cangrejo' => 'crab',
+        'almeja' => 'clam',
+        'vieiras' => 'scallops',
+        'trucha' => 'trout',
+        'eglefino' => 'haddock',
+        'tilapia' => 'tilapia',
+        'salmon ahumado' => 'smoked salmon',
+
+
+
 
         // PASTA, ARROZ Y CEREALES
         'espaguetis' => 'spaghetti',
@@ -256,6 +315,13 @@ return [
         'cuscus' => 'couscous',
         'fideos de arroz' => 'rice noodles',
         'vermicelli de arroz' => 'rice vermicelli',
+
+        'macarrones' => 'penne',
+        'laminas de lasaña' => 'lasagna noodles',
+        'arroz para risotto' => 'risotto rice',
+        'quinoa' => 'quinoa',
+        'cebada' => 'barley',
+
 
         // LÁCTEOS
         'mantequilla' => 'butter',
@@ -271,10 +337,17 @@ return [
         'yogur' => 'yogurt',
         'parmesano' => 'parmesan cheese',
 
+        'nata doble' => 'double cream',
+        'nata para montar' => 'whipping cream',
+        'leche condensada' => 'condensed milk',
+        'suero de leche' => 'buttermilk',
+
+
         // VERDURAS Y HORTALIZAS
         'aguacate' => 'avocado',
         'alcachofa' => 'artichoke',
         'esparragos' => 'asparagus',
+        'espinacas' => 'spinach',
         'berenjena' => 'eggplant',
         'brocoli' => 'broccoli',
         'col' => 'cabbage',
@@ -291,12 +364,27 @@ return [
         'guisantes' => 'peas',
         'tomates cherry' => 'cherry tomatoes',
 
+        'pimiento verde' => 'green pepper',
+        'pimiento rojo' => 'red pepper',
+        'pimiento amarillo' => 'yellow pepper',
+        'col rizada' => 'kale',
+        'raiz de perejil' => 'parsley root',
+        'cebolla tierna' => 'spring onion',
+        'chalota' => 'shallot',
+
+
+
         // LEGUMBRES
         'alubias' => 'beans',
         'alubias negras' => 'black beans',
         'alubias rojas' => 'kidney beans',
         'garbanzos' => 'chickpeas',
         'lentejas' => 'lentils',
+
+        'frijoles carita' => 'black-eyed peas',
+        'guisantes partidos' => 'split peas',
+
+
 
         // FRUTAS
         'platano' => 'banana',
@@ -310,6 +398,14 @@ return [
         'naranja' => 'orange',
         'piña' => 'pineapple',
         'granada' => 'pomegranate',
+
+        'frambuesa' => 'raspberry',
+        'arándano' => 'blueberry',
+        'pomelo' => 'grapefruit',
+        'melocotón' => 'peach',
+
+
+
 
         // HIERBAS Y ESPECIAS
         'albahaca' => 'basil',
@@ -329,7 +425,15 @@ return [
         'perejil' => 'parsley',
         'pimienta negra' => 'black pepper',
         'pimenton' => 'paprika',
-        'pimenton ahumado' => 'smoked paprika',
+
+        'garam masala' => 'garam masala',
+        'cinco especias' => 'five spice',
+        'semillas de cilantro' => 'coriander seeds',
+        'vainas de cardamomo' => 'cardamom pods',
+        'hojas de laurel' => 'bay leaves',
+
+
+
 
         // OTROS
         'vinagre de sidra de manzana' => 'apple cider vinegar',
@@ -379,6 +483,14 @@ return [
         'salsa de tomate' => 'tomato sauce',
         'pasta de ajo' => 'garlic paste',
         'pasta de jengibre' => 'ginger paste',
+
+        'salsa de soja' => 'soy sauce',
+        'salsa worcestershire' => 'worcestershire sauce',
+        'vinagre' => 'vinegar',
+        'gelatina' => 'gelatin',
+        'caldo' => 'broth',
+
+
     ],
 
     'categorias' => [

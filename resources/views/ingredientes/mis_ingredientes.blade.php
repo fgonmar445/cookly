@@ -15,19 +15,31 @@
     @foreach ($misIngredientes as $ing)
 
     @php
-    // Normalizar nombre para generar la URL de TheMealDB
-    $nombreApi = ucfirst(strtolower($ing->nombre));
 
-    // Imagen desde BD o generada
-    $img = $ing->imagen
-    ? $ing->imagen
+    // Nombre original en español
+    $nombreEs = strtolower(trim($ing->nombre));
+
+    // Convertir español → inglés para la API
+    $nombreEn = $traducciones['es_to_en'][$nombreEs] ?? $ing->nombre;
+
+    // Para la URL de TheMealDB (primera letra mayúscula)
+    $nombreApi = ucfirst($nombreEn);
+
+    // Buscar ingrediente global
+    $ingredienteGlobal = DB::table('ingredientes')->where('nombre', $ing->nombre)->first();
+
+    // Imagen: BD → API
+    $img = $ingredienteGlobal && $ingredienteGlobal->imagen
+    ? $ingredienteGlobal->imagen
     : "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
 
-    // Nombre traducido
-    $clave = strtolower(trim($ing->nombre));
-    $traducido = $traducciones['en_to_es'][$clave] ?? ucfirst($ing->nombre);
-    $nombre = ucfirst($traducido);
+    // Nombre mostrado (inglés → español) — ¡AQUÍ ESTABA EL FALLO!
+    $nombre = ucfirst($traducciones['en_to_es'][strtolower($nombreEn)] ?? $ing->nombre);
     @endphp
+
+
+
+
 
     <li class="flex items-center justify-between py-3 border-b last:border-none">
 
