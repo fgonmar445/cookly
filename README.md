@@ -164,59 +164,102 @@ El proyecto sigue los estándares de **Clean Code** de Laravel:
 ```mermaid
 flowchart TD
 
+    %% ============================
     %% PÁGINA PÚBLICA
-    A[Inicio Publico] --> B[Iniciar sesion]
+    %% ============================
+    A[Inicio] --> B[Iniciar sesión]
     A --> C[Registrarse]
 
     %% AUTENTICACIÓN
-    B --> D[Olvide mi contraseña]
+    B --> D[Olvidé mi contraseña]
     D --> E[Restablecer contraseña]
     C --> B
     B --> F[Verificar email]
     F --> G[Confirmar contraseña]
 
-    %% DASHBOARD
+    %% ACCESO AL DASHBOARD
     B --> H[Dashboard]
+
+
+    %% ============================
+    %% ZONA PRIVADA (USUARIO)
+    %% ============================
 
     %% INGREDIENTES
     H --> I[Ingredientes]
-    I --> I1[Mis ingredientes]
-    I --> I2[Todos los ingredientes]
+    I --> I1[Ingredientes principales]
+    I --> I2[Mis ingredientes]
+    I --> I3[Todos los ingredientes]
 
     %% FAVORITOS
     H --> J[Mis favoritos]
 
-    %% RECETAS
+    %% RECETAS EXTERNAS
     H --> K[Recetas externas]
-    K --> K1[Mis recetas]
-    K --> K2[Crear receta]
-    K --> K3[Editar receta]
-    K --> K4[Ver receta]
+    K --> K1[Buscar por nombre]
+    K --> K2[Buscar por ingredientes]
+    K --> K3[Buscar por categorías]
+    K --> K4[Buscar por cocina]
+    K --> K5[Ver receta]
 
-    %% BÚSQUEDAS
-    H --> L[Busquedas de recetas]
-    L --> L1[Buscar por nombre]
-    L --> L2[Buscar por ingredientes]
-    L --> L3[Buscar por categorias]
-    L --> L4[Buscar por cocina]
+    %% MIS RECETAS
+    H --> L[Mis recetas]
+    L --> L1[Crear receta]
+    L --> L2[Editar receta]
+    L --> L3[Eliminar receta]
+
+    %% RECETAS DE LA COMUNIDAD
+    H --> M[Recetas de la comunidad]
+    M --> M1[Explorar recetas]
+    M --> M2[Ver detalle]
 
     %% RECETA ALEATORIA
-    H --> M[Receta aleatoria]
+    H --> N[Receta aleatoria]
+    N --> N1[Ver receta]
 
     %% RECOMENDADOR
-    H --> N[Recomendador]
+    H --> O[Recomendador]
+    O --> O1[Generar recomendaciones]
+    O --> O2[Ver receta]
 
-    %% RECETAS DE USUARIOS (ADMIN)
-    H --> O[Recetas de usuarios]
 
+    %% PERFIL
+    H --> R[Perfil]
+    R --> R1[Editar perfil]
+    R --> R2[Actualizar contraseña]
+    R --> R3[Eliminar cuenta]
+
+
+    %% ============================
     %% ADMINISTRACIÓN
-    H --> P{Es administrador}
+    %% ============================
+
+    H --> P{Es administrador?}
     P -->|Si| Q[Panel admin]
     P -->|No| H
 
-    Q --> Q1[Gestion de usuarios]
-    Q --> Q2[Gestion de recetas]
-    Q --> Q3[Logs del sistema]
+
+    %% DASHBOARD ADMIN (ESTADÍSTICAS)
+    Q --> Q0[Resumen del panel]
+    Q0 --> Q0A[Total usuarios]
+    Q0 --> Q0B[Total recetas]
+    Q0 --> Q0C[Nuevas esta semana]
+    Q0 --> Q0D[Total favoritos]
+
+    %% GESTIÓN DE USUARIOS
+    Q --> Q1[Gestión de usuarios]
+    Q1 --> Q1A[Ver usuarios]
+    Q1 --> Q1B[Editar rol]
+    Q1 --> Q1C[Eliminar]
+
+    %% GESTIÓN DE RECETAS
+    Q --> Q2[Gestión de recetas]
+    Q2 --> Q2A[Ver recetas de usuarios]
+    Q2 --> Q2C[Eliminar]
+
+    %% LOGS
+    Q --> Q4[Logs del sistema]
+
 
 ```
 
