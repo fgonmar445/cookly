@@ -144,7 +144,7 @@ Route::get('/dashboard', function () {
             'rice',
             'pasta',
             'tomato',
-            'onion',
+            'onions',
             'garlic',
             'egg',
             'milk',

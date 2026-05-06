@@ -25,26 +25,35 @@
         @php
         $nombreEn = strtolower($ing['strIngredient']); // inglés
         $nombreEs = $traducciones['en_to_es'][$nombreEn] ?? $nombreEn; // traducido a español
-        
+
         $nombreTrad = ucfirst($nombreEs);
         $nombreApi = ucfirst($nombreEn);
         $img = "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
 
         // Normalizar nombres para la comparación (quitando acentos como en web.php)
         $searchNames = [
-            $nombreEn,
-            str_replace(['á', 'é', 'í', 'ó', 'ú', 'ñ'], ['a', 'e', 'i', 'o', 'u', 'n'], $nombreEn),
-            $nombreEs,
-            str_replace(['á', 'é', 'í', 'ó', 'ú', 'ñ'], ['a', 'e', 'i', 'o', 'u', 'n'], $nombreEs)
+        $nombreEn,
+        str_replace(['á', 'é', 'í', 'ó', 'ú', 'ñ'], ['a', 'e', 'i', 'o', 'u', 'n'], $nombreEn),
+        $nombreEs,
+        str_replace(['á', 'é', 'í', 'ó', 'ú', 'ñ'], ['a', 'e', 'i', 'o', 'u', 'n'], $nombreEs)
         ];
 
         $yaLoTiene = false;
         foreach ($searchNames as $name) {
-            if (in_array(strtolower(trim($name)), $misIngredientes)) {
-                $yaLoTiene = true;
-                break;
-            }
+        if (in_array(strtolower(trim($name)), $misIngredientes)) {
+        $yaLoTiene = true;
+        break;
         }
+        }
+
+        static $vistos = [];
+
+        if (in_array($nombreEs, $vistos)) {
+        continue; // evita duplicados
+        }
+
+        $vistos[] = $nombreEs;
+
         @endphp
 
         <div class="bg-white p-4 rounded-xl shadow hover:shadow-md transition">
