@@ -53,14 +53,14 @@
 
             {{-- Si el ingrediente YA está añadido --}}
             @if ($yaLoTiene)
-            <button class="bg-gray-400 text-white px-3 py-1 rounded w-full cursor-not-allowed">
+            <button class="px-3 py-2 bg-gray-50 text-gray-400 font-bold rounded-xl cursor-not-allowed text-xs border border-gray-100 w-full">
                 Añadido
             </button>
             @else
             <form action="{{ route('ingredientes.add') }}" method="POST">
                 @csrf
                 <input type="hidden" name="ingredient" value="{{ $nombreEs }}">
-                <button class="bg-emerald-600 text-white px-3 py-1 rounded hover:bg-emerald-700 w-full">
+                <button class="px-3 py-2 bg-emerald-50 text-emerald-600 font-bold rounded-xl hover:bg-emerald-600 hover:text-white transition-all text-xs border border-emerald-100 w-full">
                     Añadir
                 </button>
             </form>
