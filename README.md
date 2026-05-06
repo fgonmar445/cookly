@@ -146,6 +146,8 @@ Esto ejecutará el AdminSeeder y creará automáticamente las siguientes cuentas
 - Las contraseñas se encriptan automáticamente con bcrypt.
 - Los roles se asignan correctamente (admin y user).
 
+---
+
 ## Arquitectura
 
 El proyecto sigue los estándares de **Clean Code** de Laravel:
@@ -154,6 +156,69 @@ El proyecto sigue los estándares de **Clean Code** de Laravel:
 - **Middleware Personalizado** para la seguridad del panel administrativo.
 - **Caché Layer** para optimizar las peticiones a la API externa.
 - **Controladores Focused** para una lógica de negocio desacoplada.
+
+---
+
+## Navegación de la Aplicación
+
+```mermaid
+flowchart TD
+
+    %% PÁGINA PÚBLICA
+    A[Inicio publica - welcome] --> B[Iniciar sesion - login]
+    A --> C[Registrarse - register]
+
+    %% AUTENTICACIÓN
+    B --> D[Olvide mi contraseña - forgot password]
+    D --> E[Restablecer contraseña - reset password]
+    C --> B
+    B --> F[Verificar email - verify email]
+    F --> G[Confirmar contraseña - confirm password]
+
+    %% DASHBOARD
+    B --> H[Dashboard]
+
+    %% INGREDIENTES
+    H --> I[Ingredientes - index]
+    I --> I1[Mis ingredientes]
+    I --> I2[Todos los ingredientes]
+
+    %% FAVORITOS
+    H --> J[Mis favoritos]
+
+    %% RECETAS
+    H --> K[Recetas externas]
+    K --> K1[Mis recetas]
+    K --> K2[Crear receta]
+    K --> K3[Editar receta]
+    K --> K4[Ver receta]
+
+    %% BÚSQUEDAS
+    H --> L[Busquedas de recetas]
+    L --> L1[Buscar por nombre]
+    L --> L2[Buscar por ingredientes]
+    L --> L3[Buscar por categorias]
+    L --> L4[Buscar por cocina]
+
+    %% RECETA ALEATORIA
+    H --> M[Receta aleatoria]
+
+    %% RECOMENDADOR
+    H --> N[Recomendador]
+
+    %% RECETAS DE USUARIOS (ADMIN)
+    H --> O[Recetas de usuarios]
+
+    %% ADMINISTRACIÓN
+    H --> P{Es administrador}
+    P -->|Si| Q[Panel admin]
+    P -->|No| H
+
+    Q --> Q1[Gestion de usuarios]
+    Q --> Q2[Gestion de recetas]
+    Q --> Q3[Logs del sistema]
+
+```
 
 ---
 
