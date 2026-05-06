@@ -96,6 +96,7 @@
             <!-- Navigation -->
             <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-8">
 
+            @auth
                 @if(Auth::user()->rol === 'admin')
                 <!-- PANEL ADMIN -->
                 <div>
@@ -190,9 +191,11 @@
                     </div>
                 </div>
                 @endif
+            @endauth
 
             </nav>
 
+            @auth
             <!-- User Profile Section -->
             <div class="p-6 border-t border-slate-100 bg-slate-50/50">
                 <div class="flex items-center gap-3 mb-4">
@@ -216,6 +219,7 @@
                     </form>
                 </div>
             </div>
+            @endauth
         </aside>
 
         <!-- MAIN CONTENT -->
