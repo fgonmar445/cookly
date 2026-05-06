@@ -110,8 +110,6 @@ php artisan key:generate
 
 # 4. Base de Datos (Migraciones y Semillas)
 php artisan migrate --seed
-php artisan db:seed --class=AdminSeeder
-
 # 5. Servidor
 php artisan serve
 ```
@@ -120,14 +118,31 @@ php artisan serve
 
 ## Cuentas de Prueba
 
-Para facilitar la evaluación del proyecto, se han pre-configurado los siguientes perfiles:
+El proyecto incluye un _seeder_ que crea automáticamente las dos cuentas de prueba.  
+Esto permite que cualquier persona pueda iniciar sesión sin necesidad de registrar usuarios manualmente.
+
+### Cómo generar los usuarios
+
+1. Configura la base de datos en tu archivo `.env`.
+2. Ejecuta las migraciones junto con los seeders:
+
+```bash
+php artisan migrate --seed
+```
+
+Esto ejecutará el AdminSeeder y creará automáticamente las siguientes cuentas:
 
 | Perfil               | Email              | Password   |
 | :------------------- | :----------------- | :--------- |
 | **Administrador**    | `admin@cookly.com` | `admin123` |
 | **Usuario Estándar** | `user@cookly.com`  | `user123`  |
 
----
+### ¿Qué hace exactamente el seeder?
+
+- El archivo AdminSeeder.php utiliza updateOrCreate, lo que garantiza que:
+- No se duplican usuarios si se ejecuta varias veces.
+- Las contraseñas se encriptan automáticamente con bcrypt.
+- Los roles se asignan correctamente (admin y user).
 
 ## Arquitectura
 
@@ -141,3 +156,7 @@ El proyecto sigue los estándares de **Clean Code** de Laravel:
 ---
 
 Desarrollado por **Felipe González** para el **TFG de DAW**.
+
+```
+
+```
