@@ -27,7 +27,7 @@
             <a href="{{ route('recetas.create') }}" class="text-emerald-600 font-bold hover:underline">Crear mi primera receta</a>
         </div>
     @else
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             @foreach($recetas as $receta)
                 @include('components.tarjeta-receta', ['r' => $receta])
             @endforeach

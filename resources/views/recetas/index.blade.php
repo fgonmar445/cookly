@@ -8,7 +8,7 @@
     </div>
 
     {{-- GRIDS DE NAVEGACIÓN PROFESIONAL --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 
         {{-- Por Nombre --}}
         <a href="{{ route('buscar.nombre') }}" class="group relative bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-emerald-100 transition-all duration-500 hover:-translate-y-2 overflow-hidden">

@@ -5,14 +5,14 @@
 @section('content')
 <div class="max-w-5xl mx-auto">
     <!-- Hero Section -->
-    <div class="relative rounded-[2.5rem] overflow-hidden mb-12 shadow-2xl shadow-emerald-100">
+    <div class="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mb-8 md:mb-12 shadow-2xl shadow-emerald-100/50">
         <img src="{{ $receta['strMealThumb'] }}"
             alt="Imagen de {{ $receta['strMeal'] }}"
-            class="w-full h-96 object-cover">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end">
-            <div class="p-8 lg:p-12 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
+            class="w-full h-64 md:h-96 object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end">
+            <div class="p-6 md:p-8 lg:p-12 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-3 md:mb-4">
                         <span class="px-3 py-1 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg">
                             {{ $receta['strCategory'] }}
                         </span>
@@ -20,38 +20,40 @@
                             {{ $receta['strArea'] }}
                         </span>
                     </div>
-                    <h1 class="text-4xl lg:text-5xl font-bold text-white tracking-tight">
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
                         {{ $receta['strMeal'] }}
                     </h1>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     @if($recetaBD && $recetaBD->id_usuario == Auth::id())
-                        <a href="{{ route('recetas.edit', $recetaBD->id_receta) }}" 
-                           class="inline-flex items-center gap-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all px-8 py-3 rounded-3xl font-black text-sm shadow-xl shadow-emerald-500/20 group">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
-                            Editar Receta
-                        </a>
-                        <form action="{{ route('recetas.destroy', $recetaBD->id_receta) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres borrar esta receta?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" 
-                                    class="inline-flex items-center gap-2 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all px-8 py-3 rounded-3xl font-black text-sm border border-rose-100 shadow-xl shadow-rose-100/50 group">
-                                <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        <div class="flex gap-2">
+                            <a href="{{ route('recetas.edit', $recetaBD->id_receta) }}" 
+                               class="flex-1 inline-flex items-center justify-center gap-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all px-6 py-3 rounded-2xl font-black text-xs md:text-sm shadow-xl shadow-emerald-500/20 group">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
-                                Borrar
-                            </button>
-                        </form>
+                                Editar
+                            </a>
+                            <form action="{{ route('recetas.destroy', $recetaBD->id_receta) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres borrar esta receta?')" class="flex-1">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        class="w-full inline-flex items-center justify-center gap-2 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all px-6 py-3 rounded-2xl font-black text-xs md:text-sm border border-rose-100 shadow-xl shadow-rose-100/50 group text-center">
+                                    <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                    Borrar
+                                </button>
+                            </form>
+                        </div>
                     @endif
 
-                    <form action="{{ route('favoritos.toggle', $receta['idMeal']) }}" method="POST">
+                    <form action="{{ route('favoritos.toggle', $receta['idMeal']) }}" method="POST" class="w-full sm:w-auto">
                         @csrf
                         <input type="hidden" name="name" value="{{ $receta['strMeal'] }}">
                         <button type="submit"
-                            class="inline-flex items-center gap-2 bg-white text-slate-900 hover:bg-emerald-500 hover:text-white transition-all px-8 py-3 rounded-3xl font-black text-sm shadow-xl group">
-                            <svg class="w-5 h-5 transition-all {{ $isFavorita ? 'fill-emerald-500 text-emerald-500 group-hover:fill-white group-hover:text-white' : 'group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white text-slate-900 hover:bg-emerald-500 hover:text-white transition-all px-6 py-3 rounded-2xl font-black text-xs md:text-sm shadow-xl group">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 transition-all {{ $isFavorita ? 'fill-emerald-500 text-emerald-500 group-hover:fill-white group-hover:text-white' : 'group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                             {{ $isFavorita ? 'En Favoritos' : 'Añadir a Favoritos' }}

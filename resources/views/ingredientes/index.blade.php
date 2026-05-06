@@ -4,18 +4,18 @@
 
 <div class="max-w-4xl mx-auto">
 
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-        <div>
-            <h1 class="text-3xl font-black text-slate-800 tracking-tight mb-2">Ingredientes principales</h1>
-            <p class="text-slate-500">Gestiona los alimentos básicos disponibles para tus recetas.</p>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12">
+        <div class="px-2">
+            <h1 class="text-3xl font-black text-slate-800 tracking-tight mb-2">Ingredientes</h1>
+            <p class="text-slate-500 text-sm md:text-base leading-relaxed">Gestiona los alimentos básicos disponibles para tus recetas.</p>
         </div>
 
         <a href="{{ route('mis.ingredientes') }}"
-            class="inline-flex items-center px-6 py-3 bg-white border border-slate-200 text-slate-700 font-bold rounded-2xl hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-sm group active:scale-95">
+            class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-2xl hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-sm group active:scale-95 text-sm">
             <svg class="w-5 h-5 mr-2 text-slate-400 group-hover:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
-            Mi Despensa Personal
+            Mi Despensa
         </a>
     </div>
 

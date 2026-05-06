@@ -6,13 +6,13 @@
 <div class="max-w-7xl mx-auto">
 
     <!-- Welcome Section -->
-    <div class="mb-12">
-        <h1 class="text-4xl font-bold text-slate-800 mb-2">Hola, {{ Auth::user()->name }}</h1>
-        <p class="text-slate-500">¿Qué te apetece cocinar hoy? Tenemos sugerencias basadas en tus gustos.</p>
+    <div class="mb-8 md:mb-12 px-2">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-2">Hola, {{ Auth::user()->name }}</h1>
+        <p class="text-slate-500 text-sm md:text-base leading-relaxed">¿Qué te apetece cocinar hoy? Tenemos sugerencias basadas en tus gustos.</p>
     </div>
 
     <!-- Quick Navigation Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mb-10 md:mb-16">
         @php
         $nav = [
         ['name' => 'Por Nombre', 'route' => 'buscar.nombre', 'icon' => 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
@@ -25,28 +25,28 @@
         @endphp
 
         @foreach($nav as $item)
-        <a href="{{ route($item['route']) }}" class="flex flex-col items-center justify-center p-6 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-emerald-100 hover:border-emerald-100 transition-all group">
-            <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all mb-3 shadow-inner">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="{{ route($item['route']) }}" class="flex flex-col items-center justify-center p-5 md:p-6 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-emerald-100 hover:border-emerald-100 transition-all group">
+            <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all mb-3 shadow-inner">
+                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $item['icon'] }}" />
                 </svg>
             </div>
-            <span class="text-xs font-bold text-slate-600 group-hover:text-emerald-600 tracking-wide">{{ $item['name'] }}</span>
+            <span class="text-[10px] md:text-xs font-bold text-slate-600 group-hover:text-emerald-600 tracking-wide text-center">{{ $item['name'] }}</span>
         </a>
         @endforeach
     </div>
 
     <!-- Sections Layout -->
-    <div class="space-y-16">
+    <div class="space-y-12 md:space-y-16">
 
         <!-- Recomendaciones -->
         @if(count($recomendaciones) > 0)
         <div>
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-slate-800">Para chuparse los dedos</h2>
-                <a href="{{ route('buscar.recomendador') }}" class="px-4 py-2 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">Ver sugerencias</a>
+            <div class="flex items-center justify-between mb-6 md:mb-8 px-2">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-800">Para ti</h2>
+                <a href="{{ route('buscar.recomendador') }}" class="px-3 py-1.5 md:px-4 md:py-2 bg-emerald-50 text-emerald-700 font-bold text-[10px] md:text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">Ver más</a>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 @foreach ($recomendaciones as $r)
                 @include('components.tarjeta-receta', ['r' => $r])
                 @endforeach
@@ -56,11 +56,11 @@
 
         <!-- Aleatorias -->
         <div>
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-slate-800">Recetas del mundo</h2>
-                <a href="{{ route('buscar.aleatoria') }}" class="px-4 py-2 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">¡Otra al azar!</a>
+            <div class="flex items-center justify-between mb-6 md:mb-8 px-2">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-800">Explorar</h2>
+                <a href="{{ route('buscar.aleatoria') }}" class="px-3 py-1.5 md:px-4 md:py-2 bg-emerald-50 text-emerald-700 font-bold text-[10px] md:text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">¡Al azar!</a>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 @foreach ($random as $r)
                 @include('components.tarjeta-receta', ['r' => $r])
                 @endforeach
@@ -69,11 +69,11 @@
 
         <!-- Populares -->
         <div>
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-slate-800">Tendencia en Cookly</h2>
-                <span class="text-slate-400 text-sm font-medium">Lo más guardado por la comunidad</span>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-8 px-2 gap-2">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-800">Tendencia</h2>
+                <span class="text-slate-400 text-xs md:sm font-medium">Lo más guardado</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 @foreach ($populares as $r)
                 @include('components.tarjeta-receta', ['r' => $r])
                 @endforeach
@@ -83,11 +83,11 @@
         <!-- Favoritos -->
         @if(count($favoritos) > 0)
         <div>
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-slate-800">Tus favoritos recientes</h2>
-                <a href="{{ route('favoritos.index') }}" class="px-4 py-2 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">Ver todo mi libro</a>
+            <div class="flex items-center justify-between mb-6 md:mb-8 px-2">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-800">Tus favoritos</h2>
+                <a href="{{ route('favoritos.index') }}" class="px-3 py-1.5 md:px-4 md:py-2 bg-emerald-50 text-emerald-700 font-bold text-[10px] md:text-xs rounded-xl hover:bg-emerald-100 transition-colors shadow-sm">Ver todo</a>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 @foreach ($favoritos as $r)
                 @include('components.tarjeta-receta', ['r' => $r])
                 @endforeach

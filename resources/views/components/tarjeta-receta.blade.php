@@ -26,16 +26,16 @@
     <!-- Botones de Gestión (Solo si es mía o es plantilla JS) -->
     <div class="absolute top-3 left-3 z-10 flex gap-2 {{ $esMia ? 'opacity-100' : ($isNull ? 'opacity-0 group-hover:opacity-100 is-template hidden' : 'hidden') }} management-buttons">
         <a href="{{ route('recetas.edit', 'ID_RECETA_VAL') }}" 
-           class="w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur rounded-lg text-emerald-600 shadow-sm hover:bg-emerald-500 hover:text-white transition-all edit-link">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+           class="w-10 h-10 md:w-8 md:h-8 flex items-center justify-center bg-white/95 backdrop-blur rounded-xl text-emerald-600 shadow-lg hover:bg-emerald-500 hover:text-white transition-all edit-link">
+            <svg class="w-5 h-5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
         </a>
         <form action="{{ route('recetas.destroy', 'ID_RECETA_VAL') }}" method="POST" onsubmit="return confirm('¿Borrar esta receta?')" class="delete-form">
             @csrf
             @method('DELETE')
-            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur rounded-lg text-red-600 shadow-sm hover:bg-red-500 hover:text-white transition-all">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button type="submit" class="w-10 h-10 md:w-8 md:h-8 flex items-center justify-center bg-white/95 backdrop-blur rounded-xl text-red-600 shadow-lg hover:bg-red-500 hover:text-white transition-all">
+                <svg class="w-5 h-5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
             </button>
