@@ -55,9 +55,23 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Cambiar fotografía</label>
                     <div class="relative group">
-                        <input type="file" name="imagen" accept="image/*"
+                        <input type="file" name="imagen" id="imagen-input" accept="image/*"
                             class="w-full rounded-xl border border-dashed border-slate-300 bg-slate-50/50 px-4 py-8 text-slate-500 
                                   text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/30 transition-all">
+                        
+                        <!-- Preview Container -->
+                        <div id="preview-container" class="{{ $receta->imagen ? '' : 'hidden' }} mt-4 relative rounded-2xl overflow-hidden border border-slate-200">
+                            @php
+                                $imgUrl = $receta->imagen ? (str_starts_with($receta->imagen, 'http') ? $receta->imagen : (str_starts_with($receta->imagen, '/storage/') ? asset($receta->imagen) : asset('storage/'.$receta->imagen))) : '#';
+                            @endphp
+                            <img id="image-preview" src="{{ $imgUrl }}" alt="Vista previa" class="w-full h-48 object-cover">
+                            <button type="button" onclick="removeImage()" 
+                                class="absolute top-2 right-2 bg-rose-500 text-white p-1.5 rounded-full shadow-lg hover:bg-rose-600 transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     @if($receta->imagen)
                         <p class="mt-2 text-xs text-slate-400 italic">Dejar vacío para mantener la imagen actual.</p>
@@ -127,6 +141,37 @@
                         const template = document.getElementById('ingrediente-template');
                         const clone = template.content.cloneNode(true);
                         contenedor.appendChild(clone);
+                    }
+
+                    // Image Preview Logic
+                    const input = document.getElementById('imagen-input');
+                    const preview = document.getElementById('image-preview');
+                    const previewContainer = document.getElementById('preview-container');
+                    const originalImage = "{{ $imgUrl }}";
+
+                    input.addEventListener('change', function() {
+                        const file = this.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                preview.src = e.target.result;
+                                previewContainer.classList.remove('hidden');
+                            }
+                            reader.readAsDataURL(file);
+                        }
+                    });
+
+                    function removeImage() {
+                        input.value = '';
+                        if (originalImage !== '#') {
+                            preview.src = originalImage;
+                            // En editar, si quitamos la selección de archivo, volvemos a la original
+                            // Si el usuario quiere borrar la imagen de la BD, se requeriría otra lógica,
+                            // pero por ahora volvemos al estado inicial del formulario.
+                        } else {
+                            preview.src = '#';
+                            previewContainer.classList.add('hidden');
+                        }
                     }
                 </script>
 

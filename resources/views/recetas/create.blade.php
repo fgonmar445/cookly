@@ -68,9 +68,20 @@
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Fotografía del plato</label>
                             <div class="relative group">
-                                <input type="file" name="imagen" accept="image/*"
+                                <input type="file" name="imagen" id="imagen-input" accept="image/*"
                                     class="w-full rounded-xl border border-dashed border-slate-300 bg-slate-50/50 px-4 py-8 text-slate-500 
                                           text-center cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/30 transition-all">
+                                
+                                <!-- Preview Container -->
+                                <div id="preview-container" class="hidden mt-4 relative rounded-2xl overflow-hidden border border-slate-200">
+                                    <img id="image-preview" src="#" alt="Vista previa" class="w-full h-48 object-cover">
+                                    <button type="button" onclick="removeImage()" 
+                                        class="absolute top-2 right-2 bg-rose-500 text-white p-1.5 rounded-full shadow-lg hover:bg-rose-600 transition-all">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,6 +159,29 @@
                         const template = document.getElementById('ingrediente-template');
                         const clone = template.content.cloneNode(true);
                         contenedor.appendChild(clone);
+                    }
+
+                    // Image Preview Logic
+                    const input = document.getElementById('imagen-input');
+                    const preview = document.getElementById('image-preview');
+                    const previewContainer = document.getElementById('preview-container');
+
+                    input.addEventListener('change', function() {
+                        const file = this.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                preview.src = e.target.result;
+                                previewContainer.classList.remove('hidden');
+                            }
+                            reader.readAsDataURL(file);
+                        }
+                    });
+
+                    function removeImage() {
+                        input.value = '';
+                        preview.src = '#';
+                        previewContainer.classList.add('hidden');
                     }
                 </script>
 
