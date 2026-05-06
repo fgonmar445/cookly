@@ -5,6 +5,8 @@
 [![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)](https://php.net)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
+<img src="./public/cookly_logo_banner.png">
+
 **Cookly** es una plataforma integral diseñada para optimizar la gestión de la cocina doméstica y fomentar la exploración culinaria. Mediante el uso de inteligencia de datos y una interfaz de usuario premium, Cookly permite a los usuarios maximizar el uso de sus ingredientes disponibles, reducir el desperdicio y descubrir nuevas gastronomías de todo el mundo.
 
 ---
