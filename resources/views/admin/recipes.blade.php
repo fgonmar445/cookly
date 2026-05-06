@@ -25,7 +25,7 @@
                     <tr class="bg-slate-50/50">
                         <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Receta</th>
                         <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Creador</th>
-                        <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Categoría / Área</th>
+                        <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Categoría / Cocina</th>
                         <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fecha</th>
                         <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Acciones</th>
                     </tr>
@@ -61,7 +61,7 @@
                         <td class="px-6 py-4">
                             <div class="flex flex-wrap gap-2">
                                 <span class="px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase">{{ $recipe->categoria ?? 'Sin cat.' }}</span>
-                                <span class="px-2 py-0.5 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-bold uppercase">{{ $recipe->area ?? 'Sin área' }}</span>
+                                <span class="px-2 py-0.5 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-bold uppercase">{{ $recipe->cocina ?? 'Sin cocina' }}</span>
                             </div>
                         </td>
                         <td class="px-6 py-4">

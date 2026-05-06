@@ -436,7 +436,7 @@ Route::get('/buscar/categorias', function () {
 })->name('buscar.categorias');
 
 // Buscar por cocina (área)
-Route::get('/buscar/areas', function () {
+Route::get('/buscar/cocinas', function () {
     $favoritos = auth()->user()
         ->favoritos()
         ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
@@ -444,8 +444,8 @@ Route::get('/buscar/areas', function () {
         ->filter()
         ->toArray();
 
-    return view('recetas.buscar_areas', compact('favoritos'));
-})->name('buscar.areas');
+    return view('recetas.buscar_cocina', compact('favoritos'));
+})->name('buscar.cocinas');
 
 // Receta aleatoria
 Route::get('/buscar/aleatoria', function () {
@@ -506,7 +506,8 @@ Route::get('/favoritos-json', function () {
             'nombre' => $receta->nombre,
             'imagen' => $receta->imagen,
             'categoria' => $receta->categoria,
-            'area' => $receta->area,
+            'cocina' => $receta->cocina,
+            'area' => $receta->cocina, // for compatibility
         ];
     }
 

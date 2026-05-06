@@ -166,7 +166,7 @@
             'pescado': ['Seafood'],
         };
 
-        const areasRelacionadas = {
+        const cocinasRelacionadas = {
             'pasta': ['Italian'],
             'spaghetti': ['Italian'],
             'risotto': ['Italian'],
@@ -237,18 +237,18 @@
                 continue;
             }
 
-            // 4) Buscar por área relacionada
-            let ars = areasRelacionadas[ing] || [];
-            let areaResults = [];
+            // 4) Buscar por cocina relacionada
+            let cocinas = cocinasRelacionadas[ing] || [];
+            let cocinaResults = [];
 
-            for (let a of ars) {
-                let resArea = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${a}`);
-                let dataArea = await resArea.json();
-                if (dataArea.meals) areaResults.push(...dataArea.meals);
+            for (let c of cocinas) {
+                let resCocina = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${c}`);
+                let dataCocina = await resCocina.json();
+                if (dataCocina.meals) cocinaResults.push(...dataCocina.meals);
             }
 
-            if (areaResults.length > 0) {
-                resultados.push(areaResults);
+            if (cocinaResults.length > 0) {
+                resultados.push(cocinaResults);
                 continue;
             }
 

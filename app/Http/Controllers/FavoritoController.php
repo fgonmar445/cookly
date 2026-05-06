@@ -38,7 +38,8 @@ class FavoritoController extends Controller
                 'nombre' => $receta->nombre,
                 'imagen' => $receta->imagen,
                 'categoria' => $receta->categoria,
-                'area' => $receta->area,
+                'cocina' => $receta->cocina,
+                'area' => $receta->cocina, // for compatibility
                 'id_usuario' => $receta->id_usuario,
             ];
         }
@@ -131,7 +132,7 @@ class FavoritoController extends Controller
                 'descripcion' => $data['strInstructions'],
                 'imagen' => $data['strMealThumb'],
                 'categoria' => $data['strCategory'],
-                'area' => $data['strArea'],
+                'cocina' => $data['strArea'],
                 'tags' => $data['strTags'],
                 'youtube' => $data['strYoutube'],
                 'origen' => 'api',

@@ -38,15 +38,12 @@
                 <!-- Cocina -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Tipo de Cocina</label>
-                    <select name="area"
+                    <select name="cocina"
                         class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700 
                                focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none appearance-none">
                         <option value="">Selecciona un tipo de cocina</option>
-                        @php
-                        $cocinas = ["Española", "Italiana", "Mexicana", "Japonesa", "China", "India", "Mediterránea", "Americana", "Francesa", "Griega", "Tailandesa", "Coreana", "Árabe", "Turca", "Marroquí"];
-                        @endphp
-                        @foreach($cocinas as $cocina)
-                        <option value="{{ $cocina }}" {{ $receta->area == $cocina ? 'selected' : '' }}>Cocina {{ $cocina }}</option>
+                        @foreach(config('ingredients.cocinas') as $cocina)
+                        <option value="{{ ucfirst($cocina) }}" {{ $receta->cocina == ucfirst($cocina) ? 'selected' : '' }}>Cocina {{ ucfirst($cocina) }}</option>
                         @endforeach
                     </select>
                 </div>

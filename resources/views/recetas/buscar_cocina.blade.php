@@ -20,8 +20,8 @@
 </div>
 
 <div class="flex flex-wrap gap-2 mb-12">
-    @foreach(config('ingredients.areas') as $key => $value)
-    <button onclick="buscarArea('{{ $key }}')"
+    @foreach(config('ingredients.cocinas') as $key => $value)
+    <button onclick="buscarCocina('{{ $key }}')"
         class="inline-flex items-center px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:border-emerald-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all shadow-sm active:scale-95">
         {{ ucfirst($value) }}
     </button>
@@ -38,15 +38,15 @@
 <script>
     const favoritos = @json($favoritos);
 
-    async function buscarArea(area) {
+    async function buscarCocina(cocina) {
         let cont = document.getElementById('lista');
         cont.innerHTML = '';
 
-        let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+        let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${cocina}`);
         let data = await res.json();
 
         if (!data.meals) {
-            cont.innerHTML = "<p>No hay recetas en esta área</p>";
+            cont.innerHTML = "<p>No hay recetas en esta cocina</p>";
             return;
         }
 

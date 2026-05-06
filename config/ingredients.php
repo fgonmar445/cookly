@@ -317,7 +317,7 @@ return [
         'vegetarian' => 'vegetariano',
     ],
 
-    'areas' => [
+    'cocinas' => [
         'american' => 'estadounidense',
         'british' => 'británica',
         'canadian' => 'canadiense',

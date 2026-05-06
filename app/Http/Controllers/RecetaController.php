@@ -35,7 +35,7 @@ class RecetaController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:200',
             'categoria' => 'nullable|string|max:200',
-            'area' => 'nullable|string|max:200',
+            'cocina' => 'nullable|string|max:200',
             'descripcion' => 'required|string',
             'imagen' => 'nullable|image|max:2048',
         ]);
@@ -44,7 +44,7 @@ class RecetaController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'categoria' => $request->categoria,
-            'area' => $request->area,
+            'cocina' => $request->cocina,
         ];
 
         if ($request->hasFile('imagen')) {
@@ -127,7 +127,7 @@ class RecetaController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:200',
             'categoria' => 'nullable|string|max:200',
-            'area' => 'nullable|string|max:200',
+            'cocina' => 'nullable|string|max:200',
             'descripcion' => 'required|string',
             'imagen' => 'nullable|image|max:2048',
         ]);
@@ -147,7 +147,7 @@ class RecetaController extends Controller
             'descripcion' => $request->descripcion,
             'imagen' => $rutaImagen,
             'categoria' => $request->categoria,
-            'area' => $request->area,
+            'cocina' => $request->cocina,
             'tags' => null,
             'youtube' => null,
             'origen' => 'usuario',
@@ -186,7 +186,7 @@ class RecetaController extends Controller
             'descripcion' => 'nullable|string',
             'imagen' => 'nullable|string',
             'categoria' => 'nullable|string',
-            'area' => 'nullable|string',
+            'cocina' => 'nullable|string',
             'tags' => 'nullable|string',
             'youtube' => 'nullable|string',
         ]);
@@ -198,7 +198,7 @@ class RecetaController extends Controller
                 'descripcion' => $request->descripcion,
                 'imagen' => $request->imagen,
                 'categoria' => $request->categoria,
-                'area' => $request->area,
+                'cocina' => $request->cocina,
                 'tags' => $request->tags,
                 'youtube' => $request->youtube,
                 'origen' => 'api',
@@ -237,7 +237,7 @@ class RecetaController extends Controller
                 'strInstructions' => $recetaBD->descripcion,
                 'strMealThumb' => $recetaBD->imagen,
                 'strCategory' => $recetaBD->categoria,
-                'strArea' => $recetaBD->area,
+                'strArea' => $recetaBD->cocina, // for API compatibility in views
                 'strTags' => $recetaBD->tags,
                 'strYoutube' => $recetaBD->youtube,
             ];
@@ -275,14 +275,14 @@ class RecetaController extends Controller
                     }
                     // También traducir categoría y área si están en el mapa
                     $catMap = config('ingredients.categorias');
-                    $areaMap = config('ingredients.areas');
+                    $cocinaMap = config('ingredients.cocinas');
                     if (isset($receta['strCategory'])) {
                         $enCat = strtolower($receta['strCategory']);
                         if (isset($catMap[$enCat])) $receta['strCategory'] = ucfirst($catMap[$enCat]);
                     }
                     if (isset($receta['strArea'])) {
-                        $enArea = strtolower($receta['strArea']);
-                        if (isset($areaMap[$enArea])) $receta['strArea'] = ucfirst($areaMap[$enArea]);
+                        $enCocina = strtolower($receta['strArea']);
+                        if (isset($cocinaMap[$enCocina])) $receta['strArea'] = ucfirst($cocinaMap[$enCocina]);
                     }
                 }
 

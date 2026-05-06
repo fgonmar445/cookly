@@ -18,7 +18,7 @@
         ['name' => 'Por Nombre', 'route' => 'buscar.nombre', 'icon' => 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
         ['name' => 'Ingredientes', 'route' => 'buscar.ingredientes', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'],
         ['name' => 'Categorías', 'route' => 'buscar.categorias', 'icon' => 'M4 6h16M4 12h16m-7 6h7'],
-        ['name' => 'Por Cocina', 'route' => 'buscar.areas', 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064'],
+        ['name' => 'Por Cocina', 'route' => 'buscar.cocinas', 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064'],
         ['name' => 'Aleatoria', 'route' => 'buscar.aleatoria', 'icon' => 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'],
         ['name' => 'Recomendador', 'route' => 'buscar.recomendador', 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
         ];
