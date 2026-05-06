@@ -43,7 +43,7 @@
                                focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none appearance-none">
                         <option value="">Selecciona un tipo de cocina</option>
                         @foreach(config('ingredients.cocinas') as $cocina)
-                        <option value="{{ ucfirst($cocina) }}" {{ $receta->cocina == ucfirst($cocina) ? 'selected' : '' }}>Cocina {{ ucfirst($cocina) }}</option>
+                        <option value="{{ ucfirst($cocina) }}" {{ $receta->area == ucfirst($cocina) ? 'selected' : '' }}>Cocina {{ ucfirst($cocina) }}</option>
                         @endforeach
                     </select>
                 </div>
