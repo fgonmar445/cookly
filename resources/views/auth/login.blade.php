@@ -12,7 +12,7 @@
 
     <!-- ERRORES DE VALIDACIÓN -->
     @if ($errors->any())
-        <div class="mb-6 p-4 bg-rose-50 border border-rose-100 rounded-2xl text-rose-600 text-sm font-medium animate-fade-in">
+        <div class="mb-6 p-4 bg-orange-50 border border-orange-100 rounded-2xl text-orange-600 text-sm font-medium animate-fade-in">
             @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>
             @endforeach
@@ -102,7 +102,7 @@
 
             <a
                 href="{{ route('register') }}"
-                class="w-full border-2 border-emerald-600 text-emerald-600 font-bold py-4 rounded-2xl text-center hover:bg-emerald-50 transition-all duration-200">
+                class="w-full border-2 border-orange-500 text-orange-600 font-bold py-4 rounded-2xl text-center hover:bg-orange-50 transition-all duration-200">
                 Crear una cuenta nueva
             </a>
         </div>

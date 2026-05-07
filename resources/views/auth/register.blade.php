@@ -36,7 +36,7 @@
                     class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none text-slate-700 font-medium placeholder:text-slate-300">
             </div>
             @error('name')
-                <p class="text-xs text-rose-500 font-bold ml-1">{{ $message }}</p>
+                <p class="text-xs text-orange-600 font-bold ml-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -61,7 +61,7 @@
                     class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none text-slate-700 font-medium placeholder:text-slate-300">
             </div>
             @error('email')
-                <p class="text-xs text-rose-500 font-bold ml-1">{{ $message }}</p>
+                <p class="text-xs text-orange-600 font-bold ml-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -106,7 +106,7 @@
 
             <p class="text-center text-sm font-medium text-slate-500">
                 ¿Ya tienes una cuenta? 
-                <a href="{{ route('login') }}" class="text-emerald-600 font-bold hover:text-emerald-700 transition-colors">
+                <a href="{{ route('login') }}" class="text-orange-600 font-bold hover:text-orange-700 transition-colors">
                     Inicia sesión aquí
                 </a>
             </p>

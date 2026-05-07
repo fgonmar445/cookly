@@ -310,12 +310,12 @@
                 if (data.success) {
                     if (data.isFavorito) {
                         btn.innerHTML = 'Quitar';
-                        btn.classList.add('bg-orange-50', 'text-orange-600', 'ring-1', 'ring-orange-100');
-                        btn.classList.remove('bg-emerald-50', 'text-emerald-600');
+                        btn.classList.add('bg-orange-50', 'text-orange-600', 'ring-1', 'ring-orange-100', 'hover:bg-orange-100');
+                        btn.classList.remove('bg-emerald-50', 'text-emerald-600', 'hover:bg-emerald-100');
                     } else {
                         btn.innerHTML = 'Añadir';
-                        btn.classList.add('bg-emerald-50', 'text-emerald-600');
-                        btn.classList.remove('bg-orange-50', 'text-orange-600', 'ring-1', 'ring-orange-100');
+                        btn.classList.add('bg-emerald-50', 'text-emerald-600', 'hover:bg-emerald-100');
+                        btn.classList.remove('bg-orange-50', 'text-orange-600', 'ring-1', 'ring-orange-100', 'hover:bg-orange-100');
                     }
                 }
             } catch (error) {

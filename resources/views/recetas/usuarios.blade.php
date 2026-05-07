@@ -10,8 +10,8 @@
         </div>
         <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
             <span>Filtrar por:</span>
-            <button class="px-3 py-1 bg-white border border-slate-200 rounded-full text-slate-600 hover:border-emerald-500 hover:text-emerald-600 transition-all">Recientes</button>
-            <button class="px-3 py-1 bg-white border border-slate-200 rounded-full text-slate-600 hover:border-emerald-500 hover:text-emerald-600 transition-all">Populares</button>
+            <button class="px-3 py-1 bg-white border border-slate-200 rounded-full text-slate-600 hover:border-orange-500 hover:text-orange-600 transition-all">Recientes</button>
+            <button class="px-3 py-1 bg-white border border-slate-200 rounded-full text-slate-600 hover:border-orange-500 hover:text-orange-600 transition-all">Populares</button>
         </div>
     </div>
 

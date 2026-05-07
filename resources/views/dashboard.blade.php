@@ -25,17 +25,19 @@
         @endphp
 
         @foreach($nav as $item)
-        @php $isSpecial = $item['name'] === 'Recomendador'; @endphp
-        <a href="{{ route($item['route']) }}" class="flex flex-col items-center justify-center p-5 md:p-6 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl {{ $isSpecial ? 'hover:shadow-orange-100 hover:border-orange-100' : 'hover:shadow-emerald-100 hover:border-emerald-100' }} transition-all group relative">
-            @if($isSpecial)
+        @php 
+            $isOrange = in_array($item['name'], ['Recomendador', 'Aleatoria']); 
+        @endphp
+        <a href="{{ route($item['route']) }}" class="flex flex-col items-center justify-center p-5 md:p-6 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl {{ $isOrange ? 'hover:shadow-orange-100 hover:border-orange-100' : 'hover:shadow-emerald-100 hover:border-emerald-100' }} transition-all group relative">
+            @if($item['name'] === 'Recomendador')
             <span class="absolute -top-2 -right-1 px-2 py-0.5 bg-orange-500 text-white text-[8px] font-bold rounded-lg shadow-sm animate-pulse">PRO</span>
             @endif
-            <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 {{ $isSpecial ? 'group-hover:bg-orange-500' : 'group-hover:bg-emerald-500' }} group-hover:text-white transition-all mb-3 shadow-inner">
+            <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 {{ $isOrange ? 'group-hover:bg-orange-500' : 'group-hover:bg-emerald-500' }} group-hover:text-white transition-all mb-3 shadow-inner">
                 <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $item['icon'] }}" />
                 </svg>
             </div>
-            <span class="text-[10px] md:text-xs font-bold text-slate-600 {{ $isSpecial ? 'group-hover:text-orange-600' : 'group-hover:text-emerald-600' }} tracking-wide text-center">{{ $item['name'] }}</span>
+            <span class="text-[10px] md:text-xs font-bold text-slate-600 {{ $isOrange ? 'group-hover:text-orange-600' : 'group-hover:text-emerald-600' }} tracking-wide text-center">{{ $item['name'] }}</span>
         </a>
         @endforeach
     </div>

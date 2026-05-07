@@ -91,14 +91,14 @@
     </div>
 
     {{-- ELIMINAR CUENTA --}}
-    <div class="bg-red-50/50 p-8 rounded-3xl border border-red-100">
+    <div class="bg-orange-50/50 p-8 rounded-3xl border border-orange-100">
         <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center text-red-600">
+            <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
             </div>
-            <h3 class="text-xl font-bold text-red-800">Zona de peligro</h3>
+            <h3 class="text-xl font-bold text-orange-800">Zona de peligro</h3>
         </div>
 
         <div class="max-w-2xl">
@@ -106,11 +106,11 @@
                 @csrf
                 @method('DELETE')
 
-                <p class="text-red-700/70 text-sm mb-6 leading-relaxed">
+                <p class="text-orange-700/70 text-sm mb-6 leading-relaxed">
                     Una vez que elimines tu cuenta, todos tus recursos y datos se borrarán de forma permanente. Por favor, descarga cualquier dato o información que desees conservar antes de proceder.
                 </p>
 
-                <button class="px-8 py-3 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 shadow-lg shadow-red-600/20 transition-all active:scale-95">
+                <button class="px-8 py-3 bg-orange-600 text-white font-bold rounded-2xl hover:bg-orange-700 shadow-lg shadow-orange-600/20 transition-all active:scale-95">
                     Eliminar cuenta permanentemente
                 </button>
             </form>

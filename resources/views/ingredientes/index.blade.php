@@ -21,7 +21,10 @@
 
     @foreach ($categorias as $categoria => $lista)
 
-    <h2 class="text-2xl font-semibold text-emerald-700 mb-3">{{ $categoria }}</h2>
+    <h2 class="text-2xl font-black text-slate-800 mb-4 flex items-center gap-3">
+        <span class="w-1.5 h-8 bg-orange-500 rounded-full"></span>
+        {{ $categoria }}
+    </h2>
 
     <ul class="bg-white border border-gray-200 rounded-xl p-4 mb-8 shadow-sm">
 
@@ -82,7 +85,7 @@
             <form action="{{ route('ingredientes.eliminar') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id_lista" value="{{ $registro->id_lista }}">
-                <button class="px-5 py-2 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-600 hover:text-white transition-all text-xs border border-red-100">
+                <button class="px-5 py-2 bg-orange-50 text-orange-600 font-bold rounded-xl hover:bg-orange-600 hover:text-white transition-all text-xs border border-orange-100 shadow-sm active:scale-95">
                     Eliminar
                 </button>
             </form>

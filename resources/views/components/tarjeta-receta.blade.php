@@ -106,7 +106,7 @@
             <div class="flex items-center gap-2">
                 @if(!$isObject || ($isObject && $r->id_receta_api))
                 <button onclick="toggleFavorito('{{ $id }}', this)"
-                    class="favorito-btn h-10 px-4 flex items-center justify-center rounded-xl font-bold text-xs transition-all shadow-sm {{ ($esFavorita) ? 'bg-orange-50 text-orange-600 ring-1 ring-orange-100' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' }}">
+                    class="favorito-btn h-10 px-4 flex items-center justify-center rounded-xl font-bold text-xs transition-all shadow-sm {{ ($esFavorita) ? 'bg-orange-50 text-orange-600 ring-1 ring-orange-100 hover:bg-orange-100' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' }}">
                     {{ ($esFavorita) ? 'Quitar' : 'Añadir' }}
                 </button>
                 @else
