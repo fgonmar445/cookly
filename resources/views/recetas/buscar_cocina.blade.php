@@ -36,7 +36,8 @@
 </template>
 
 <script>
-    const favoritos = @json($favoritos);
+    let favoritos = @json($favoritos ?? []);
+    if (!Array.isArray(favoritos)) favoritos = [];
 
     async function buscarCocina(cocina) {
         let cont = document.getElementById('lista');

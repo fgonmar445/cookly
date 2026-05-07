@@ -37,7 +37,8 @@
 </template>
 
 <script>
-    const favoritos = @json($favoritos);
+    let favoritos = @json($favoritos ?? []);
+    if (!Array.isArray(favoritos)) favoritos = [];
 
     async function cargarAleatoria() {
         let res = await fetch("https://www.themealdb.com/api/json/v2/1/random.php");
@@ -58,7 +59,6 @@
 
         document.getElementById('resultado').innerHTML = html;
     }
-
 </script>
 
 @endsection

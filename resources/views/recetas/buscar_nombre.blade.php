@@ -47,7 +47,8 @@
 </template>
 
 <script>
-    const favoritos = @json($favoritos);
+    let favoritos = @json($favoritos ?? []);
+    if (!Array.isArray(favoritos)) favoritos = [];
     const esToEn = @json(config('ingredients.es_to_en'));
 
     async function buscarNombre() {
@@ -124,7 +125,6 @@
             cont.innerHTML += html;
         });
     }
-
 </script>
 
 @endsection

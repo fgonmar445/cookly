@@ -281,7 +281,9 @@
     }
 
 
-    const favoritos = @json($favoritos);
+    let favoritos = @json($favoritos ?? []);
+    if (!Array.isArray(favoritos)) favoritos = [];
+
 
     // ---------------------------------------------------------
     // MOSTRAR RESULTADOS

@@ -93,7 +93,8 @@ $ingredientesEN[] = $ing;
 
 <script>
     const ingredientes = @json($ingredientesEN);
-    const favoritos = @json($favoritos);
+    let favoritos = @json($favoritos ?? []);
+    if (!Array.isArray(favoritos)) favoritos = [];
 
     async function recomendar() {
         let cont = document.getElementById('resultados');
