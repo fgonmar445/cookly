@@ -119,9 +119,9 @@
         ingredientesSeleccionados.forEach(ing => {
             let ingCap = capitalizar(ing);
             cont.innerHTML += `
-            <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl font-bold text-xs border border-emerald-100 shadow-sm animate-in fade-in zoom-in duration-300">
+            <span class="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 text-orange-700 rounded-xl font-bold text-xs border border-orange-100 shadow-sm animate-in fade-in zoom-in duration-300">
                 ${ingCap}
-                <button onclick="removeIngrediente('${ing}')" class="w-5 h-5 flex items-center justify-center hover:bg-emerald-200 rounded-full transition-colors">
+                <button onclick="removeIngrediente('${ing}')" class="w-5 h-5 flex items-center justify-center hover:bg-orange-200 rounded-full transition-colors">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>

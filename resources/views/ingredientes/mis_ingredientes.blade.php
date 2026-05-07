@@ -62,7 +62,7 @@
                 <form action="{{ route('ingredientes.eliminar') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id_lista" value="{{ $ing->id_lista }}">
-                    <button class="px-5 py-2.5 bg-rose-50 text-rose-600 font-bold rounded-xl hover:bg-rose-600 hover:text-white transition-all text-xs border border-rose-100 active:scale-95">
+                    <button class="px-5 py-2.5 bg-orange-50 text-orange-600 font-bold rounded-xl hover:bg-orange-600 hover:text-white transition-all text-xs border border-orange-100 active:scale-95 shadow-sm">
                         Eliminar
                     </button>
                 </form>

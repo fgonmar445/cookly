@@ -64,8 +64,10 @@ $ingredientesEN[] = $ing;
 @endphp
 
 @if(empty($ingredientesEN))
-<p class="text-red-500">No tienes ingredientes compatibles con el recomendador.</p>
-<p class="text-gray-600">Añade ingredientes como pollo, pasta, arroz, salmón, etc.</p>
+<div class="p-6 bg-orange-50 rounded-3xl border border-orange-100 text-center">
+    <p class="text-orange-600 font-bold mb-2">No tienes ingredientes compatibles con el recomendador.</p>
+    <p class="text-slate-500 text-sm">Añade ingredientes como pollo, pasta, arroz, salmón, etc. para obtener sugerencias.</p>
+</div>
 @else
 
 <button onclick="recomendar()"
@@ -132,8 +134,8 @@ $ingredientesEN[] = $ing;
             let esFavorita = favoritos.includes(r.idMeal);
 
             let extraHtml = `
-                <p class="text-xs text-gray-500 mb-2">
-                    Coincidencias: <strong>${item.coincidencias}</strong>
+                <p class="text-[10px] text-slate-400 mb-2 uppercase tracking-wider">
+                    Coincidencias: <strong class="text-orange-600 font-bold">${item.coincidencias}</strong>
                 </p>
             `;
 

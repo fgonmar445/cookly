@@ -22,7 +22,7 @@ return new class extends Migration
             // Nueva FK correcta
             $table->foreign('id_receta')
                 ->references('id_receta')
-                ->on('receta')
+                ->on('recetas')
                 ->onDelete('cascade');
         });
     }

@@ -8,6 +8,7 @@
     $nombre = $isObject ? $r->nombre : ($r['strMeal'] ?? 'STR_MEAL');
     $imagen = $isObject ? ($r->imagen ? (str_starts_with($r->imagen, 'http') ? $r->imagen : (str_starts_with($r->imagen, '/storage/') ? asset($r->imagen) : asset('storage/'.$r->imagen))) : asset('img/no-image.png')) : ($r['strMealThumb'] ?? 'STR_MEAL_THUMB');
     $categoria = $isObject ? $r->categoria : ($r['strCategory'] ?? null);
+    $area = $isObject ? $r->area : ($r['strArea'] ?? null);
     
     // Comprobar propiedad del usuario para mostrar botones de edición/borrado
     $esMia = false;
@@ -34,7 +35,7 @@
         <form action="{{ route('recetas.destroy', 'ID_RECETA_VAL') }}" method="POST" onsubmit="return confirm('¿Borrar esta receta?')" class="delete-form">
             @csrf
             @method('DELETE')
-            <button type="submit" class="w-10 h-10 md:w-8 md:h-8 flex items-center justify-center bg-white/95 backdrop-blur rounded-xl text-red-600 shadow-lg hover:bg-red-500 hover:text-white transition-all">
+            <button type="submit" class="w-10 h-10 md:w-8 md:h-8 flex items-center justify-center bg-white/95 backdrop-blur rounded-xl text-orange-600 shadow-lg hover:bg-orange-600 hover:text-white transition-all">
                 <svg class="w-5 h-5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
@@ -65,9 +66,18 @@
             </a>
         </div>
         
-        @if($categoria)
-        <div class="absolute top-3 right-3 px-2 py-1 bg-black/40 backdrop-blur-md rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
-            {{ $categoria }}
+        @if($categoria || $area)
+        <div class="absolute top-3 right-3 flex flex-col items-end gap-1">
+            @if($categoria)
+            <div class="px-2 py-1 bg-black/40 backdrop-blur-md rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
+                {{ $categoria }}
+            </div>
+            @endif
+            @if($area)
+            <div class="px-2 py-1 bg-emerald-500/80 backdrop-blur-md rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
+                {{ $area }}
+            </div>
+            @endif
         </div>
         @endif
     </div>
@@ -96,7 +106,7 @@
             <div class="flex items-center gap-2">
                 @if(!$isObject || ($isObject && $r->id_receta_api))
                 <button onclick="toggleFavorito('{{ $id }}', this)"
-                    class="favorito-btn h-10 px-4 flex items-center justify-center rounded-xl font-bold text-xs transition-all shadow-sm {{ ($esFavorita) ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' }}">
+                    class="favorito-btn h-10 px-4 flex items-center justify-center rounded-xl font-bold text-xs transition-all shadow-sm {{ ($esFavorita) ? 'bg-orange-50 text-orange-600 ring-1 ring-orange-100' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' }}">
                     {{ ($esFavorita) ? 'Quitar' : 'Añadir' }}
                 </button>
                 @else

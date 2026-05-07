@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main Chef Hat Shape -->
+    <path d="M140 310C140 230 180 180 256 180C332 180 372 230 372 310" stroke="#064e3b" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="white"/>
+    <path d="M100 330C100 260 140 220 190 220C230 220 240 250 256 250C272 250 282 220 322 220C372 220 412 260 412 330" stroke="#064e3b" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="white"/>
+    
+    <!-- Connection lines -->
+    <path d="M155 310V340M357 310V340" stroke="#064e3b" stroke-width="28" stroke-linecap="round"/>
+    
+    <!-- Orange Band -->
+    <rect x="140" y="340" width="232" height="65" rx="16" fill="#f97316" stroke="#064e3b" stroke-width="24"/>
+    
+    <!-- Decorative Flame (Orange Accent) -->
+    <path d="M256 130C256 130 235 165 235 185C235 198 244 208 256 208C268 208 277 198 277 185C277 165 256 130 256 130Z" fill="#f97316" stroke="#064e3b" stroke-width="8"/>
+</svg>

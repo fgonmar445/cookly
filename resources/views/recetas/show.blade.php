@@ -38,7 +38,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 
-                                        class="w-full inline-flex items-center justify-center gap-2 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all px-6 py-3 rounded-2xl font-black text-xs md:text-sm border border-rose-100 shadow-xl shadow-rose-100/50 group text-center">
+                                        class="w-full inline-flex items-center justify-center gap-2 bg-orange-50 text-orange-600 hover:bg-orange-600 hover:text-white transition-all px-6 py-3 rounded-2xl font-black text-xs md:text-sm border border-orange-100 shadow-xl shadow-orange-100/50 group text-center">
                                     <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
@@ -52,8 +52,8 @@
                         @csrf
                         <input type="hidden" name="name" value="{{ $receta['strMeal'] }}">
                         <button type="submit"
-                            class="w-full inline-flex items-center justify-center gap-2 bg-white text-slate-900 hover:bg-emerald-500 hover:text-white transition-all px-6 py-3 rounded-2xl font-black text-xs md:text-sm shadow-xl group">
-                            <svg class="w-4 h-4 md:w-5 md:h-5 transition-all {{ $isFavorita ? 'fill-emerald-500 text-emerald-500 group-hover:fill-white group-hover:text-white' : 'group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white text-slate-900 hover:bg-orange-500 hover:text-white transition-all px-6 py-3 rounded-2xl font-black text-xs md:text-sm shadow-xl group">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 transition-all {{ $isFavorita ? 'fill-orange-500 text-orange-500 group-hover:fill-white group-hover:text-white' : 'group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                             {{ $isFavorita ? 'En Favoritos' : 'Añadir a Favoritos' }}
@@ -82,7 +82,7 @@
                         @endphp
                         @if ($ing)
                             <li class="flex items-start">
-                                <span class="w-2 h-2 rounded-full bg-emerald-400 mt-2 mr-3 flex-shrink-0"></span>
+                                <span class="w-2 h-2 rounded-full bg-orange-400 mt-2 mr-3 flex-shrink-0"></span>
                                 <div>
                                     <span class="font-bold text-slate-800">{{ $cant }}</span>
                                     <span class="text-slate-600 text-sm ml-1">{{ $ing }}</span>

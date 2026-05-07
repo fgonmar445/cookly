@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -50,7 +53,7 @@
         .sidebar-item-active {
             background-color: #ecfdf5;
             color: #059669;
-            border-right: 3px solid #059669;
+            border-right: 4px solid #f97316; /* Orange-500 */
         }
 
         ::-webkit-scrollbar {
@@ -85,11 +88,7 @@
             <!-- Logo Section -->
             <div class="p-8 pb-4 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                        </svg>
-                    </div>
+                    <x-application-logo class="w-10 h-10 bg-white rounded-xl shadow-lg shadow-emerald-100 p-1.5 border border-emerald-50" />
                     <a href="{{ auth()->check() && auth()->user()->rol === 'admin' ? route('admin.dashboard') : route('dashboard') }}">
                         <span class="text-2xl font-bold tracking-tight text-slate-800">Cookly</span>
                     </a>
@@ -208,8 +207,8 @@
             <!-- User Profile Section -->
             <div class="p-6 border-t border-slate-100 bg-slate-50/50">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center border-2 border-white shadow-sm">
-                        <span class="text-emerald-700 font-bold text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                    <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center border-2 border-white shadow-lg ring-2 ring-orange-100">
+                        <span class="text-white font-black text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-semibold text-slate-800 truncate">{{ Auth::user()->name }}</p>
@@ -311,12 +310,12 @@
                 if (data.success) {
                     if (data.isFavorito) {
                         btn.innerHTML = 'Quitar';
-                        btn.classList.add('bg-red-50', 'text-red-600');
+                        btn.classList.add('bg-orange-50', 'text-orange-600', 'ring-1', 'ring-orange-100');
                         btn.classList.remove('bg-emerald-50', 'text-emerald-600');
                     } else {
                         btn.innerHTML = 'Añadir';
                         btn.classList.add('bg-emerald-50', 'text-emerald-600');
-                        btn.classList.remove('bg-red-50', 'text-red-600');
+                        btn.classList.remove('bg-orange-50', 'text-orange-600', 'ring-1', 'ring-orange-100');
                     }
                 }
             } catch (error) {

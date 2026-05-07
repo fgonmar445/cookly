@@ -95,10 +95,10 @@
         </a>
 
         {{-- Aleatoria --}}
-        <a href="{{ route('buscar.aleatoria') }}" class="group relative bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-rose-100 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-bl-full -mr-10 -mt-10 group-hover:bg-rose-100 transition-colors duration-500"></div>
+        <a href="{{ route('buscar.aleatoria') }}" class="group relative bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-orange-100 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-bl-full -mr-10 -mt-10 group-hover:bg-orange-100 transition-colors duration-500"></div>
 
-            <div class="w-16 h-16 bg-rose-500 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg shadow-rose-500/20 group-hover:scale-110 transition-transform duration-500">
+            <div class="w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform duration-500">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
@@ -107,7 +107,7 @@
             <h3 class="text-2xl font-black text-slate-800 mb-3">Receta Aleatoria</h3>
             <p class="text-slate-500 leading-relaxed mb-6">¿Te sientes con suerte? Deja que nosotros elijamos una receta sorpresa para ti.</p>
 
-            <div class="flex items-center text-rose-600 font-bold text-sm">
+            <div class="flex items-center text-orange-600 font-bold text-sm">
                 Probar suerte
                 <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -26,7 +26,7 @@
                     <tr class="hover:bg-slate-50/50 transition-colors">
                         <td class="px-6 py-4">
                             <span class="px-2 py-1 rounded-lg text-[10px] font-bold uppercase 
-                                {{ $log->accion === 'delete_user' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600' }}">
+                                {{ $log->accion === 'delete_user' ? 'bg-orange-50 text-orange-600' : 'bg-amber-50 text-amber-600' }}">
                                 {{ str_replace('_', ' ', $log->accion) }}
                             </span>
                         </td>
