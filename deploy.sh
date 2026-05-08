@@ -7,3 +7,4 @@ php artisan config:cache
 php artisan route:cache
 
 echo "Deploy script finished."
+
