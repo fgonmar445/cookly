@@ -25,20 +25,20 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 
 # -------------------------
-# INSTALAR DEPENDENCIAS LARAVEL
+# INSTALAR DEPENDENCIAS
 # -------------------------
 RUN composer install --no-dev --optimize-autoloader
 
 # -------------------------
-# CARPETAS NECESARIAS LARAVEL (IMPORTANTE)
+# CREAR ESTRUCTURA
 # -------------------------
-RUN mkdir -p storage/framework/cache \
-    storage/framework/sessions \
+RUN mkdir -p storage/framework/sessions \
+    storage/framework/cache \
     storage/framework/views \
     bootstrap/cache
 
 # -------------------------
-# PERMISOS (CRÍTICO EN RENDER)
+# PERMISOS
 # -------------------------
 RUN chown -R www-data:www-data storage bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
@@ -47,8 +47,6 @@ RUN chmod -R 775 storage bootstrap/cache
 # APACHE CONFIG
 # -------------------------
 RUN a2enmod rewrite
-
-# Reemplaza virtual host
 COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # -------------------------
