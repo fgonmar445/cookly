@@ -1,17 +1,28 @@
-FROM richarvey/nginx-php-fpm:latest
+FROM php:8.2-fpm
 
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    nginx \
+    zip unzip git curl \
+    && docker-php-ext-install pdo pdo_mysql
+
+# Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Copiar código
 COPY . /var/www/html
 
+# Instalar dependencias de Laravel
 RUN composer install --no-dev --optimize-autoloader
 
+# Permisos
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Sobrescribir configuración de Nginx
+# Copiar configuración de Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Ejecutar deploy.sh durante el build
-COPY deploy.sh /usr/local/bin/deploy.sh
-RUN chmod +x /usr/local/bin/deploy.sh
-RUN /usr/local/bin/deploy.sh
+# Copiar script de arranque
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
