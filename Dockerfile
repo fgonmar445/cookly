@@ -9,20 +9,30 @@ RUN apt-get update && apt-get install -y \
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copiar código
+# Copiar proyecto
 COPY . /var/www/html
 
-# Instalar dependencias de Laravel
+# Carpeta de trabajo
+WORKDIR /var/www/html
+
+# Instalar dependencias Laravel
 RUN composer install --no-dev --optimize-autoloader
 
 # Permisos
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Copiar configuración de Nginx
+# Eliminar config por defecto de nginx
+RUN rm /etc/nginx/conf.d/default.conf || true
+
+# Copiar config nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copiar script de arranque
+# Script inicio
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
+# Puerto
+EXPOSE 80
+
+# Ejecutar
 CMD ["/start.sh"]

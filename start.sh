@@ -1,10 +1,13 @@
 #!/bin/bash
 set -e
 
-php artisan migrate --force
-php artisan config:cache
-php artisan route:cache
+cd /var/www/html
 
-# Iniciar PHP-FPM y Nginx
+php artisan config:clear
+php artisan cache:clear
+
+php artisan migrate --force
+
 php-fpm -D
+
 nginx -g "daemon off;"
