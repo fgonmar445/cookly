@@ -1,15 +1,23 @@
-FROM richarvey/nginx-php-fpm:latest
+FROM php:8.2-fpm
+
+# Extensiones necesarias
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql
+
+# Instalar Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copiar proyecto
-COPY . /var/www/html
+WORKDIR /var/www/html
+COPY . .
 
-# Configurar webroot
-ENV WEBROOT=/var/www/html/public
-ENV RUN_SCRIPTS=1
-ENV PHP_ERRORS_STDERR=1
+# Instalar dependencias
+RUN composer install --no-dev --optimize-autoloader
 
-# Copiar script de despliegue
-COPY deploy.sh /usr/local/bin/deploy.sh
-RUN chmod +x /usr/local/bin/deploy.sh
+# Permisos
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-CMD ["/start.sh"]
+CMD ["php-fpm"]
