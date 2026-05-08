@@ -12,7 +12,7 @@ RUN composer install --no-dev --optimize-autoloader
 # Permisos necesarios
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Opcional: ejecutar migraciones en el arranque
+# Ejecutar migraciones en el arranque
 COPY deploy.sh /usr/local/bin/deploy.sh
 RUN chmod +x /usr/local/bin/deploy.sh
 CMD ["/usr/local/bin/deploy.sh"]
