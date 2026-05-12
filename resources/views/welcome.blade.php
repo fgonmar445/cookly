@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cookly | Tu Asistente de Cocina Inteligente</title>
-    
+
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -113,15 +113,14 @@
 
             <!-- Dashboard Preview Placeholder -->
             <div class="mt-16 md:mt-20 w-full max-w-5xl rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-white p-2 bg-white/50 backdrop-blur-sm">
-                <div class="w-full aspect-[16/9] bg-slate-100 rounded-[1.8rem] md:rounded-[2.5rem] flex items-center justify-center border border-slate-200">
-                    <div class="flex flex-col items-center p-6">
-                        <svg class="w-12 h-12 md:w-20 md:h-20 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002-2z" />
-                        </svg>
-                        <p class="text-slate-400 font-medium text-sm md:text-base">Vista previa del panel de control</p>
-                    </div>
+                <div class="w-full aspect-[24/9] bg-slate-100 rounded-[1.8rem] md:rounded-[2.5rem] border border-slate-200 overflow-hidden">
+                    <img
+                        src="/dashboard.png"
+                        alt="Vista previa del panel de control"
+                        class="w-full h-full object-cover">
                 </div>
             </div>
+
         </main>
 
         <!-- FEATURES -->
