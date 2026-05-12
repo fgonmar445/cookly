@@ -24,7 +24,7 @@ class Receta extends Model
         'descripcion',
         'imagen',
         'categoria',
-        'area',
+        'cocina',
         'tags',
         'youtube',
         'origen',

@@ -8,7 +8,7 @@
     $nombre = $isObject ? $r->nombre : ($r['strMeal'] ?? 'STR_MEAL');
     $imagen = $isObject ? ($r->imagen ? (str_starts_with($r->imagen, 'http') ? $r->imagen : (str_starts_with($r->imagen, '/storage/') ? asset($r->imagen) : asset('storage/'.$r->imagen))) : asset('img/no-image.png')) : ($r['strMealThumb'] ?? 'STR_MEAL_THUMB');
     $categoria = $isObject ? $r->categoria : ($r['strCategory'] ?? null);
-    $area = $isObject ? $r->area : ($r['strArea'] ?? null);
+    $area = $isObject ? $r->cocina : ($r['strArea'] ?? null);
     
     // Comprobar propiedad del usuario para mostrar botones de edición/borrado
     $esMia = false;

@@ -61,7 +61,7 @@
                         <td class="px-6 py-4">
                             <div class="flex flex-wrap gap-2">
                                 <span class="px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase">{{ $recipe->categoria ?? 'Sin cat.' }}</span>
-                                <span class="px-2 py-0.5 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-bold uppercase">{{ $recipe->area ?? 'Sin cocina' }}</span>
+                                <span class="px-2 py-0.5 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-bold uppercase">{{ $recipe->cocina ?? 'Sin cocina' }}</span>
                             </div>
                         </td>
                         <td class="px-6 py-4">

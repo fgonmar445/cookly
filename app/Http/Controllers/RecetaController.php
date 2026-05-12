@@ -44,7 +44,7 @@ class RecetaController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'categoria' => $request->categoria,
-            'area' => $request->cocina,
+            'cocina' => $request->cocina,
         ];
 
         if ($request->hasFile('imagen')) {
@@ -147,7 +147,7 @@ class RecetaController extends Controller
             'descripcion' => $request->descripcion,
             'imagen' => $rutaImagen,
             'categoria' => $request->categoria,
-            'area' => $request->cocina,
+            'cocina' => $request->cocina,
             'tags' => null,
             'youtube' => null,
             'origen' => 'usuario',
@@ -198,7 +198,7 @@ class RecetaController extends Controller
                 'descripcion' => $request->descripcion,
                 'imagen' => $request->imagen,
                 'categoria' => $request->categoria,
-                'area' => $request->cocina,
+                'cocina' => $request->cocina,
                 'tags' => $request->tags,
                 'youtube' => $request->youtube,
                 'origen' => 'api',
@@ -237,7 +237,7 @@ class RecetaController extends Controller
                 'strInstructions' => $recetaBD->descripcion,
                 'strMealThumb' => $recetaBD->imagen,
                 'strCategory' => $recetaBD->categoria,
-                'strArea' => $recetaBD->area, // for API compatibility in views
+                'strArea' => $recetaBD->cocina, // for API compatibility in views
                 'strTags' => $recetaBD->tags,
                 'strYoutube' => $recetaBD->youtube,
             ];
