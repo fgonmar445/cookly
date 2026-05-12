@@ -33,15 +33,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return redirect()->route('admin.dashboard');
         }
 
-        // FAVORITOS DEL USUARIO (solo IDs)
-        $favoritosUsuario = DB::table('favoritos')
+        // FAVORITOS DEL USUARIO
+        $favoritosApi = DB::table('favoritos')
             ->join('recetas', 'favoritos.id_receta', '=', 'recetas.id_receta')
             ->where('favoritos.id_usuario', auth()->id())
+            ->whereNotNull('recetas.id_receta_api')
             ->pluck('recetas.id_receta_api')
             ->toArray();
 
+        $favoritosLocales = DB::table('favoritos')
+            ->where('id_usuario', auth()->id())
+            ->pluck('id_receta')
+            ->toArray();
+
         // 1. RECETAS ALEATORIAS
-        $random = Cache::remember('random_recipes_' . auth()->id(), 3600, function () use ($favoritosUsuario) {
+        $random = Cache::remember('random_recipes_' . auth()->id(), 3600, function () {
             $arr = [];
             for ($i = 0; $i < 3; $i++) {
                 $data = json_decode(@file_get_contents("https://www.themealdb.com/api/json/v2/1/random.php"), true);
@@ -50,13 +56,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     $arr[] = [
                         'idMeal' => $meal['idMeal'],
                         'strMeal' => $meal['strMeal'],
-                        'strMealThumb' => $meal['strMealThumb'],
-                        'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
+                        'strMealThumb' => $meal['strMealThumb']
                     ];
                 }
             }
             return $arr;
         });
+
+        foreach ($random as &$r) {
+            $r['esFavorita'] = in_array($r['idMeal'], $favoritosApi);
+        }
+        unset($r);
 
         // 2. POPULARES
         $populares = DB::table('favoritos')
@@ -73,12 +83,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->orderByDesc('total_favs')
             ->limit(3)
             ->get()
-            ->map(function ($r) use ($favoritosUsuario) {
+            ->map(function ($r) use ($favoritosApi, $favoritosLocales) {
                 return [
                     'idMeal' => $r->idMeal,
                     'strMeal' => $r->strMeal,
                     'strMealThumb' => $r->strMealThumb,
-                    'esFavorita' => in_array($r->idMeal, $favoritosUsuario),
+                    'esFavorita' => $r->idMeal ? in_array($r->idMeal, $favoritosApi) : in_array($r->id_receta, $favoritosLocales),
                     'id_usuario' => $r->id_usuario,
                     'id_receta' => $r->id_receta
                 ];
@@ -86,7 +96,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // 3. RECOMENDACIONES
         $cacheKey = 'recomendaciones_' . auth()->id();
-        $recomendaciones = Cache::remember($cacheKey, 600, function () use ($favoritosUsuario) {
+        $recomendaciones = Cache::remember($cacheKey, 600, function () use ($favoritosApi) {
             $misIngredientes = DB::table('lista_ingredientes')
                 ->join('ingredientes', 'lista_ingredientes.id_ingrediente', '=', 'ingredientes.id_ingrediente')
                 ->where('lista_ingredientes.id_usuario', auth()->id())
@@ -109,8 +119,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                             'idMeal' => $meal['idMeal'],
                             'strMeal' => $meal['strMeal'],
                             'strMealThumb' => $meal['strMealThumb'],
-                            'match_count' => 0,
-                            'esFavorita' => in_array($meal['idMeal'], $favoritosUsuario)
+                            'match_count' => 0
                         ];
                     }
                     $recetas[$id]['match_count']++;
@@ -119,6 +128,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             usort($recetas, fn($a, $b) => $b['match_count'] <=> $a['match_count']);
             return array_slice($recetas, 0, 3);
         });
+
+        foreach ($recomendaciones as &$r) {
+            $r['esFavorita'] = in_array($r['idMeal'], $favoritosApi);
+        }
+        unset($r);
 
         // 4. FAVORITOS RECIENTES
         $favoritos = DB::table('favoritos')

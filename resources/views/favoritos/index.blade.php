@@ -37,16 +37,29 @@
         vacio.classList.add('hidden');
 
         data.forEach(f => {
+            let idToUse = f.id_receta_api || f.id_receta;
             // Mapeamos los datos de la BD a la estructura que espera el componente (estilo API)
             let div = document.createElement('div');
             div.innerHTML = template
                 .replace(/STR_MEAL_THUMB/g, f.imagen)
                 .replace(/STR_MEAL/g, f.nombre)
-                .replace(/ID_MEAL/g, f.id_receta_api)
+                .replace(/ID_MEAL/g, idToUse)
                 .replace(/ID_RECETA_VAL/g, f.id_receta)
-                .replace('Añadir', 'Eliminar');
+                .replace('Añadir', 'Quitar');
 
             let card = div.firstElementChild;
+            let favBtn = card.querySelector('.favorito-btn');
+            if (favBtn) {
+                favBtn.classList.remove('bg-emerald-50', 'text-emerald-600', 'hover:bg-emerald-100');
+                favBtn.classList.add('bg-orange-50', 'text-orange-600', 'ring-1', 'ring-orange-100', 'hover:bg-orange-100');
+                
+                // Al quitar de favoritos en esta vista, recargar para actualizar la lista
+                favBtn.addEventListener('click', () => {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 300); // Esperar a que la petición AJAX termine
+                });
+            }
             
             // Si la receta es del usuario, mostrar botones de gestión
             if (f.id_usuario && f.id_usuario == currentUserId) {
