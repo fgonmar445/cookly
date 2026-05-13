@@ -7,7 +7,7 @@
 
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
+
         <!-- Total Usuarios -->
         <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-center gap-4">
@@ -71,7 +71,7 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
+
         <!-- Últimos Usuarios -->
         <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
             <div class="p-6 border-b border-slate-50 flex items-center justify-between">
@@ -105,7 +105,7 @@
             <div class="divide-y divide-slate-50">
                 @foreach($latestRecipes as $recipe)
                 <div class="p-4 flex items-center gap-4 hover:bg-slate-50 transition-colors">
-                    @if($recipe->imagen)
+                    @if(!empty($recipe->imagen))
                     <img src="{{ $recipe->imagen }}" class="w-10 h-10 rounded-xl object-cover shadow-sm" alt="">
                     @else
                     <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
@@ -116,7 +116,7 @@
                     @endif
                     <div class="flex-1">
                         <p class="text-sm font-semibold text-slate-800">{{ $recipe->nombre }}</p>
-                        <p class="text-xs text-slate-500">Por {{ $recipe->usuario->name ?? 'Anonimo' }}</p>
+                        <p class="text-xs text-slate-500">Por {{ optional($recipe->usuario)->name ?? 'Anónimo' }}</p>
                     </div>
                     <div class="text-xs text-slate-400">
                         {{ $recipe->created_at->diffForHumans() }}
@@ -143,7 +143,9 @@
                 </div>
             </div>
             <div class="text-slate-300 group-hover:text-emerald-500 transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
             </div>
         </a>
     </div>
