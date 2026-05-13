@@ -57,7 +57,7 @@ class IngredientesBaseSeeder extends Seeder
         ];
 
         foreach ($ingredientes as $ing) {
-            Ingrediente::firstOrCreate(
+            Ingrediente::updateOrCreate(
                 ['nombre' => $ing['nombre']],
                 [
                     'categoria' => $ing['categoria'],

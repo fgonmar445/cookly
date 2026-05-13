@@ -38,10 +38,8 @@
     // Buscar ingrediente global
     $ingredienteGlobal = DB::table('ingredientes')->where('nombre', $ing->nombre)->first();
 
-    // Imagen: BD → API
-    $img = $ingredienteGlobal && $ingredienteGlobal->imagen
-    ? $ingredienteGlobal->imagen
-    : "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
+    // Imagen: Generar URL automática para la API
+    $img = "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
 
     // Nombre mostrado (inglés → español) — ¡AQUÍ ESTABA EL FALLO!
     $nombre = ucfirst($traducciones['en_to_es'][strtolower($nombreEn)] ?? $ing->nombre);

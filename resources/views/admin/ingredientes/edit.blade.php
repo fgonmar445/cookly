@@ -5,11 +5,17 @@
 @section('content')
 <div class="max-w-2xl mx-auto space-y-6 animate-fade-in">
 
-    <div class="flex items-center gap-4">
-        <a href="{{ route('admin.ingredientes.index') }}" class="text-slate-400 hover:text-emerald-600 transition-colors">
-            &larr; Volver
-        </a>
-        <h2 class="text-2xl font-bold text-slate-800">Editar Ingrediente: {{ $ingrediente->nombre }}</h2>
+    <!-- Header Bar -->
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 justify-between bg-white p-6 rounded-3xl border border-slate-100 shadow-sm mb-6">
+        <div class="flex items-center gap-4">
+            <a href="{{ route('admin.ingredientes.index') }}" class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-colors shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            </a>
+            <div>
+                <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Editar Ingrediente</h2>
+                <p class="text-slate-500 text-sm mt-1">Estás editando: <strong class="text-slate-700">{{ $ingrediente->nombre }}</strong></p>
+            </div>
+        </div>
     </div>
 
     <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">

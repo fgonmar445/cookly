@@ -37,13 +37,8 @@
         // Buscar ingrediente global en la BD
         $ingredienteGlobal = DB::table('ingredientes')->where('nombre', $ing)->first();
 
-        // Si existe en la BD y tiene imagen → usarla
-        if ($ingredienteGlobal && $ingredienteGlobal->imagen) {
-        $img = $ingredienteGlobal->imagen;
-        } else {
-        // Si NO existe o no tiene imagen → generar URL automática
+        // Dado que la columna imagen fue eliminada, generamos la URL automática
         $img = "https://www.themealdb.com/images/ingredients/{$nombreApi}.png";
-        }
 
         // Nombre traducido
         $nombre = ucfirst($traducciones[$ing] ?? $ing);

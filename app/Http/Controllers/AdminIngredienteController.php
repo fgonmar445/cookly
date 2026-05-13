@@ -10,7 +10,7 @@ class AdminIngredienteController extends Controller
 {
     public function index()
     {
-        $ingredientes = Ingrediente::orderBy('categoria')->orderBy('nombre')->paginate(20);
+        $ingredientes = Ingrediente::where('es_base', true)->orderBy('categoria')->orderBy('nombre')->paginate(20);
         return view('admin.ingredientes.index', compact('ingredientes'));
     }
 

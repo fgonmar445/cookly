@@ -181,13 +181,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $url = "https://www.themealdb.com/api/json/v2/1/search.php?i=" . urlencode($nombre);
             $data = json_decode(@file_get_contents($url), true);
             $info = $data['ingredients'][0] ?? null;
-            DB::table('ingredientes')->insert([
-                'nombre' => $nombre,
-                'descripcion' => $info['strDescription'] ?? null,
-                'imagen' => $info['strIngredientThumb'] ?? null,
-                'tipo' => $info['strType'] ?? null,
-            ]);
-            $ingrediente = DB::table('ingredientes')->where('nombre', $nombre)->first();
+            
+            if ($info) {
+                // Es un ingrediente de la API
+                $ingrediente = \App\Models\Ingrediente::create([
+                    'nombre' => $nombre,
+                    'categoria' => null,
+                    'es_base' => false,
+                ]);
+            } else {
+                // Es un ingrediente personalizado por el usuario
+                $ingrediente = \App\Models\Ingrediente::create([
+                    'nombre' => $nombre,
+                    'categoria' => 'Otros',
+                    'es_base' => false,
+                ]);
+            }
         }
         DB::table('lista_ingredientes')->insert([
             'id_usuario' => auth()->id(),
