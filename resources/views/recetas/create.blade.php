@@ -104,8 +104,12 @@
                                     <select name="ingredientes_ids[]" required
                                         class="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
                                         <option value="">Selecciona ingrediente</option>
-                                        @foreach($ingredientes as $ing)
-                                            <option value="{{ $ing->id_ingrediente }}">{{ $ing->nombre }}</option>
+                                        @foreach($ingredientes as $categoria => $lista)
+                                            <optgroup label="{{ $categoria }}">
+                                                @foreach($lista as $ing)
+                                                    <option value="{{ $ing->id_ingrediente }}">{{ $ing->nombre }}</option>
+                                                @endforeach
+                                            </optgroup>
                                         @endforeach
                                     </select>
                                     <input type="text" name="cantidades[]" placeholder="Cant. (ej: 200g)" required
@@ -125,8 +129,12 @@
                                 <select name="ingredientes_ids[]" required
                                     class="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-emerald-500 outline-none">
                                     <option value="">Selecciona ingrediente</option>
-                                    @foreach($ingredientes as $ing)
-                                        <option value="{{ $ing->id_ingrediente }}">{{ $ing->nombre }}</option>
+                                    @foreach($ingredientes as $categoria => $lista)
+                                        <optgroup label="{{ $categoria }}">
+                                            @foreach($lista as $ing)
+                                                <option value="{{ $ing->id_ingrediente }}">{{ $ing->nombre }}</option>
+                                            @endforeach
+                                        </optgroup>
                                     @endforeach
                                 </select>
                                 <input type="text" name="cantidades[]" placeholder="Cant. (ej: 200g)" required

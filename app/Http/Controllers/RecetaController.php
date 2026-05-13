@@ -12,7 +12,12 @@ class RecetaController extends Controller
 
     public function create()
     {
-        $ingredientes = \App\Models\Ingrediente::orderBy('nombre')->get();
+        $ingredientes = \App\Models\Ingrediente::whereNotNull('categoria')
+            ->orderBy('categoria')
+            ->orderBy('nombre')
+            ->get()
+            ->groupBy('categoria');
+
         return view('recetas.create', compact('ingredientes'));
     }
 
@@ -22,7 +27,12 @@ class RecetaController extends Controller
             ->where('id_usuario', auth()->id())
             ->firstOrFail();
 
-        $ingredientes = \App\Models\Ingrediente::orderBy('nombre')->get();
+        $ingredientes = \App\Models\Ingrediente::whereNotNull('categoria')
+            ->orderBy('categoria')
+            ->orderBy('nombre')
+            ->get()
+            ->groupBy('categoria');
+
         return view('recetas.editar', compact('receta', 'ingredientes'));
     }
 

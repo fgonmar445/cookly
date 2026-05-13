@@ -328,6 +328,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/recetas', [AdminController::class, 'recipes'])->name('recipes');
     Route::delete('/recetas/{recipe}', [AdminController::class, 'deleteRecipe'])->name('recipes.delete');
 
+    Route::resource('ingredientes', \App\Http\Controllers\AdminIngredienteController::class);
+
     Route::get('/logs', [AdminController::class, 'logs'])->name('logs');
 });
 
