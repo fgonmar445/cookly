@@ -16,6 +16,15 @@
         </div>
     @endif
 
+    <!-- ERRORES DE VALIDACIÓN -->
+    @if ($errors->any())
+    <div class="mb-6 p-4 bg-orange-50 border border-orange-100 rounded-2xl text-orange-600 text-sm font-medium animate-fade-in">
+        @foreach ($errors->all() as $error)
+        <p>{{ $error }}</p>
+        @endforeach
+    </div>
+    @endif
+
     <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
         @csrf
 
@@ -40,9 +49,6 @@
                     placeholder="nombre@email.com"
                     class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none text-slate-700 font-medium placeholder:text-slate-300">
             </div>
-            @error('email')
-                <p class="text-xs text-rose-500 font-bold ml-1">{{ $message }}</p>
-            @enderror
         </div>
 
         <div class="flex flex-col gap-4 pt-2">
@@ -52,9 +58,15 @@
                 Enviar enlace de recuperación
             </button>
 
+            <div class="relative flex items-center py-2">
+                <div class="flex-grow border-t border-slate-100"></div>
+                <span class="flex-shrink mx-4 text-xs font-bold text-slate-300 uppercase tracking-widest">O</span>
+                <div class="flex-grow border-t border-slate-100"></div>
+            </div>
+
             <a
                 href="{{ route('login') }}"
-                class="text-center text-sm font-bold text-slate-400 hover:text-emerald-600 transition-colors">
+                class="w-full border-2 border-emerald-500 text-emerald-600 font-bold py-4 rounded-2xl text-center hover:bg-emerald-50 transition-all duration-200">
                 Volver al inicio de sesión
             </a>
         </div>
