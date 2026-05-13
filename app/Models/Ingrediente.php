@@ -11,13 +11,11 @@ class Ingrediente extends Model
 {
     protected $table = 'ingredientes';
     protected $primaryKey = 'id_ingrediente';
-    public $timestamps = false;
 
     protected $fillable = [
         'nombre',
-        'descripcion',
-        'imagen',
-        'tipo'
+        'categoria',
+        'es_base'
     ];
 
     // Relación con usuarios (N:M)
