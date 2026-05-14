@@ -13,6 +13,7 @@ class RecetaController extends Controller
     public function create()
     {
         $ingredientes = \App\Models\Ingrediente::whereNotNull('categoria')
+            ->where('es_base', true)
             ->orderBy('categoria')
             ->orderBy('nombre')
             ->get()
@@ -28,6 +29,7 @@ class RecetaController extends Controller
             ->firstOrFail();
 
         $ingredientes = \App\Models\Ingrediente::whereNotNull('categoria')
+            ->where('es_base', true)
             ->orderBy('categoria')
             ->orderBy('nombre')
             ->get()
