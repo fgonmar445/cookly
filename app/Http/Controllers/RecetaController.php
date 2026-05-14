@@ -106,13 +106,23 @@ class RecetaController extends Controller
         return view('recetas.mis_recetas', compact('recetas'));
     }
 
-    public function recetasUsuarios()
+    public function recetasUsuarios(Request $request)
     {
-        $recetas = Receta::whereNotNull('id_usuario')
-            ->orderBy('created_at', 'desc')
-            ->paginate(12); // o ->take(20)->get(); si no quieres paginación
+        $filter = $request->query('filter', 'recientes');
 
-        return view('recetas.usuarios', compact('recetas'));
+        $query = Receta::whereNotNull('id_usuario');
+
+        if ($filter === 'populares') {
+            $query->withCount('favoritos')
+                  ->orderBy('favoritos_count', 'desc')
+                  ->orderBy('created_at', 'desc');
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $recetas = $query->paginate(12)->appends(['filter' => $filter]);
+
+        return view('recetas.usuarios', compact('recetas', 'filter'));
     }
 
 
