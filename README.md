@@ -11,20 +11,20 @@
 
 ---
 
-## 📑 Índice
+## Índice
 
-1. [Características Principales](#-características-principales)
-2. [Arquitectura de Seguridad](#-arquitectura-de-seguridad)
-3. [Módulos de la Aplicación](#-módulos-de-la-aplicación)
-4. [Panel de Administración](#-panel-de-administración)
-5. [Stack Tecnológico](#-stack-tecnológico)
-6. [Guía de Instalación](#-guía-de-instalación)
+1. [Características Principales](#características-principales)
+2. [Arquitectura de Seguridad](#arquitectura-de-seguridad)
+3. [Módulos de la Aplicación](#módulos-de-la-aplicación)
+4. [Panel de Administración](#panel-de-administración)
+5. [Stack Tecnológico](#stack-tecnológico)
+6. [Guía de Instalación](#guía-de-instalación)
 7. [Cuentas de Acceso Rápido](#-cuentas-de-acceso-rápido)
 8. [Mapa de Navegación](#-mapa-de-navegación)
 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
 - **Gestión Inteligente de Despensa**: Inventario digital de ingredientes clasificados por categorías con autocompletado y vinculación dinámica.
 - **Búsqueda Multidimensional**: Localiza platos por nombre, región geográfica, categoría, o introduciendo los ingredientes específicos que tienes a mano.
@@ -35,11 +35,11 @@
 
 ---
 
-## 🛡️ Arquitectura de Seguridad
+## Arquitectura de Seguridad
 
 El proyecto implementa estándares rigurosos de seguridad respaldados por el framework Laravel para garantizar la integridad de los datos y la protección de los usuarios:
 
-- **Prevención de Inyección SQL**: Todas las consultas a la base de datos utilizan el ORM **Eloquent** y *Query Builder*, vinculando parámetros de forma segura (*Prepared Statements*) a través de PDO.
+- **Prevención de Inyección SQL**: Todas las consultas a la base de datos utilizan el ORM **Eloquent** y _Query Builder_, vinculando parámetros de forma segura (_Prepared Statements_) a través de PDO.
 - **Defensa contra XSS (Cross-Site Scripting)**: El motor de plantillas **Blade** procesa y escapa de forma nativa (`{{ }}`) cualquier cadena de salida mediante `htmlspecialchars()`, neutralizando la ejecución de scripts maliciosos.
 - **Saneamiento y Validación**: Uso estricto de clases `FormRequest` y métodos de validación en controladores para verificar tipos de datos, formatos y requerimientos antes de la persistencia.
 - **Límite de Tasa (Rate Limiting)**: Protección integrada en rutas sensibles (como inicios de sesión y verificación de correos) para mitigar ataques de fuerza bruta y denegación de servicio (DoS).
@@ -47,25 +47,29 @@ El proyecto implementa estándares rigurosos de seguridad respaldados por el fra
 
 ---
 
-## 📱 Módulos de la Aplicación
+## Módulos de la Aplicación
 
 ### 1. Landing Page & Dashboard Personal
+
 Puerta de entrada dinámica que presenta al usuario un resumen directo de su actividad, recetas aleatorias de inspiración diaria, platos más populares de la comunidad y sugerencias basadas en su despensa.
 
 ### 2. Mi Despensa
+
 Interfaz visual para añadir, consultar y eliminar ingredientes disponibles en casa, permitiendo marcar los elementos base esenciales.
 
 ### 3. Explorador de Recetas Externas
+
 Integración directa con la base de datos global para descubrir miles de combinaciones culinarias, con traducción automática de categorías, regiones e ingredientes al español.
 
 ### 4. Creación y Comunidad
+
 Formularios de alta precisión para que el usuario documente sus propias recetas (con subida de imágenes optimizada y selección de ingredientes base). Incluye un muro público comunitario.
 
 ---
 
-## ⚙️ Panel de Administración
+## Panel de Administración
 
-Área restringida mediante *middleware* dedicada a la supervisión total del sistema:
+Área restringida mediante _middleware_ dedicada a la supervisión total del sistema:
 
 - **Métricas Globales**: Contadores de usuarios, recetas creadas, elementos en favoritos e incorporaciones recientes.
 - **Gestión de Usuarios**: Panel para visualizar cuentas registradas, modificar roles (Administrador/Usuario) o revocar accesos.
@@ -74,20 +78,20 @@ Formularios de alta precisión para que el usuario documente sus propias recetas
 
 ---
 
-## 💻 Stack Tecnológico
+## Stack Tecnológico
 
-| Tecnología | Rol en el Proyecto |
-| :--- | :--- |
-| **Laravel 12** | Framework principal (Arquitectura MVC, enrutamiento, seguridad y lógica) |
-| **Tailwind CSS 3** | Sistema de diseño de utilidades para una estética moderna y responsiva |
-| **MySQL / SQLite** | Motores relacionales para el almacenamiento persistente |
-| **TheMealDB API** | Proveedor REST de datos culinarios a escala global |
-| **Blade** | Motor de renderizado y vistas del lado del servidor |
-| **JavaScript / Alpine** | Interactividad y actualizaciones asíncronas en el navegador |
+| Tecnología              | Rol en el Proyecto                                                       |
+| :---------------------- | :----------------------------------------------------------------------- |
+| **Laravel 12**          | Framework principal (Arquitectura MVC, enrutamiento, seguridad y lógica) |
+| **Tailwind CSS 3**      | Sistema de diseño de utilidades para una estética moderna y responsiva   |
+| **MySQL / SQLite**      | Motores relacionales para el almacenamiento persistente                  |
+| **TheMealDB API**       | Proveedor REST de datos culinarios a escala global                       |
+| **Blade**               | Motor de renderizado y vistas del lado del servidor                      |
+| **JavaScript / Alpine** | Interactividad y actualizaciones asíncronas en el navegador              |
 
 ---
 
-## 🚀 Guía de Instalación
+## Guía de Instalación
 
 Sigue estos pasos para desplegar el proyecto en tu entorno local:
 
@@ -117,18 +121,18 @@ php artisan serve
 
 ---
 
-## 🔑 Cuentas de Acceso Rápido
+## Cuentas de Acceso Rápido
 
 El comando de inicialización (`--seed`) genera de forma completamente automatizada dos usuarios de prueba con sus respectivas contraseñas encriptadas, listos para explorar la plataforma:
 
-| Rol | Correo Electrónico | Contraseña | Acceso |
-| :--- | :--- | :--- | :--- |
-| **Administrador** | `admin@cookly.com` | `admin123` | Dashboard de Usuario + Panel Admin |
-| **Usuario Estándar** | `user@cookly.com` | `user123` | Dashboard de Usuario |
+| Rol                  | Correo Electrónico | Contraseña | Acceso                             |
+| :------------------- | :----------------- | :--------- | :--------------------------------- |
+| **Administrador**    | `admin@cookly.com` | `admin123` | Dashboard de Usuario + Panel Admin |
+| **Usuario Estándar** | `user@cookly.com`  | `user123`  | Dashboard de Usuario               |
 
 ---
 
-## 🗺️ Mapa de Navegación
+## Mapa de Navegación
 
 ```mermaid
 flowchart TD
