@@ -3,6 +3,8 @@
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
 [![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)](https://php.net)
+[![API Provider](https://img.shields.io/badge/API-TheMealDB-orange?style=for-the-badge)](https://www.themealdb.com)
+[![Mailing](https://img.shields.io/badge/SMTP-Brevo-blue?style=for-the-badge)](https://www.brevo.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <img src="./public/cookly_logo_banner.png" alt="Cookly Banner">
@@ -16,11 +18,13 @@
 1. [Características Principales](#características-principales)
 2. [Arquitectura de Seguridad](#arquitectura-de-seguridad)
 3. [Módulos de la Aplicación](#módulos-de-la-aplicación)
-4. [Panel de Administración](#panel-de-administración)
-5. [Stack Tecnológico](#stack-tecnológico)
-6. [Guía de Instalación](#guía-de-instalación)
-7. [Cuentas de Acceso Rápido](#-cuentas-de-acceso-rápido)
-8. [Mapa de Navegación](#-mapa-de-navegación)
+4. [Hub de Traducción Gastronómica Local](#-hub de-traducción-gastronómica-local-ingredientsphp)
+5. [Despliegue e Infraestructura de Producción](#-despliegue-e-infraestructura-de-producción)
+6. [Panel de Administración](#panel-de-administración)
+7. [Stack Tecnológico](#stack-tecnológico)
+8. [Guía de Instalación](#guía-de-instalación)
+9. [Cuentas de Acceso Rápido](#-cuentas-de-acceso-rápido)
+10. [Mapa de Navegación](#-mapa-de-navegación)
 
 ---
 
@@ -50,20 +54,54 @@ El proyecto implementa estándares rigurosos de seguridad respaldados por el fra
 ## Módulos de la Aplicación
 
 ### 1. Landing Page & Dashboard Personal
-
 Puerta de entrada dinámica que presenta al usuario un resumen directo de su actividad, recetas aleatorias de inspiración diaria, platos más populares de la comunidad y sugerencias basadas en su despensa.
 
 ### 2. Mi Despensa
-
 Interfaz visual para añadir, consultar y eliminar ingredientes disponibles en casa, permitiendo marcar los elementos base esenciales.
 
 ### 3. Explorador de Recetas Externas
-
 Integración directa con la base de datos global para descubrir miles de combinaciones culinarias, con traducción automática de categorías, regiones e ingredientes al español.
 
 ### 4. Creación y Comunidad
-
 Formularios de alta precisión para que el usuario documente sus propias recetas (con subida de imágenes optimizada y selección de ingredientes base). Incluye un muro público comunitario.
+
+---
+
+## Hub de Traducción Gastronómica Local (`ingredients.php`)
+
+Dado que la API externa *TheMealDB* opera íntegramente en inglés, Cookly incorpora un componente nativo de traducción automática basado en diccionarios PHP optimizados. Este sistema intercepta las respuestas JSON de la API y mapea los elementos dinámicamente en tiempo real sin llamadas a servicios externos de pago:
+- **Ingredientes:** *Chicken* ➔ *Pollo*, *Garlic* ➔ *Ajo*.
+- **Categorías Gastronómicas:** *Dessert* ➔ *Postres*, *Vegetarian* ➔ *Vegetariano*.
+- **Cocinas / Regiones:** *Italian* ➔ *Italiana*, *Mexican* ➔ *Mexicana*.
+
+---
+
+## Vista Previa de la Aplicación (Capturas de Pantalla)
+
+A continuación se muestran los principales módulos e interfaces de la interfaz prémium esmeralda de Cookly en funcionamiento:
+
+| Dashboard del Usuario | Gestión de la Despensa |
+| :---: | :---: |
+| <img src="./public/screenshots/dashboard.png" width="100%" alt="Dashboard Principal"> | <img src="./public/screenshots/pantry.png" width="100%" alt="Interfaz de Despensa"> |
+| *Panel de control central con sugerencias diarias y populares.* | *Buscador asíncrono y control de stock de ingredientes en tiempo real.* |
+
+| Explorador de Recetas (API) | Muro Comunitario Social |
+| :---: | :---: |
+| <img src="./public/screenshots/recipes_external.png" width="100%" alt="Buscador de Recetas"> | <img src="./public/screenshots/community.png" width="100%" alt="Muro de la Comunidad"> |
+| *Filtrado avanzado con traducción automática de gastronomía global.* | *Espacio para compartir recetas locales ordenadas por impacto.* |
+
+| Panel de Administración | Diseño Adaptativo Móvil |
+| :---: | :---: |
+| <img src="./public/screenshots/admin_panel.png" width="100%" alt="Panel Admin"> | <img src="./public/screenshots/mobile_view.png" width="45%" alt="Vista Responsive"> |
+| *Métricas globales, moderación activa y logs de auditoría.* | *Experiencia de usuario fluida y optimizada para smartphone.* |
+
+## Despliegue e Infraestructura de Producción
+
+La plataforma se encuentra desplegada en un entorno de producción real utilizando el siguiente esquema de arquitectura cloud:
+- **Hosting:** Servidor Virtual Privado (VPS) en **Hetzner Cloud**.
+- **Servidor Web:** **Nginx** configurado manualmente como proxy inverso con procesamiento a través de **PHP-FPM**.
+- **Cifrado y Seguridad:** Certificado SSL de extremo a extremo generado y renovado automáticamente mediante **Certbot (Let's Encrypt)**.
+- **Estrategia de Caché:** Optimización del rendimiento de la API mediante capas de caché en Laravel (1 hora para inspiración diaria y 10 minutos para el recomendador por ingredientes).
 
 ---
 
@@ -74,20 +112,20 @@ Formularios de alta precisión para que el usuario documente sus propias recetas
 - **Métricas Globales**: Contadores de usuarios, recetas creadas, elementos en favoritos e incorporaciones recientes.
 - **Gestión de Usuarios**: Panel para visualizar cuentas registradas, modificar roles (Administrador/Usuario) o revocar accesos.
 - **Gestión de Recetas y Catálogo**: Control sobre el contenido publicado y un módulo completo de administración (CRUD) de ingredientes base del sistema.
-- **Registro de Actividad (Logs)**: Trazabilidad completa y en español de los eventos y cambios críticos realizados en la plataforma.
+- **Registro de Actividad (Logs)**: Trazabilidad inmutable en base de datos de las acciones de moderación de los administradores (Ej: `Cambiado rol de Felipe: user -> admin` o `Eliminado ingrediente: Cilantro`).
 
 ---
 
 ## Stack Tecnológico
 
-| Tecnología              | Rol en el Proyecto                                                       |
-| :---------------------- | :----------------------------------------------------------------------- |
-| **Laravel 12**          | Framework principal (Arquitectura MVC, enrutamiento, seguridad y lógica) |
-| **Tailwind CSS 3**      | Sistema de diseño de utilidades para una estética moderna y responsiva   |
-| **MySQL / SQLite**      | Motores relacionales para el almacenamiento persistente                  |
-| **TheMealDB API**       | Proveedor REST de datos culinarios a escala global                       |
-| **Blade**               | Motor de renderizado y vistas del lado del servidor                      |
-| **JavaScript / Alpine** | Interactividad y actualizaciones asíncronas en el navegador              |
+| Tecnología | Rol en el Proyecto |
+| :--- | :--- |
+| **Laravel 12** | Framework principal (Arquitectura MVC, enrutamiento, seguridad y lógica) |
+| **Tailwind CSS 3** | Sistema de diseño de utilidades para una estética moderna y responsiva |
+| **MySQL** | Motor relacional en producción para el almacenamiento de datos persistentes |
+| **TheMealDB API** | Proveedor REST de datos culinarios a escala global |
+| **Blade** | Motor de renderizado y vistas del lado del servidor |
+| **JavaScript / Alpine** | Interactividad y actualizaciones asíncronas en el navegador |
 
 ---
 
@@ -97,7 +135,7 @@ Sigue estos pasos para desplegar el proyecto en tu entorno local:
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/fgonmar445/cookly.git
+git clone [https://github.com/fgonmar445/cookly.git](https://github.com/fgonmar445/cookly.git)
 cd cookly
 
 # 2. Instalar dependencias de PHP y Node.js
@@ -108,6 +146,7 @@ npm run build
 # 3. Configurar variables de entorno
 cp .env.example .env
 php artisan key:generate
+# ⚠️ NOTA: Configura tus credenciales de MySQL y Brevo (SMTP) en el archivo .env antes de continuar.
 
 # 4. Preparar la Base de Datos (Migraciones y datos iniciales)
 php artisan migrate --seed
