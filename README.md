@@ -92,7 +92,7 @@ A continuación se muestran los principales módulos e interfaces de la interfaz
 
 | Panel de Administración | Diseño Adaptativo Móvil |
 | :---: | :---: |
-| <img src="./public/images/admin.png" width="100%" alt="Panel Admin"> | <img src="./public/images/mobile.png" width="45%" alt="Vista Responsive"> |
+| <img src="./public/images/admin.png" width="100%" alt="Panel Admin"> | <img src="./public/images/mobile.png" width="100%" alt="Vista Responsive"> |
 | *Métricas globales, moderación activa y logs de auditoría.* | *Experiencia de usuario fluida y optimizada para smartphone.* |
 
 ## Despliegue e Infraestructura de Producción
