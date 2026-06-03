@@ -82,17 +82,17 @@ A continuación se muestran los principales módulos e interfaces de la interfaz
 
 | Dashboard del Usuario | Gestión de la Despensa |
 | :---: | :---: |
-| <img src="./public/screenshots/dashboard.png" width="100%" alt="Dashboard Principal"> | <img src="./public/screenshots/pantry.png" width="100%" alt="Interfaz de Despensa"> |
+| <img src="./public/images/dashboard.png" width="100%" alt="Dashboard Principal"> | <img src="./public/images/pantry.png" width="100%" alt="Interfaz de Despensa"> |
 | *Panel de control central con sugerencias diarias y populares.* | *Buscador asíncrono y control de stock de ingredientes en tiempo real.* |
 
 | Explorador de Recetas (API) | Muro Comunitario Social |
 | :---: | :---: |
-| <img src="./public/screenshots/recipes_external.png" width="100%" alt="Buscador de Recetas"> | <img src="./public/screenshots/community.png" width="100%" alt="Muro de la Comunidad"> |
+| <img src="./public/images/recipes_external.png" width="100%" alt="Buscador de Recetas"> | <img src="./public/images/community.png" width="100%" alt="Muro de la Comunidad"> |
 | *Filtrado avanzado con traducción automática de gastronomía global.* | *Espacio para compartir recetas locales ordenadas por impacto.* |
 
 | Panel de Administración | Diseño Adaptativo Móvil |
 | :---: | :---: |
-| <img src="./public/screenshots/admin_panel.png" width="100%" alt="Panel Admin"> | <img src="./public/screenshots/mobile_view.png" width="45%" alt="Vista Responsive"> |
+| <img src="./public/admin_panel.png" width="100%" alt="Panel Admin"> | <img src="./public/mobile_view.png" width="45%" alt="Vista Responsive"> |
 | *Métricas globales, moderación activa y logs de auditoría.* | *Experiencia de usuario fluida y optimizada para smartphone.* |
 
 ## Despliegue e Infraestructura de Producción
