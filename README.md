@@ -85,10 +85,10 @@ A continuación se muestran los principales módulos e interfaces de la interfaz
 | <img src="./public/images/dashboard.png" width="100%" alt="Dashboard Principal"> | <img src="./public/images/ingredientes.png" width="100%" alt="Interfaz de Despensa"> |
 | *Panel de control central con sugerencias diarias y populares.* | *Buscador asíncrono y control de stock de ingredientes en tiempo real.* |
 
-| Explorador de Recetas (API) | Muro Comunitario Social |
-| :---: | :---: |   
-| <img src="./public/images/buscar.png" width="100%" alt="Buscador de Recetas"> | <img src="./public/images/community.png" width="100%" alt="Muro de la Comunidad"> |
-| *Filtrado avanzado con traducción automática de gastronomía global.* | *Espacio para compartir recetas locales ordenadas por impacto.* |
+| Explorador de Recetas (API) | 
+| :---: |   
+| <img src="./public/images/buscar.png" width="100%" alt="Buscador de Recetas"> |
+| *Filtrado avanzado con traducción automática de gastronomía global.* |
 
 | Panel de Administración | Diseño Adaptativo Móvil |
 | :---: | :---: |
