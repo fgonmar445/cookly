@@ -18,13 +18,13 @@
 1. [Características Principales](#características-principales)
 2. [Arquitectura de Seguridad](#arquitectura-de-seguridad)
 3. [Módulos de la Aplicación](#módulos-de-la-aplicación)
-4. [Hub de Traducción Gastronómica Local](#-hub de-traducción-gastronómica-local-ingredientsphp)
-5. [Despliegue e Infraestructura de Producción](#-despliegue-e-infraestructura-de-producción)
+4. [Hub de Traducción Gastronómica Local](#hub-de-traducción-gastronómica-local-ingredientsphp)
+5. [Despliegue e Infraestructura de Producción](#despliegue-e-infraestructura-de-producción)
 6. [Panel de Administración](#panel-de-administración)
 7. [Stack Tecnológico](#stack-tecnológico)
 8. [Guía de Instalación](#guía-de-instalación)
-9. [Cuentas de Acceso Rápido](#-cuentas-de-acceso-rápido)
-10. [Mapa de Navegación](#-mapa-de-navegación)
+9. [Cuentas de Acceso Rápido](#cuentas-de-acceso-rápido)
+10. [Mapa de Navegación](#mapa-de-navegación)
 
 ---
 
