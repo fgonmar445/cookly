@@ -6,7 +6,7 @@
                 <!-- LOGO -->
                 <tr>
                     <td align="center" style="padding-bottom:20px;">
-                        <img src="https://cookly.cloud/logo.png" alt="Cookly" width="120" style="display:block;">
+                        <img src="{{ asset('logo.png') }}" alt="Cookly" width="120" style="display:block;">
                     </td>
                 </tr>
 
