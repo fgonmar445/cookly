@@ -1,8 +1,16 @@
 # Cookly — Tu Asistente de Cocina Inteligente
 
+🌐 [English version](README.en.md)
+
+[![Demo en vivo](https://img.shields.io/badge/Demo_en_vivo-cookly--jeke.onrender.com-4ADE80?style=for-the-badge&logo=render&logoColor=white)](https://cookly-jeke.onrender.com/)
+
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
 [![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)](https://php.net)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://neon.tech)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com)
+[![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
+[![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)](https://cloudinary.com)
 [![API Provider](https://img.shields.io/badge/API-TheMealDB-orange?style=for-the-badge)](https://www.themealdb.com)
 [![Mailing](https://img.shields.io/badge/SMTP-Brevo-blue?style=for-the-badge)](https://www.brevo.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
@@ -10,6 +18,8 @@
 <img src="./public/cookly_logo_banner.png" alt="Cookly Banner">
 
 **Cookly** es una plataforma web integral y de diseño prémium orientada a revolucionar la gestión de la cocina doméstica y potenciar la creatividad culinaria. Mediante la toma de decisiones basada en los ingredientes disponibles en el hogar y un potente cruce de datos con bases globales, Cookly permite reducir el desperdicio alimentario, planificar menús y explorar la gastronomía internacional de forma sencilla e intuitiva.
+
+🔗 **Pruébalo en vivo:** [https://cookly-jeke.onrender.com/](https://cookly-jeke.onrender.com/)
 
 ---
 
@@ -97,10 +107,14 @@ A continuación se muestran los principales módulos e interfaces de la interfaz
 
 ## Despliegue e Infraestructura de Producción
 
-La plataforma se encuentra desplegada en un entorno de producción real utilizando el siguiente esquema de arquitectura cloud:
-- **Hosting:** Servidor Virtual Privado (VPS) en **Hetzner Cloud**.
-- **Servidor Web:** **Nginx** configurado manualmente como proxy inverso con procesamiento a través de **PHP-FPM**.
-- **Cifrado y Seguridad:** Certificado SSL de extremo a extremo generado y renovado automáticamente mediante **Certbot (Let's Encrypt)**.
+La plataforma pasó de correr en un VPS administrado a mano a una infraestructura containerizada y gestionada en la nube, más fácil de reproducir y mantener:
+
+- **Contenerización:** imagen Docker construida en 3 etapas (compilación de assets con Node/Vite, dependencias PHP con Composer, y una imagen final ligera de **PHP 8.2 + Apache**), definida en el `Dockerfile` del repositorio.
+- **Hosting:** **Render** (Web Service desplegado directamente desde el `Dockerfile`, sin necesidad de configurar servidor propio).
+- **Base de datos:** **PostgreSQL gestionado por Neon** (serverless, con conexión directa para migraciones y *connection pooling* para las consultas de la aplicación), migrado desde MySQL sin tener que tocar una sola migración gracias a que todo el acceso a datos pasa por Eloquent/Query Builder.
+- **Almacenamiento de imágenes:** **Cloudinary** — las imágenes que suben los usuarios al crear recetas ya no se guardan en disco local (efímero en un contenedor), sino en la nube, con CDN y optimización automática.
+- **Correo transaccional:** **Brevo** vía SMTP (puerto 2525, compatible con las restricciones de salida del hosting) para los correos de verificación de cuenta.
+- **Cifrado y Seguridad:** HTTPS gestionado automáticamente por Render, con `trustProxies` configurado en Laravel para detectar correctamente el esquema seguro detrás del proxy inverso.
 - **Estrategia de Caché:** Optimización del rendimiento de la API mediante capas de caché en Laravel (1 hora para inspiración diaria y 10 minutos para el recomendador por ingredientes).
 
 ---
@@ -122,7 +136,11 @@ La plataforma se encuentra desplegada en un entorno de producción real utilizan
 | :--- | :--- |
 | **Laravel 12** | Framework principal (Arquitectura MVC, enrutamiento, seguridad y lógica) |
 | **Tailwind CSS 3** | Sistema de diseño de utilidades para una estética moderna y responsiva |
-| **MySQL** | Motor relacional en producción para el almacenamiento de datos persistentes |
+| **PostgreSQL (Neon)** | Motor relacional gestionado en producción para el almacenamiento de datos persistentes |
+| **Docker** | Contenerización de la aplicación para un despliegue reproducible |
+| **Render** | Hosting de la aplicación (Web Service desde Dockerfile) |
+| **Cloudinary** | Almacenamiento y optimización de imágenes subidas por los usuarios |
+| **Brevo** | Envío de correos transaccionales (verificación de cuenta) vía SMTP |
 | **TheMealDB API** | Proveedor REST de datos culinarios a escala global |
 | **Blade** | Motor de renderizado y vistas del lado del servidor |
 | **JavaScript / Alpine** | Interactividad y actualizaciones asíncronas en el navegador |
@@ -131,11 +149,32 @@ La plataforma se encuentra desplegada en un entorno de producción real utilizan
 
 ## Guía de Instalación
 
-Sigue estos pasos para desplegar el proyecto en tu entorno local:
+### Opción A: con Docker (recomendada, igual que en producción)
 
 ```bash
 # 1. Clonar el repositorio
-git clone [https://github.com/fgonmar445/cookly.git](https://github.com/fgonmar445/cookly.git)
+git clone https://github.com/fgonmar445/cookly.git
+cd cookly
+
+# 2. Configurar variables de entorno
+cp .env.example .env
+# Rellena APP_KEY, DATABASE_URL (PostgreSQL), CLOUDINARY_URL y las credenciales de Brevo
+
+# 3. Construir la imagen
+docker build -t cookly .
+
+# 4. Ejecutar (migra la base de datos automáticamente al arrancar)
+docker run --rm -p 8080:8080 --env-file .env -e PORT=8080 cookly
+
+# 5. (Opcional) Sembrar usuarios de prueba
+docker run --rm --env-file .env cookly php artisan db:seed --force
+```
+
+### Opción B: entorno local sin Docker
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/fgonmar445/cookly.git
 cd cookly
 
 # 2. Instalar dependencias de PHP y Node.js
@@ -146,7 +185,7 @@ npm run build
 # 3. Configurar variables de entorno
 cp .env.example .env
 php artisan key:generate
-# ⚠️ NOTA: Configura tus credenciales de MySQL y Brevo (SMTP) en el archivo .env antes de continuar.
+# ⚠️ NOTA: Configura tus credenciales de base de datos y Brevo (SMTP) en el archivo .env antes de continuar.
 
 # 4. Preparar la Base de Datos (Migraciones y datos iniciales)
 php artisan migrate --seed
@@ -279,4 +318,5 @@ flowchart TD
 
 <div align="center">
     <p>Desarrollado por <b>Felipe González</b> para el <b>TFG de DAW</b>.</p>
+    <p>🔗 <a href="https://cookly-jeke.onrender.com/">Ver demo en vivo</a></p>
 </div>
