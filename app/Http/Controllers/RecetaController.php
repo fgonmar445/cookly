@@ -60,8 +60,9 @@ class RecetaController extends Controller
         ];
 
         if ($request->hasFile('imagen')) {
-            $rutaImagen = $request->file('imagen')->store('recetas', 'public');
-            $data['imagen'] = "/storage/" . $rutaImagen;
+            $data['imagen'] = cloudinary()
+                ->upload($request->file('imagen')->getRealPath(), ['folder' => 'cookly/recetas'])
+                ->getSecurePath();
         }
 
         $receta->update($data);
@@ -154,13 +155,14 @@ class RecetaController extends Controller
             'imagen' => 'nullable|image|max:2048',
         ]);
 
-        // Subir imagen si existe
+        // Subir imagen a Cloudinary (persiste entre despliegues, a diferencia
+        // del disco local del contenedor) si el usuario ha adjuntado una.
         $rutaImagen = null;
 
         if ($request->hasFile('imagen')) {
-            $rutaImagen = $request->file('imagen')->store('recetas', 'public');
-            // Si usamos almacenamiento público, queremos la URL completa o relativa correcta
-            $rutaImagen = "/storage/" . $rutaImagen;
+            $rutaImagen = cloudinary()
+                ->upload($request->file('imagen')->getRealPath(), ['folder' => 'cookly/recetas'])
+                ->getSecurePath();
         }
 
         // Guardar receta

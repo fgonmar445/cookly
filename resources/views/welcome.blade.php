@@ -115,7 +115,7 @@
             <div class="mt-16 md:mt-20 w-full max-w-5xl rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-white p-2 bg-white/50 backdrop-blur-sm">
                 <div class="w-full aspect-[24/9] bg-slate-100 rounded-[1.8rem] md:rounded-[2.5rem] border border-slate-200 overflow-hidden">
                     <img
-                        src="/dashboard.png"
+                        src="{{ asset('images/dashboard.png') }}"
                         alt="Vista previa del panel de control"
                         class="w-full h-full object-cover">
                 </div>

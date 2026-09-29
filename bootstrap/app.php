@@ -15,6 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
+
+        // Render (y la mayoría de PaaS) ponen la app detrás de un proxy
+        // inverso: sin esto, Laravel cree que la petición llega por HTTP
+        // aunque el navegador use HTTPS (rompe cookies seguras, CSRF y
+        // las URLs generadas con url()/asset()).
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
